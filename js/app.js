@@ -7800,6 +7800,77 @@ function startStrongGymRestTimer(){
 }
 
 
+
+(function installStrongGymRIRStyles(){
+
+    if(
+        document.getElementById(
+            "strongGymRIRStyles"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "strongGymRIRStyles";
+
+
+    style.textContent = `
+
+        .workout-rir{
+            min-width:72px;
+            height:40px;
+            padding:0 8px;
+            border:1px solid #d1d5db;
+            border-radius:10px;
+            background:#ffffff;
+            font-size:13px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+
+        .workout-rir:focus{
+            outline:2px solid currentColor;
+            outline-offset:1px;
+        }
+
+
+        @media(max-width:480px){
+
+            .workout-rir{
+                min-width:68px;
+                height:40px;
+                font-size:12px;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+})();
+
+
+
+/* =========================================================
+   STRONG_GYM_RIR
+   RIR - REPETICIONES EN RESERVA
+   ========================================================= */
+
 function startWorkoutMode(
     routine
 ){
@@ -8769,6 +8840,57 @@ return `
                                                             placeholder="reps"
                                                         >
 
+                                                          
+                                                          <select
+                                                              class="workout-rir"
+                                                              aria-label="RIR de la serie"
+                                                              title="RIR: repeticiones en reserva"
+                                                          >
+                                                              <option
+                                                                  value=""
+                                                              >
+                                                                  RIR
+                                                              </option>
+
+                                                              <option
+                                                                  value="0"
+                                                              >
+                                                                  RIR 0
+                                                              </option>
+
+                                                              <option
+                                                                  value="1"
+                                                              >
+                                                                  RIR 1
+                                                              </option>
+
+                                                              <option
+                                                                  value="2"
+                                                              >
+                                                                  RIR 2
+                                                              </option>
+
+                                                              <option
+                                                                  value="3"
+                                                              >
+                                                                  RIR 3
+                                                              </option>
+
+                                                              <option
+                                                                  value="4"
+                                                              >
+                                                                  RIR 4
+                                                              </option>
+
+                                                              <option
+                                                                  value="5"
+                                                              >
+                                                                  RIR 5+
+                                                              </option>
+                                                          </select>
+
+
+
 
                                                         <button
                                                             type="button"
@@ -9031,6 +9153,30 @@ return `
                                         Number(
                                             repsInput.value
                                         ) || 0,
+
+                                    rir:
+                                        (() => {
+
+                                            const rirInput =
+                                                modal.querySelector(
+                                                    ".workout-rir"
+                                                );
+
+                                            if(
+                                                !rirInput ||
+                                                rirInput.value === ""
+                                            ){
+
+                                                return null;
+
+                                            }
+
+                                            return Number(
+                                                rirInput.value
+                                            );
+
+                                        })(),
+
 
                                     completed:
                                         completeButton
