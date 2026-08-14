@@ -7217,6 +7217,589 @@ function showWorkoutCompletionSummary(
 }
 
 
+
+/* =========================================================
+   ESTILOS TEMPORIZADOR DE DESCANSO
+   ========================================================= */
+
+(function(){
+
+    if(
+        document.getElementById(
+            "strongGymRestTimerStyles"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "strongGymRestTimerStyles";
+
+
+    style.textContent = `
+
+        .strong-gym-rest-timer{
+            position:fixed;
+            inset:0;
+            z-index:100000;
+            pointer-events:none;
+        }
+
+
+        .strong-gym-rest-overlay{
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            background:rgba(0,0,0,.78);
+            opacity:0;
+            transition:opacity .2s ease;
+            pointer-events:auto;
+        }
+
+
+        .strong-gym-rest-timer.active
+        .strong-gym-rest-overlay{
+            opacity:1;
+        }
+
+
+        .strong-gym-rest-card{
+            width:min(420px,100%);
+            padding:28px 22px;
+            border-radius:24px;
+            background:#ffffff;
+            text-align:center;
+            box-shadow:0 20px 70px rgba(0,0,0,.35);
+        }
+
+
+        .strong-gym-rest-icon{
+            font-size:38px;
+            margin-bottom:8px;
+        }
+
+
+        .strong-gym-rest-title{
+            font-size:14px;
+            font-weight:800;
+            letter-spacing:2px;
+            opacity:.65;
+        }
+
+
+        .strong-gym-rest-time{
+            margin:8px 0;
+            font-size:64px;
+            line-height:1;
+            font-weight:800;
+            font-variant-numeric:tabular-nums;
+        }
+
+
+        .strong-gym-rest-label{
+            min-height:20px;
+            margin-bottom:18px;
+            font-size:14px;
+            opacity:.7;
+        }
+
+
+        .strong-gym-rest-progress{
+            width:100%;
+            height:8px;
+            overflow:hidden;
+            margin-bottom:22px;
+            border-radius:999px;
+            background:#e5e7eb;
+        }
+
+
+        .strong-gym-rest-progress-fill{
+            width:100%;
+            height:100%;
+            border-radius:999px;
+            transition:width .5s linear;
+        }
+
+
+        .strong-gym-rest-controls{
+            display:grid;
+            grid-template-columns:1fr 1.3fr 1fr;
+            gap:8px;
+        }
+
+
+        .strong-gym-rest-controls button{
+            min-height:48px;
+            border:0;
+            border-radius:13px;
+            padding:10px;
+            font-size:15px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+
+        .strong-gym-rest-skip{
+            font-weight:800;
+        }
+
+
+        .strong-gym-rest-finished
+        .strong-gym-rest-time{
+            animation:strongGymRestFinishedPulse 1s infinite;
+        }
+
+
+        @keyframes strongGymRestFinishedPulse{
+
+            0%,100%{
+                transform:scale(1);
+            }
+
+            50%{
+                transform:scale(1.06);
+            }
+
+        }
+
+
+        @media(max-width:480px){
+
+            .strong-gym-rest-card{
+                padding:24px 16px;
+                border-radius:20px;
+            }
+
+
+            .strong-gym-rest-time{
+                font-size:58px;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+})();
+
+
+/* =========================================================
+   STRONG_GYM_REST_TIMER
+   TEMPORIZADOR DE DESCANSO ENTRE SERIES
+   ========================================================= */
+
+let strongGymRestTimerInterval = null;
+
+let strongGymRestTimerSeconds = 90;
+
+let strongGymRestTimerTotal = 90;
+
+
+function formatStrongGymRestTime(seconds){
+
+    const safe =
+        Math.max(
+            0,
+            Number(seconds) || 0
+        );
+
+    const minutes =
+        Math.floor(
+            safe / 60
+        );
+
+    const remaining =
+        safe % 60;
+
+    return (
+        String(minutes).padStart(2, "0")
+        +
+        ":"
+        +
+        String(remaining).padStart(2, "0")
+    );
+
+}
+
+
+function stopStrongGymRestTimer(){
+
+    if(
+        strongGymRestTimerInterval !== null
+    ){
+
+        clearInterval(
+            strongGymRestTimerInterval
+        );
+
+        strongGymRestTimerInterval = null;
+
+    }
+
+}
+
+
+function closeStrongGymRestTimer(){
+
+    stopStrongGymRestTimer();
+
+    const timer =
+        document.getElementById(
+            "strongGymRestTimer"
+        );
+
+    if(timer){
+
+        timer.remove();
+
+    }
+
+}
+
+
+function startStrongGymRestTimer(){
+
+    stopStrongGymRestTimer();
+
+    closeStrongGymRestTimer();
+
+
+    strongGymRestTimerSeconds = 90;
+
+    strongGymRestTimerTotal = 90;
+
+
+    const timer =
+        document.createElement(
+            "div"
+        );
+
+
+    timer.id =
+        "strongGymRestTimer";
+
+
+    timer.className =
+        "strong-gym-rest-timer";
+
+
+    timer.innerHTML = `
+
+        <div class="strong-gym-rest-overlay">
+
+            <div class="strong-gym-rest-card">
+
+                <div class="strong-gym-rest-icon">
+                    ⏱️
+                </div>
+
+                <div class="strong-gym-rest-title">
+                    DESCANSO
+                </div>
+
+                <div
+                    id="strongGymRestTime"
+                    class="strong-gym-rest-time"
+                >
+                    01:30
+                </div>
+
+                <div
+                    id="strongGymRestLabel"
+                    class="strong-gym-rest-label"
+                >
+                    Preparáte para la próxima serie
+                </div>
+
+                <div class="strong-gym-rest-progress">
+
+                    <div
+                        id="strongGymRestProgress"
+                        class="strong-gym-rest-progress-fill"
+                    ></div>
+
+                </div>
+
+                <div class="strong-gym-rest-controls">
+
+                    <button
+                        type="button"
+                        id="strongGymRestMinus"
+                    >
+                        −30
+                    </button>
+
+                    <button
+                        type="button"
+                        id="strongGymRestSkip"
+                        class="strong-gym-rest-skip"
+                    >
+                        Omitir
+                    </button>
+
+                    <button
+                        type="button"
+                        id="strongGymRestPlus"
+                    >
+                        +30
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        timer
+    );
+
+
+    const timeElement =
+        timer.querySelector(
+            "#strongGymRestTime"
+        );
+
+
+    const labelElement =
+        timer.querySelector(
+            "#strongGymRestLabel"
+        );
+
+
+    const progressElement =
+        timer.querySelector(
+            "#strongGymRestProgress"
+        );
+
+
+    function update(){
+
+        if(timeElement){
+
+            timeElement.textContent =
+                formatStrongGymRestTime(
+                    strongGymRestTimerSeconds
+                );
+
+        }
+
+
+        if(progressElement){
+
+            const percentage =
+                strongGymRestTimerTotal > 0
+                    ? (
+                        strongGymRestTimerSeconds /
+                        strongGymRestTimerTotal
+                    ) * 100
+                    : 0;
+
+
+            progressElement.style.width =
+                `${Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        percentage
+                    )
+                )}%`;
+
+        }
+
+    }
+
+
+    function finish(){
+
+        stopStrongGymRestTimer();
+
+
+        strongGymRestTimerSeconds = 0;
+
+        update();
+
+
+        timer.classList.add(
+            "strong-gym-rest-finished"
+        );
+
+
+        if(labelElement){
+
+            labelElement.textContent =
+                "🔥 ¡Descanso terminado! Comenzá la próxima serie.";
+
+        }
+
+
+        const skipButton =
+            timer.querySelector(
+                "#strongGymRestSkip"
+            );
+
+
+        if(skipButton){
+
+            skipButton.textContent =
+                "Continuar";
+
+        }
+
+    }
+
+
+    function changeTime(
+        amount
+    ){
+
+        strongGymRestTimerSeconds =
+            Math.max(
+                0,
+                strongGymRestTimerSeconds +
+                amount
+            );
+
+
+        strongGymRestTimerTotal =
+            Math.max(
+                1,
+                strongGymRestTimerSeconds
+            );
+
+
+        timer.classList.remove(
+            "strong-gym-rest-finished"
+        );
+
+
+        if(labelElement){
+
+            labelElement.textContent =
+                "Preparáte para la próxima serie";
+
+        }
+
+
+        const skipButton =
+            timer.querySelector(
+                "#strongGymRestSkip"
+            );
+
+
+        if(skipButton){
+
+            skipButton.textContent =
+                "Omitir";
+
+        }
+
+
+        update();
+
+    }
+
+
+    timer.querySelector(
+        "#strongGymRestMinus"
+    ).addEventListener(
+        "click",
+        () => {
+
+            changeTime(
+                -30
+            );
+
+        }
+    );
+
+
+    timer.querySelector(
+        "#strongGymRestPlus"
+    ).addEventListener(
+        "click",
+        () => {
+
+            changeTime(
+                30
+            );
+
+        }
+    );
+
+
+    timer.querySelector(
+        "#strongGymRestSkip"
+    ).addEventListener(
+        "click",
+        () => {
+
+            closeStrongGymRestTimer();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        () => {
+
+            timer.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+
+    update();
+
+
+    strongGymRestTimerInterval =
+        setInterval(
+            () => {
+
+                strongGymRestTimerSeconds--;
+
+                if(
+                    strongGymRestTimerSeconds <= 0
+                ){
+
+                    finish();
+
+                    return;
+
+                }
+
+
+                update();
+
+            },
+            1000
+        );
+
+}
+
+
 function startWorkoutMode(
     routine
 ){
@@ -8289,6 +8872,23 @@ return `
 
                     updateWorkoutProgress();
 
+                          
+                          /*
+                           * Iniciar descanso automaticamente
+                           * al completar una serie.
+                           */
+
+                          if(
+                              button.classList.contains(
+                                  "active"
+                              )
+                          ){
+
+                              startStrongGymRestTimer();
+
+                          }
+
+
                 }
             );
 
@@ -8297,6 +8897,8 @@ return `
 
 
     function closeWorkout(){
+
+          closeStrongGymRestTimer();
 
         modal.remove();
 
