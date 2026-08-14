@@ -6427,6 +6427,796 @@ function showSavedRoutine(
    MODO ENTRENAMIENTO
    ========================================================= */
 
+
+/* =========================================================
+   ESTILOS - RESUMEN DE ENTRENAMIENTO
+   ========================================================= */
+
+(function installWorkoutSummaryStyles(){
+
+    if(
+        document.getElementById(
+            "strongGymWorkoutSummaryStyles"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "strongGymWorkoutSummaryStyles";
+
+
+    style.textContent = `
+
+        .workout-completion-summary{
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            pointer-events:none;
+        }
+
+
+        .summary-overlay{
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            background:rgba(0,0,0,.72);
+            opacity:0;
+            transition:opacity .2s ease;
+            pointer-events:auto;
+        }
+
+
+        .workout-completion-summary.active
+        .summary-overlay{
+            opacity:1;
+        }
+
+
+        .summary-card{
+            width:min(520px,100%);
+            max-height:90vh;
+            overflow:auto;
+            background:#ffffff;
+            border-radius:24px;
+            padding:24px;
+            box-shadow:0 20px 60px rgba(0,0,0,.3);
+            transform:translateY(15px) scale(.98);
+            transition:transform .2s ease;
+        }
+
+
+        .workout-completion-summary.active
+        .summary-card{
+            transform:translateY(0) scale(1);
+        }
+
+
+        .summary-header{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-bottom:22px;
+        }
+
+
+        .summary-icon{
+            width:54px;
+            height:54px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:16px;
+            background:#f3f4f6;
+            font-size:28px;
+            flex-shrink:0;
+        }
+
+
+        .summary-header h2{
+            margin:0 0 4px;
+            font-size:22px;
+        }
+
+
+        .summary-header p{
+            margin:0;
+            opacity:.7;
+            font-size:14px;
+        }
+
+
+        .summary-stats{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:10px;
+            margin-bottom:24px;
+        }
+
+
+        .summary-stat{
+            padding:16px;
+            border-radius:16px;
+            background:#f3f4f6;
+            text-align:center;
+        }
+
+
+        .summary-stat strong{
+            display:block;
+            font-size:20px;
+            margin-bottom:4px;
+        }
+
+
+        .summary-stat span{
+            display:block;
+            font-size:12px;
+            opacity:.65;
+        }
+
+
+        .summary-section{
+            margin-bottom:22px;
+        }
+
+
+        .summary-section h3{
+            margin:0 0 12px;
+            font-size:17px;
+        }
+
+
+        .summary-progression-item{
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            align-items:center;
+            padding:13px 0;
+            border-bottom:1px solid #e5e7eb;
+            font-size:14px;
+        }
+
+
+        .summary-progression-item strong{
+            text-align:right;
+        }
+
+
+        .summary-progression-item small{
+            font-size:11px;
+        }
+
+
+        .summary-no-progression{
+            padding:14px;
+            border-radius:14px;
+            background:#f3f4f6;
+            font-size:13px;
+        }
+
+
+        .summary-message{
+            margin-bottom:14px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+
+        .summary-close-button{
+            width:100%;
+            border:0;
+            border-radius:14px;
+            padding:14px 18px;
+            font-size:16px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+
+        @media(max-width:480px){
+
+            .summary-card{
+                padding:18px;
+                border-radius:20px;
+            }
+
+
+            .summary-stats{
+                gap:8px;
+            }
+
+
+            .summary-stat{
+                padding:13px 8px;
+            }
+
+
+            .summary-stat strong{
+                font-size:17px;
+            }
+
+
+            .summary-progression-item{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+
+
+            .summary-progression-item strong{
+                text-align:left;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+})();
+
+
+
+/* =========================================================
+   STRONG_GYM_WORKOUT_SUMMARY
+   RESUMEN INTELIGENTE DEL ENTRENAMIENTO
+   ========================================================= */
+
+function showWorkoutCompletionSummary(
+    routine,
+    workoutExercises,
+    durationMinutes
+){
+
+    const safeExercises =
+        Array.isArray(workoutExercises)
+            ? workoutExercises
+            : [];
+
+
+    let totalSets = 0;
+
+    let completedSets = 0;
+
+    let totalReps = 0;
+
+    let totalVolume = 0;
+
+    let records = 0;
+
+    const progressionItems = [];
+
+
+    safeExercises.forEach(
+        exercise => {
+
+            const sets =
+                Array.isArray(exercise.sets)
+                    ? exercise.sets
+                    : [];
+
+
+            let exerciseCompleted = 0;
+
+            let exerciseVolume = 0;
+
+            let bestWeight = 0;
+
+            let bestPreviousWeight = 0;
+
+
+            sets.forEach(
+                set => {
+
+                    const weight =
+                        Math.max(
+                            0,
+                            Number(set.weight) || 0
+                        );
+
+                    const reps =
+                        Math.max(
+                            0,
+                            Number(set.reps) || 0
+                        );
+
+
+                    totalSets++;
+
+                    totalReps += reps;
+
+                    exerciseVolume +=
+                        weight * reps;
+
+                    totalVolume +=
+                        weight * reps;
+
+
+                    if(
+                        set.completed === true
+                    ){
+
+                        completedSets++;
+
+                        exerciseCompleted++;
+
+                    }
+
+
+                    if(
+                        weight > bestWeight
+                    ){
+
+                        bestWeight = weight;
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * Buscar el mejor peso anterior
+             * del mismo ejercicio.
+             */
+
+            try{
+
+                const history =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "strongGymWorkoutHistory"
+                        ) || "[]"
+                    );
+
+
+                history.forEach(
+                    workout => {
+
+                        if(
+                            routine &&
+                            String(
+                                workout.routineId
+                            ) !== String(
+                                routine.id
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        if(
+                            !Array.isArray(
+                                workout.exercises
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        workout.exercises.forEach(
+                            previousExercise => {
+
+                                const sameExercise =
+                                    (
+                                        exercise.id &&
+                                        previousExercise.id &&
+                                        String(
+                                            exercise.id
+                                        ) === String(
+                                            previousExercise.id
+                                        )
+                                    )
+                                    ||
+                                    (
+                                        String(
+                                            exercise.name || ""
+                                        )
+                                            .trim()
+                                            .toLowerCase()
+                                        ===
+                                        String(
+                                            previousExercise.name || ""
+                                        )
+                                            .trim()
+                                            .toLowerCase()
+                                    );
+
+
+                                if(!sameExercise){
+
+                                    return;
+
+                                }
+
+
+                                if(
+                                    !Array.isArray(
+                                        previousExercise.sets
+                                    )
+                                ){
+
+                                    return;
+
+                                }
+
+
+                                previousExercise.sets.forEach(
+                                    previousSet => {
+
+                                        const previousWeight =
+                                            Number(
+                                                previousSet.weight
+                                            ) || 0;
+
+
+                                        if(
+                                            previousWeight >
+                                            bestPreviousWeight
+                                        ){
+
+                                            bestPreviousWeight =
+                                                previousWeight;
+
+                                        }
+
+                                    }
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+            }catch(error){
+
+                console.warn(
+                    "No se pudo calcular el peso anterior:",
+                    error
+                );
+
+            }
+
+
+            /*
+             * Un record solamente se considera
+             * cuando el mejor peso actual supera
+             * el mejor peso anterior.
+             */
+
+            if(
+                bestPreviousWeight > 0 &&
+                bestWeight > bestPreviousWeight
+            ){
+
+                records++;
+
+                progressionItems.push({
+
+                    name:
+                        exercise.name ||
+                        "Ejercicio",
+
+                    previous:
+                        bestPreviousWeight,
+
+                    current:
+                        bestWeight,
+
+                    difference:
+                        bestWeight -
+                        bestPreviousWeight
+
+                });
+
+            }
+
+        }
+    );
+
+
+    const completionPercentage =
+        totalSets > 0
+            ? Math.round(
+                (
+                    completedSets /
+                    totalSets
+                ) * 100
+            )
+            : 0;
+
+
+    const volumeText =
+        Math.round(
+            totalVolume
+        ).toLocaleString(
+            "es-AR"
+        );
+
+
+    const durationText =
+        Number(durationMinutes) > 0
+            ? `${durationMinutes} min`
+            : "—";
+
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.id =
+        "workoutCompletionSummary";
+
+    modal.className =
+        "workout-completion-summary";
+
+
+    const progressionHTML =
+        progressionItems.length > 0
+
+            ? progressionItems
+                .map(
+                    item => `
+                        <div
+                            class="summary-progression-item"
+                        >
+                            <span>
+                                ${escapeExerciseHTML(
+                                    item.name
+                                )}
+                            </span>
+
+                            <strong>
+                                ${item.previous}
+                                kg
+                                →
+                                ${item.current}
+                                kg
+                                <small>
+                                    (+${item.difference} kg)
+                                </small>
+                            </strong>
+                        </div>
+                    `
+                )
+                .join("")
+
+            : `
+                <div
+                    class="summary-no-progression"
+                >
+                    No hubo nuevos récords de peso
+                    en este entrenamiento.
+                </div>
+              `;
+
+
+    modal.innerHTML = `
+        <div
+            class="summary-overlay"
+        >
+
+            <div
+                class="summary-card"
+            >
+
+                <div
+                    class="summary-header"
+                >
+
+                    <div
+                        class="summary-icon"
+                    >
+                        🎉
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Entrenamiento completado
+                        </h2>
+
+                        <p>
+                            ${escapeExerciseHTML(
+                                routine?.name ||
+                                "Entrenamiento"
+                            )}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="summary-stats"
+                >
+
+                    <div
+                        class="summary-stat"
+                    >
+                        <strong>
+                            ${durationText}
+                        </strong>
+
+                        <span>
+                            Duración
+                        </span>
+                    </div>
+
+
+                    <div
+                        class="summary-stat"
+                    >
+                        <strong>
+                            ${completedSets}/${totalSets}
+                        </strong>
+
+                        <span>
+                            Series
+                        </span>
+                    </div>
+
+
+                    <div
+                        class="summary-stat"
+                    >
+                        <strong>
+                            ${totalReps}
+                        </strong>
+
+                        <span>
+                            Repeticiones
+                        </span>
+                    </div>
+
+
+                    <div
+                        class="summary-stat"
+                    >
+                        <strong>
+                            ${volumeText} kg
+                        </strong>
+
+                        <span>
+                            Volumen
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="summary-section"
+                >
+
+                    <h3>
+                        📈 Progresión
+                    </h3>
+
+                    ${progressionHTML}
+
+                </div>
+
+
+                <div
+                    class="summary-footer"
+                >
+
+                    <div
+                        class="summary-message"
+                    >
+                        ${
+                            completionPercentage === 100
+                                ? "🔥 Excelente. Completaste todas las series."
+                                : `💪 Completaste el ${completionPercentage}% del entrenamiento.`
+                        }
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="summaryCloseButton"
+                        class="summary-close-button"
+                    >
+                        Continuar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+
+    requestAnimationFrame(
+        () => {
+
+            modal.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+
+    const closeSummary =
+        () => {
+
+            modal.classList.remove(
+                "active"
+            );
+
+            setTimeout(
+                () => {
+
+                    modal.remove();
+
+                },
+                200
+            );
+
+        };
+
+
+    modal.querySelector(
+        "#summaryCloseButton"
+    ).addEventListener(
+        "click",
+        closeSummary
+    );
+
+
+    modal.querySelector(
+        ".summary-overlay"
+    ).addEventListener(
+        "click",
+        event => {
+
+            if(
+                event.target.classList.contains(
+                    "summary-overlay"
+                )
+            ){
+
+                closeSummary();
+
+            }
+
+        }
+    );
+
+}
+
+
 function startWorkoutMode(
     routine
 ){
@@ -7977,8 +8767,15 @@ return `
             }
 
 
-            alert(
-                `🏁 Entrenamiento guardado.\n\n${routine.name}\n\nSeries completadas: ${completed} de ${totalSets} (${percentage}%).`
+
+            /*
+             * Mostrar resumen inteligente del entrenamiento.
+             */
+
+            showWorkoutCompletionSummary(
+                routine,
+                workoutExercises,
+                durationMinutes
             );
 
 
@@ -9004,7 +9801,7 @@ document.addEventListener(
 
                     loadWorkoutHistory();
 
-                },
+},
                 50
             );
 
