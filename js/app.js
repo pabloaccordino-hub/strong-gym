@@ -8679,15 +8679,26 @@ function startWorkoutMode(
 
                                   let reachedTargetReps = true;
 
+                                  let hasRIRData = false;
+
+                                  let allRIRFavorable = true;
+
+                                  let minimumRIR = null;
+
 
                                   savedProgress.forEach(
                                       previousSet => {
 
                                           const previousWeight =
-                                              Number(previousSet.weight) || 0;
+                                              Number(
+                                                  previousSet.weight
+                                              ) || 0;
+
 
                                           const previousReps =
-                                              Number(previousSet.reps) || 0;
+                                              Number(
+                                                  previousSet.reps
+                                              ) || 0;
 
 
                                           if(
@@ -8714,7 +8725,66 @@ function startWorkoutMode(
                                               previousReps < reps
                                           ){
 
-                                              reachedTargetReps = false;
+                                              reachedTargetReps =
+                                                  false;
+
+                                          }
+
+
+                                          /*
+                                           * RIR:
+                                           *
+                                           * 0, 1 o 2:
+                                           * mantener peso.
+                                           *
+                                           * 3 o mas:
+                                           * permite progresar.
+                                           *
+                                           * Sin RIR:
+                                           * utilizar la logica anterior.
+                                           */
+
+                                          if(
+                                              previousSet.rir !== null &&
+                                              previousSet.rir !== undefined &&
+                                              previousSet.rir !== ""
+                                          ){
+
+                                              const rir =
+                                                  Number(
+                                                      previousSet.rir
+                                                  );
+
+
+                                              if(
+                                                  Number.isFinite(rir)
+                                              ){
+
+                                                  hasRIRData =
+                                                      true;
+
+
+                                                  if(
+                                                      minimumRIR === null ||
+                                                      rir < minimumRIR
+                                                  ){
+
+                                                      minimumRIR =
+                                                          rir;
+
+                                                  }
+
+
+                                                  if(
+                                                      rir < 3
+                                                  ){
+
+                                                      allRIRFavorable =
+                                                          false;
+
+                                                  }
+
+                                              }
 
                                           }
 
@@ -8727,10 +8797,29 @@ function startWorkoutMode(
                                       completedPreviousSets === previousSetsCount;
 
 
-                                  const canProgress =
+                                  const traditionalCanProgress =
                                       bestPreviousWeight > 0 &&
                                       completedPreviousWorkout &&
                                       reachedTargetReps;
+
+
+                                  /*
+                                   * Si hay RIR registrado,
+                                   * todas las series deben tener
+                                   * RIR >= 3.
+                                   *
+                                   * Si no existe RIR,
+                                   * se conserva la progresion anterior.
+                                   */
+
+                                  const rirCanProgress =
+                                      !hasRIRData ||
+                                      allRIRFavorable;
+
+
+                                  const canProgress =
+                                      traditionalCanProgress &&
+                                      rirCanProgress;
 
 
                                   const nextSuggestedWeight =
@@ -8741,9 +8830,6 @@ function startWorkoutMode(
                                                   ? bestPreviousWeight
                                                   : weight
                                           );
-
-
-
 
 return `
 
