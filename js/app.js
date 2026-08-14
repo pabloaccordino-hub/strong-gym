@@ -7871,6 +7871,1208 @@ function startStrongGymRestTimer(){
    RIR - REPETICIONES EN RESERVA
    ========================================================= */
 
+
+(function(){
+
+    if(
+        document.getElementById(
+            "strongGymProgressStyles"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.id =
+        "strongGymProgressStyles";
+
+
+    style.textContent = `
+
+        #strongGymProgressButton{
+            border:0;
+            border-radius:10px;
+            padding:10px 14px;
+            margin:6px;
+            cursor:pointer;
+            font-weight:800;
+            font-size:14px;
+        }
+
+
+        .strong-gym-progress-backdrop{
+            position:fixed;
+            inset:0;
+            z-index:99999;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:16px;
+            background:rgba(0,0,0,.65);
+            overflow:auto;
+        }
+
+
+        .strong-gym-progress-modal{
+            width:min(900px,100%);
+            max-height:94vh;
+            overflow:auto;
+            border-radius:18px;
+            background:#fff;
+            box-shadow:0 20px 60px rgba(0,0,0,.35);
+        }
+
+
+        .strong-gym-progress-header{
+            position:sticky;
+            top:0;
+            z-index:2;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:18px;
+            background:#fff;
+            border-bottom:1px solid #e5e7eb;
+        }
+
+
+        .strong-gym-progress-title{
+            font-size:22px;
+            font-weight:900;
+        }
+
+
+        .strong-gym-progress-subtitle{
+            margin-top:4px;
+            font-size:13px;
+            opacity:.65;
+        }
+
+
+        .strong-gym-progress-close{
+            width:42px;
+            height:42px;
+            border:0;
+            border-radius:50%;
+            font-size:28px;
+            cursor:pointer;
+        }
+
+
+        .strong-gym-progress-content{
+            padding:18px;
+        }
+
+
+        .strong-gym-progress-summary{
+            display:grid;
+            grid-template-columns:
+                repeat(3,minmax(0,1fr));
+            gap:12px;
+            margin-bottom:18px;
+        }
+
+
+        .strong-gym-progress-card{
+            padding:14px;
+            border:1px solid #e5e7eb;
+            border-radius:14px;
+            background:#f9fafb;
+        }
+
+
+        .strong-gym-progress-card span{
+            display:block;
+            font-size:12px;
+            opacity:.65;
+        }
+
+
+        .strong-gym-progress-card strong{
+            display:block;
+            margin-top:5px;
+            font-size:20px;
+        }
+
+
+        .strong-gym-progress-exercises{
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+
+
+        .strong-gym-progress-exercise{
+            padding:16px;
+            border:1px solid #e5e7eb;
+            border-radius:16px;
+            background:#fff;
+        }
+
+
+        .strong-gym-progress-exercise-header{
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:14px;
+        }
+
+
+        .strong-gym-progress-exercise-header strong{
+            font-size:17px;
+        }
+
+
+        .strong-gym-progress-exercise-header span{
+            font-size:12px;
+            opacity:.6;
+        }
+
+
+        .strong-gym-progress-metrics{
+            display:grid;
+            grid-template-columns:
+                repeat(4,minmax(0,1fr));
+            gap:8px;
+        }
+
+
+        .strong-gym-progress-metrics > div{
+            padding:10px;
+            border-radius:10px;
+            background:#f9fafb;
+        }
+
+
+        .strong-gym-progress-metrics span{
+            display:block;
+            font-size:11px;
+            opacity:.65;
+        }
+
+
+        .strong-gym-progress-metrics strong{
+            display:block;
+            margin-top:3px;
+            font-size:15px;
+        }
+
+
+        .strong-gym-progress-change{
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+            margin-top:12px;
+            font-size:13px;
+        }
+
+
+        .strong-gym-progress-record{
+            margin-top:10px;
+            font-size:13px;
+        }
+
+
+        .strong-gym-progress-history{
+            margin-top:12px;
+            overflow:hidden;
+            border:1px solid #e5e7eb;
+            border-radius:10px;
+        }
+
+
+        .strong-gym-progress-history-row{
+            display:grid;
+            grid-template-columns:
+                1.2fr .8fr .8fr 1fr;
+            gap:8px;
+            padding:8px 10px;
+            border-bottom:1px solid #e5e7eb;
+            font-size:11px;
+        }
+
+
+        .strong-gym-progress-history-row:last-child{
+            border-bottom:0;
+        }
+
+
+        .strong-gym-progress-empty{
+            min-height:250px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            gap:10px;
+            text-align:center;
+            opacity:.75;
+        }
+
+
+        @media(max-width:600px){
+
+            .strong-gym-progress-summary{
+                grid-template-columns:1fr;
+            }
+
+
+            .strong-gym-progress-metrics{
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
+            }
+
+
+            .strong-gym-progress-content{
+                padding:12px;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+})();
+
+
+/* =========================================================
+   STRONG_GYM_PROGRESS_MODULE
+   MI PROGRESO
+   ========================================================= */
+
+(function(){
+
+    if(
+        window.strongGymProgressInstalled
+    ){
+
+        return;
+
+    }
+
+    window.strongGymProgressInstalled = true;
+
+
+    const STORAGE_KEY =
+        "strongGymWorkoutHistory";
+
+
+    function getHistory(){
+
+        try{
+
+            const stored =
+                localStorage.getItem(
+                    STORAGE_KEY
+                );
+
+            const parsed =
+                stored
+                    ? JSON.parse(stored)
+                    : [];
+
+            return Array.isArray(parsed)
+                ? parsed
+                : [];
+
+        }catch(error){
+
+            console.error(
+                "Error leyendo historial:",
+                error
+            );
+
+            return [];
+
+        }
+
+    }
+
+
+    function num(value){
+
+        const result =
+            Number(value);
+
+        return Number.isFinite(result)
+            ? result
+            : 0;
+
+    }
+
+
+    function fmt(value){
+
+        const result =
+            num(value);
+
+        return Number.isInteger(result)
+            ? String(result)
+            : result.toFixed(1);
+
+    }
+
+
+    function date(value){
+
+        try{
+
+            const d =
+                new Date(value);
+
+            if(
+                Number.isNaN(
+                    d.getTime()
+                )
+            ){
+
+                return "-";
+
+            }
+
+            return d.toLocaleDateString(
+                "es-AR",
+                {
+                    day:"2-digit",
+                    month:"2-digit",
+                    year:"numeric"
+                }
+            );
+
+        }catch(error){
+
+            return "-";
+
+        }
+
+    }
+
+
+    function getExercises(history){
+
+        const map =
+            new Map();
+
+
+        history.forEach(
+            workout => {
+
+                if(
+                    !Array.isArray(
+                        workout.exercises
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                workout.exercises.forEach(
+                    exercise => {
+
+                        if(
+                            !exercise ||
+                            !exercise.name
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const id =
+                            exercise.id
+                                ? String(
+                                    exercise.id
+                                )
+                                : "";
+
+
+                        const name =
+                            String(
+                                exercise.name
+                            ).trim();
+
+
+                        const key =
+                            id ||
+                            name.toLowerCase();
+
+
+                        if(
+                            !map.has(key)
+                        ){
+
+                            map.set(
+                                key,
+                                {
+                                    id,
+                                    name
+                                }
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        return Array.from(
+            map.values()
+        );
+
+    }
+
+
+    function getSessions(
+        history,
+        exercise
+    ){
+
+        const sessions = [];
+
+
+        history
+            .slice()
+            .sort(
+                (a,b) =>
+                    new Date(a.date) -
+                    new Date(b.date)
+            )
+            .forEach(
+                workout => {
+
+                    if(
+                        !Array.isArray(
+                            workout.exercises
+                        )
+                    ){
+
+                        return;
+
+                    }
+
+
+                    workout.exercises.forEach(
+                        current => {
+
+                            const sameId =
+                                exercise.id &&
+                                current.id &&
+                                String(
+                                    exercise.id
+                                ) ===
+                                String(
+                                    current.id
+                                );
+
+
+                            const sameName =
+                                String(
+                                    current.name || ""
+                                )
+                                .trim()
+                                .toLowerCase()
+                                ===
+                                String(
+                                    exercise.name || ""
+                                )
+                                .trim()
+                                .toLowerCase();
+
+
+                            if(
+                                !sameId &&
+                                !sameName
+                            ){
+
+                                return;
+
+                            }
+
+
+                            if(
+                                !Array.isArray(
+                                    current.sets
+                                )
+                            ){
+
+                                return;
+
+                            }
+
+
+                            const completed =
+                                current.sets.filter(
+                                    set =>
+                                        set &&
+                                        set.completed === true
+                                );
+
+
+                            if(
+                                completed.length === 0
+                            ){
+
+                                return;
+
+                            }
+
+
+                            let maxWeight = 0;
+
+                            let totalReps = 0;
+
+                            let totalVolume = 0;
+
+                            let rirTotal = 0;
+
+                            let rirCount = 0;
+
+
+                            completed.forEach(
+                                set => {
+
+                                    const weight =
+                                        num(
+                                            set.weight
+                                        );
+
+                                    const reps =
+                                        num(
+                                            set.reps
+                                        );
+
+
+                                    maxWeight =
+                                        Math.max(
+                                            maxWeight,
+                                            weight
+                                        );
+
+
+                                    totalReps +=
+                                        reps;
+
+
+                                    totalVolume +=
+                                        weight * reps;
+
+
+                                    if(
+                                        set.rir !== null &&
+                                        set.rir !== undefined &&
+                                        set.rir !== ""
+                                    ){
+
+                                        const rir =
+                                            Number(
+                                                set.rir
+                                            );
+
+
+                                        if(
+                                            Number.isFinite(
+                                                rir
+                                            )
+                                        ){
+
+                                            rirTotal +=
+                                                rir;
+
+                                            rirCount++;
+
+                                        }
+
+                                    }
+
+                                }
+                            );
+
+
+                            sessions.push({
+
+                                date:
+                                    workout.date,
+
+                                maxWeight,
+
+                                totalReps,
+
+                                totalVolume,
+
+                                averageRIR:
+                                    rirCount > 0
+                                        ? rirTotal / rirCount
+                                        : null
+
+                            });
+
+                        }
+                    );
+
+                }
+            );
+
+
+        return sessions;
+
+    }
+
+
+    function showProgress(){
+
+        const history =
+            getHistory();
+
+
+        const exercises =
+            getExercises(
+                history
+            );
+
+
+        const overlay =
+            document.createElement(
+                "div"
+            );
+
+
+        overlay.id =
+            "strongGymProgressOverlay";
+
+
+        overlay.innerHTML = `
+
+            <div class="strong-gym-progress-backdrop">
+
+                <div class="strong-gym-progress-modal">
+
+                    <div class="strong-gym-progress-header">
+
+                        <div>
+
+                            <div class="strong-gym-progress-title">
+                                📈 Mi Progreso
+                            </div>
+
+                            <div class="strong-gym-progress-subtitle">
+                                Evolución de tus entrenamientos
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="strong-gym-progress-close"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <div class="strong-gym-progress-content">
+
+                        ${
+                            history.length === 0
+
+                                ? `
+
+                                    <div class="strong-gym-progress-empty">
+
+                                        <div>
+                                            📊
+                                        </div>
+
+                                        <strong>
+                                            Todavía no hay entrenamientos.
+                                        </strong>
+
+                                        <span>
+                                            Completá un entrenamiento
+                                            para comenzar a ver tu evolución.
+                                        </span>
+
+                                    </div>
+
+                                `
+
+                                : `
+
+                                    <div class="strong-gym-progress-summary">
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                Entrenamientos
+                                            </span>
+
+                                            <strong>
+                                                ${history.length}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                Ejercicios
+                                            </span>
+
+                                            <strong>
+                                                ${exercises.length}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                Último entrenamiento
+                                            </span>
+
+                                            <strong>
+                                                ${
+                                                    history[0] &&
+                                                    history[0].date
+                                                        ? date(
+                                                            history[0].date
+                                                        )
+                                                        : "-"
+                                                }
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="strong-gym-progress-exercises">
+
+                                        ${
+                                            exercises
+                                                .map(
+                                                    exercise => {
+
+                                                        const sessions =
+                                                            getSessions(
+                                                                history,
+                                                                exercise
+                                                            );
+
+
+                                                        if(
+                                                            sessions.length === 0
+                                                        ){
+
+                                                            return "";
+
+                                                        }
+
+
+                                                        const latest =
+                                                            sessions[
+                                                                sessions.length - 1
+                                                            ];
+
+
+                                                        const previous =
+                                                            sessions.length > 1
+                                                                ? sessions[
+                                                                    sessions.length - 2
+                                                                ]
+                                                                : null;
+
+
+                                                        const record =
+                                                            sessions.reduce(
+                                                                (
+                                                                    best,
+                                                                    item
+                                                                ) =>
+                                                                    Math.max(
+                                                                        best,
+                                                                        item.maxWeight
+                                                                    ),
+                                                                0
+                                                            );
+
+
+                                                        const change =
+                                                            previous
+                                                                ? latest.maxWeight -
+                                                                  previous.maxWeight
+                                                                : 0;
+
+
+                                                        let changeText =
+                                                            "→ Sin cambio";
+
+
+                                                        if(
+                                                            change > 0
+                                                        ){
+
+                                                            changeText =
+                                                                "▲ +" +
+                                                                fmt(
+                                                                    change
+                                                                ) +
+                                                                " kg";
+
+                                                        }else if(
+                                                            change < 0
+                                                        ){
+
+                                                            changeText =
+                                                                "▼ " +
+                                                                fmt(
+                                                                    change
+                                                                ) +
+                                                                " kg";
+
+                                                        }
+
+
+                                                        const averageRIR =
+                                                            latest.averageRIR !== null
+                                                                ? fmt(
+                                                                    latest.averageRIR
+                                                                )
+                                                                : "—";
+
+
+                                                        return `
+
+                                                            <div class="strong-gym-progress-exercise">
+
+                                                                <div class="strong-gym-progress-exercise-header">
+
+                                                                    <strong>
+                                                                        ${exercise.name}
+                                                                    </strong>
+
+                                                                    <span>
+                                                                        ${sessions.length}
+                                                                        sesión${sessions.length === 1 ? "" : "es"}
+                                                                    </span>
+
+                                                                </div>
+
+
+                                                                <div class="strong-gym-progress-metrics">
+
+                                                                    <div>
+                                                                        <span>
+                                                                            Peso máximo
+                                                                        </span>
+
+                                                                        <strong>
+                                                                            ${fmt(
+                                                                                latest.maxWeight
+                                                                            )} kg
+                                                                        </strong>
+                                                                    </div>
+
+
+                                                                    <div>
+                                                                        <span>
+                                                                            Repeticiones
+                                                                        </span>
+
+                                                                        <strong>
+                                                                            ${fmt(
+                                                                                latest.totalReps
+                                                                            )}
+                                                                        </strong>
+                                                                    </div>
+
+
+                                                                    <div>
+                                                                        <span>
+                                                                            Volumen
+                                                                        </span>
+
+                                                                        <strong>
+                                                                            ${fmt(
+                                                                                latest.totalVolume
+                                                                            )} kg
+                                                                        </strong>
+                                                                    </div>
+
+
+                                                                    <div>
+                                                                        <span>
+                                                                            RIR promedio
+                                                                        </span>
+
+                                                                        <strong>
+                                                                            ${averageRIR}
+                                                                        </strong>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="strong-gym-progress-change">
+
+                                                                    <span>
+                                                                        ${
+                                                                            previous
+                                                                                ? "Anterior: " +
+                                                                                  fmt(
+                                                                                      previous.maxWeight
+                                                                                  ) +
+                                                                                  " kg"
+                                                                                : "Primer registro"
+                                                                        }
+                                                                    </span>
+
+                                                                    <strong>
+                                                                        ${changeText}
+                                                                    </strong>
+
+                                                                </div>
+
+
+                                                                <div class="strong-gym-progress-record">
+
+                                                                    🏆 Récord:
+                                                                    <strong>
+                                                                        ${fmt(record)} kg
+                                                                    </strong>
+
+                                                                </div>
+
+
+                                                                <div class="strong-gym-progress-history">
+
+                                                                    ${
+                                                                        sessions
+                                                                            .slice()
+                                                                            .reverse()
+                                                                            .slice(0,6)
+                                                                            .map(
+                                                                                session => `
+
+                                                                                    <div class="strong-gym-progress-history-row">
+
+                                                                                        <span>
+                                                                                            ${date(
+                                                                                                session.date
+                                                                                            )}
+                                                                                        </span>
+
+                                                                                        <span>
+                                                                                            ${fmt(
+                                                                                                session.maxWeight
+                                                                                            )} kg
+                                                                                        </span>
+
+                                                                                        <span>
+                                                                                            ${fmt(
+                                                                                                session.totalReps
+                                                                                            )} reps
+                                                                                        </span>
+
+                                                                                        <span>
+                                                                                            ${fmt(
+                                                                                                session.totalVolume
+                                                                                            )} kg
+                                                                                        </span>
+
+                                                                                    </div>
+
+                                                                                `
+                                                                            )
+                                                                            .join("")
+                                                                    }
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        `;
+
+                                                    }
+                                                )
+                                                .join("")
+                                        }
+
+                                    </div>
+
+                                `
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+            overlay
+        );
+
+
+        const close =
+            () => {
+
+                overlay.remove();
+
+            };
+
+
+        overlay
+            .querySelector(
+                ".strong-gym-progress-close"
+            )
+            ?.addEventListener(
+                "click",
+                close
+            );
+
+
+        overlay
+            .querySelector(
+                ".strong-gym-progress-backdrop"
+            )
+            ?.addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        event.target ===
+                        event.currentTarget
+                    ){
+
+                        close();
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    function addButton(){
+
+        if(
+            document.getElementById(
+                "strongGymProgressButton"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.id =
+            "strongGymProgressButton";
+
+
+        button.type =
+            "button";
+
+
+        button.textContent =
+            "📈 Mi Progreso";
+
+
+        button.addEventListener(
+            "click",
+            showProgress
+        );
+
+
+        const target =
+            document.querySelector(
+                "header nav"
+            ) ||
+            document.querySelector(
+                "nav"
+            ) ||
+            document.querySelector(
+                ".main-nav"
+            ) ||
+            document.querySelector(
+                ".navigation"
+            );
+
+
+        if(
+            target
+        ){
+
+            target.appendChild(
+                button
+            );
+
+        }else{
+
+            document.body.appendChild(
+                button
+            );
+
+        }
+
+    }
+
+
+    function install(){
+
+        addButton();
+
+    }
+
+
+    if(
+        document.readyState ===
+        "loading"
+    ){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            install
+        );
+
+    }else{
+
+        install();
+
+    }
+
+})();
+
 function startWorkoutMode(
     routine
 ){
@@ -12702,3 +13904,1774 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   STRONG_GYM_PROGRESS_ANALYTICS_V1
+   ANALISIS AVANZADO DE PROGRESO
+   ========================================================= */
+
+(function(){
+
+    const MARKER =
+        "STRONG_GYM_PROGRESS_ANALYTICS_V1";
+
+    if(
+        window[MARKER]
+    ){
+
+        return;
+
+    }
+
+    window[MARKER] = true;
+
+
+    const STORAGE_KEY =
+        "strongGymWorkoutHistory";
+
+
+    let currentPeriod =
+        "all";
+
+
+    function getHistory(){
+
+        try{
+
+            const stored =
+                localStorage.getItem(
+                    STORAGE_KEY
+                );
+
+            const parsed =
+                stored
+                    ? JSON.parse(stored)
+                    : [];
+
+            return Array.isArray(parsed)
+                ? parsed
+                : [];
+
+        }catch(error){
+
+            console.error(
+                "Error leyendo historial para analisis:",
+                error
+            );
+
+            return [];
+
+        }
+
+    }
+
+
+    function number(value){
+
+        const result =
+            Number(value);
+
+        return Number.isFinite(result)
+            ? result
+            : 0;
+
+    }
+
+
+    function formatNumber(value){
+
+        const result =
+            number(value);
+
+        if(
+            Number.isInteger(result)
+        ){
+
+            return String(result);
+
+        }
+
+        return result.toFixed(1);
+
+    }
+
+
+    function formatDate(value){
+
+        const date =
+            new Date(value);
+
+        if(
+            Number.isNaN(
+                date.getTime()
+            )
+        ){
+
+            return "-";
+
+        }
+
+        return date.toLocaleDateString(
+            "es-AR",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+    }
+
+
+    function getFilteredHistory(){
+
+        const history =
+            getHistory()
+                .filter(
+                    workout =>
+                        workout &&
+                        workout.date
+                )
+                .slice()
+                .sort(
+                    (a,b) =>
+                        new Date(a.date) -
+                        new Date(b.date)
+                );
+
+
+        if(
+            currentPeriod === "all"
+        ){
+
+            return history;
+
+        }
+
+
+        const days =
+            Number(
+                currentPeriod
+            );
+
+
+        if(
+            !days
+        ){
+
+            return history;
+
+        }
+
+
+        const limit =
+            Date.now() -
+            (
+                days *
+                24 *
+                60 *
+                60 *
+                1000
+            );
+
+
+        return history.filter(
+            workout =>
+                new Date(
+                    workout.date
+                ).getTime() >= limit
+        );
+
+    }
+
+
+    function getCompletedSets(
+        workout
+    ){
+
+        const result = [];
+
+
+        if(
+            !workout ||
+            !Array.isArray(
+                workout.exercises
+            )
+        ){
+
+            return result;
+
+        }
+
+
+        workout.exercises.forEach(
+            exercise => {
+
+                if(
+                    !exercise ||
+                    !Array.isArray(
+                        exercise.sets
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                exercise.sets.forEach(
+                    set => {
+
+                        if(
+                            !set ||
+                            set.completed !== true
+                        ){
+
+                            return;
+
+                        }
+
+
+                        result.push({
+
+                            exercise,
+                            set
+
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+
+        return result;
+
+    }
+
+
+    function calculateVolume(
+        history
+    ){
+
+        let volume = 0;
+
+
+        history.forEach(
+            workout => {
+
+                getCompletedSets(
+                    workout
+                ).forEach(
+                    item => {
+
+                        volume +=
+                            number(
+                                item.set.weight
+                            ) *
+                            number(
+                                item.set.reps
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+
+        return volume;
+
+    }
+
+
+    function calculateAverageRIR(
+        history
+    ){
+
+        let total = 0;
+
+        let count = 0;
+
+
+        history.forEach(
+            workout => {
+
+                getCompletedSets(
+                    workout
+                ).forEach(
+                    item => {
+
+                        const value =
+                            Number(
+                                item.set.rir
+                            );
+
+
+                        if(
+                            Number.isFinite(
+                                value
+                            )
+                        ){
+
+                            total += value;
+
+                            count++;
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        return count > 0
+            ? total / count
+            : null;
+
+    }
+
+
+    function calculatePersonalRecords(
+        history
+    ){
+
+        const ordered =
+            history
+                .slice()
+                .sort(
+                    (a,b) =>
+                        new Date(a.date) -
+                        new Date(b.date)
+                );
+
+
+        const bestByExercise =
+            new Map();
+
+
+        let records = 0;
+
+
+        ordered.forEach(
+            workout => {
+
+                getCompletedSets(
+                    workout
+                ).forEach(
+                    item => {
+
+                        const name =
+                            String(
+                                item.exercise.name ||
+                                ""
+                            ).trim();
+
+
+                        if(
+                            !name
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const key =
+                            name.toLowerCase();
+
+
+                        const weight =
+                            number(
+                                item.set.weight
+                            );
+
+
+                        if(
+                            weight <= 0
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const previous =
+                            bestByExercise.get(
+                                key
+                            ) || 0;
+
+
+                        if(
+                            weight > previous
+                        ){
+
+                            bestByExercise.set(
+                                key,
+                                weight
+                            );
+
+
+                            if(
+                                currentPeriod ===
+                                "all"
+                            ){
+
+                                records++;
+
+                            }else{
+
+                                const limit =
+                                    Date.now() -
+                                    (
+                                        Number(
+                                            currentPeriod
+                                        ) *
+                                        24 *
+                                        60 *
+                                        60 *
+                                        1000
+                                    );
+
+
+                                if(
+                                    new Date(
+                                        workout.date
+                                    ).getTime()
+                                    >=
+                                    limit
+                                ){
+
+                                    records++;
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        return records;
+
+    }
+
+
+    function getExerciseProgress(
+        history
+    ){
+
+        const map =
+            new Map();
+
+
+        history.forEach(
+            workout => {
+
+                getCompletedSets(
+                    workout
+                ).forEach(
+                    item => {
+
+                        const name =
+                            String(
+                                item.exercise.name ||
+                                ""
+                            ).trim();
+
+
+                        if(
+                            !name
+                        ){
+
+                            return;
+
+                        }
+
+
+                        const key =
+                            name.toLowerCase();
+
+
+                        if(
+                            !map.has(key)
+                        ){
+
+                            map.set(
+                                key,
+                                {
+                                    name,
+                                    first: 0,
+                                    latest: 0,
+                                    record: 0
+                                }
+                            );
+
+                        }
+
+
+                        const data =
+                            map.get(key);
+
+
+                        const weight =
+                            number(
+                                item.set.weight
+                            );
+
+
+                        if(
+                            weight <= 0
+                        ){
+
+                            return;
+
+                        }
+
+
+                        if(
+                            data.first === 0
+                        ){
+
+                            data.first =
+                                weight;
+
+                        }
+
+
+                        data.latest =
+                            weight;
+
+
+                        data.record =
+                            Math.max(
+                                data.record,
+                                weight
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+
+        return Array.from(
+            map.values()
+        )
+        .sort(
+            (a,b) =>
+                (
+                    b.latest -
+                    b.first
+                ) -
+                (
+                    a.latest -
+                    a.first
+                )
+        );
+
+    }
+
+
+    function getLastWorkout(
+        history
+    ){
+
+        if(
+            history.length === 0
+        ){
+
+            return null;
+
+        }
+
+
+        return history[
+            history.length - 1
+        ];
+
+    }
+
+
+    function getTrend(
+        history
+    ){
+
+        if(
+            history.length < 2
+        ){
+
+            return null;
+
+        }
+
+
+        const previous =
+            history[
+                history.length - 2
+            ];
+
+
+        const latest =
+            history[
+                history.length - 1
+            ];
+
+
+        const previousVolume =
+            calculateVolume(
+                [previous]
+            );
+
+
+        const latestVolume =
+            calculateVolume(
+                [latest]
+            );
+
+
+        if(
+            previousVolume === 0
+        ){
+
+            return null;
+
+        }
+
+
+        return (
+            (
+                latestVolume -
+                previousVolume
+            ) /
+            previousVolume
+        ) *
+        100;
+
+    }
+
+
+    function ensureStyles(){
+
+        if(
+            document.getElementById(
+                "strongGymProgressAnalyticsStyles"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const style =
+            document.createElement(
+                "style"
+            );
+
+
+        style.id =
+            "strongGymProgressAnalyticsStyles";
+
+
+        style.textContent = `
+
+            .strong-gym-progress-analytics{
+
+                margin-top:20px;
+                padding:18px;
+                border-radius:20px;
+                background:#ffffff;
+                box-shadow:
+                    0 4px 16px
+                    rgba(0,0,0,.05);
+
+            }
+
+
+            .strong-gym-progress-analytics-header{
+
+                display:flex;
+                align-items:flex-start;
+                justify-content:space-between;
+                gap:15px;
+                margin-bottom:16px;
+
+            }
+
+
+            .strong-gym-progress-analytics-header span{
+
+                display:block;
+                margin-bottom:4px;
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:.08em;
+                opacity:.65;
+
+            }
+
+
+            .strong-gym-progress-analytics-header h2{
+
+                margin:0;
+                font-size:20px;
+
+            }
+
+
+            .strong-gym-progress-period{
+
+                display:flex;
+                gap:6px;
+                flex-wrap:wrap;
+                margin-bottom:16px;
+
+            }
+
+
+            .strong-gym-progress-period button{
+
+                border:1px solid #e5e7eb;
+                border-radius:10px;
+                padding:9px 12px;
+                background:#ffffff;
+                cursor:pointer;
+                font-size:12px;
+                font-weight:800;
+
+            }
+
+
+            .strong-gym-progress-period button.active{
+
+                background:
+                    var(--accent);
+
+                color:#ffffff;
+
+                border-color:
+                    var(--accent);
+
+            }
+
+
+            .strong-gym-progress-analytics-grid{
+
+                display:grid;
+
+                grid-template-columns:
+                    repeat(
+                        4,
+                        minmax(0,1fr)
+                    );
+
+                gap:10px;
+
+            }
+
+
+            .strong-gym-progress-analytics-card{
+
+                padding:13px;
+                border-radius:14px;
+                background:#f9fafb;
+                border:1px solid #e5e7eb;
+
+            }
+
+
+            .strong-gym-progress-analytics-card span{
+
+                display:block;
+                font-size:11px;
+                opacity:.65;
+
+            }
+
+
+            .strong-gym-progress-analytics-card strong{
+
+                display:block;
+                margin-top:5px;
+                font-size:20px;
+
+            }
+
+
+            .strong-gym-progress-trend-up{
+
+                font-weight:900;
+
+            }
+
+
+            .strong-gym-progress-trend-down{
+
+                font-weight:900;
+
+            }
+
+
+            .strong-gym-progress-detail-grid{
+
+                display:grid;
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+                gap:14px;
+
+                margin-top:14px;
+
+            }
+
+
+            .strong-gym-progress-detail{
+
+                padding:15px;
+
+                border:
+                    1px solid
+                    #e5e7eb;
+
+                border-radius:16px;
+
+            }
+
+
+            .strong-gym-progress-detail h3{
+
+                margin:0 0 12px;
+
+                font-size:15px;
+
+            }
+
+
+            .strong-gym-progress-last{
+
+                display:grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap:8px;
+
+            }
+
+
+            .strong-gym-progress-last div{
+
+                padding:10px;
+
+                border-radius:10px;
+
+                background:#f9fafb;
+
+            }
+
+
+            .strong-gym-progress-last span{
+
+                display:block;
+
+                font-size:10px;
+
+                opacity:.65;
+
+            }
+
+
+            .strong-gym-progress-last strong{
+
+                display:block;
+
+                margin-top:3px;
+
+                font-size:14px;
+
+            }
+
+
+            .strong-gym-progress-exercise-row{
+
+                display:grid;
+
+                grid-template-columns:
+                    1.4fr
+                    .8fr
+                    .8fr
+                    .8fr;
+
+                gap:8px;
+
+                align-items:center;
+
+                padding:9px 0;
+
+                border-bottom:
+                    1px solid
+                    #f0f0f0;
+
+                font-size:12px;
+
+            }
+
+
+            .strong-gym-progress-exercise-row:last-child{
+
+                border-bottom:0;
+
+            }
+
+
+            .strong-gym-progress-exercise-row strong{
+
+                text-align:right;
+
+            }
+
+
+            .strong-gym-progress-positive{
+
+                font-weight:900;
+
+            }
+
+
+            .strong-gym-progress-neutral{
+
+                opacity:.65;
+
+            }
+
+
+            .strong-gym-progress-empty{
+
+                padding:20px 10px;
+
+                text-align:center;
+
+                opacity:.65;
+
+                font-size:13px;
+
+            }
+
+
+            @media(
+                max-width:700px
+            ){
+
+                .strong-gym-progress-analytics-header{
+
+                    flex-direction:column;
+
+                }
+
+
+                .strong-gym-progress-analytics-grid{
+
+                    grid-template-columns:
+                        repeat(
+                            2,
+                            minmax(0,1fr)
+                        );
+
+                }
+
+
+                .strong-gym-progress-detail-grid{
+
+                    grid-template-columns:
+                        1fr;
+
+                }
+
+
+                .strong-gym-progress-exercise-row{
+
+                    grid-template-columns:
+                        1.5fr
+                        .8fr
+                        .8fr;
+
+                }
+
+
+                .strong-gym-progress-exercise-row
+                .strong-gym-progress-record{
+
+                    display:none;
+
+                }
+
+            }
+
+        `;
+
+
+        document.head.appendChild(
+            style
+        );
+
+    }
+
+
+    function render(){
+
+        const panel =
+            document.getElementById(
+                "strongGymProgressAnalytics"
+            );
+
+
+        if(
+            !panel
+        ){
+
+            return;
+
+        }
+
+
+        const history =
+            getFilteredHistory();
+
+
+        const allHistory =
+            getHistory();
+
+
+        const volume =
+            calculateVolume(
+                history
+            );
+
+
+        const averageRIR =
+            calculateAverageRIR(
+                history
+            );
+
+
+        const records =
+            calculatePersonalRecords(
+                allHistory
+            );
+
+
+        const trend =
+            getTrend(
+                history
+            );
+
+
+        const lastWorkout =
+            getLastWorkout(
+                history
+            );
+
+
+        const progress =
+            getExerciseProgress(
+                history
+            );
+
+
+        const trendText =
+            trend === null
+                ? "—"
+                : trend > 0
+                    ? `▲ +${formatNumber(trend)}%`
+                    : trend < 0
+                        ? `▼ ${formatNumber(trend)}%`
+                        : "→ 0%";
+
+
+        const trendClass =
+            trend > 0
+                ? "strong-gym-progress-trend-up"
+                : trend < 0
+                    ? "strong-gym-progress-trend-down"
+                    : "";
+
+
+        const lastCompleted =
+            lastWorkout
+                ? getCompletedSets(
+                    lastWorkout
+                ).length
+                : 0;
+
+
+        const lastTotal =
+            lastWorkout &&
+            Array.isArray(
+                lastWorkout.exercises
+            )
+                ? lastWorkout.exercises.reduce(
+                    (
+                        total,
+                        exercise
+                    ) =>
+                        total +
+                        (
+                            Array.isArray(
+                                exercise.sets
+                            )
+                                ? exercise.sets.length
+                                : 0
+                        ),
+                    0
+                )
+                : 0;
+
+
+        const lastVolume =
+            lastWorkout
+                ? calculateVolume(
+                    [lastWorkout]
+                )
+                : 0;
+
+
+        const lastRIR =
+            lastWorkout
+                ? calculateAverageRIR(
+                    [lastWorkout]
+                )
+                : null;
+
+
+        const periodLabel =
+            currentPeriod === "all"
+                ? "Todo el historial"
+                : `Últimos ${currentPeriod} días`;
+
+
+        const rows =
+            progress
+                .slice(
+                    0,
+                    6
+                )
+                .map(
+                    item => {
+
+                        const change =
+                            item.latest -
+                            item.first;
+
+
+                        const changeText =
+                            change > 0
+                                ? `▲ +${formatNumber(change)} kg`
+                                : change < 0
+                                    ? `▼ ${formatNumber(change)} kg`
+                                    : "→ Sin cambio";
+
+
+                        const changeClass =
+                            change > 0
+                                ? "strong-gym-progress-positive"
+                                : "";
+
+
+                        return `
+
+                            <div
+                                class="strong-gym-progress-exercise-row"
+                            >
+
+                                <span>
+                                    ${item.name}
+                                </span>
+
+                                <span>
+                                    ${formatNumber(item.first)} kg
+                                </span>
+
+                                <strong
+                                    class="${changeClass}"
+                                >
+                                    ${changeText}
+                                </strong>
+
+                                <strong
+                                    class="strong-gym-progress-record"
+                                >
+                                    🏆 ${formatNumber(item.record)} kg
+                                </strong>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+        panel.innerHTML = `
+
+            <div
+                class="strong-gym-progress-analytics-header"
+            >
+
+                <div>
+
+                    <span>
+                        ANÁLISIS
+                    </span>
+
+                    <h2>
+                        Rendimiento y evolución
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="strong-gym-progress-period"
+            >
+
+                <button
+                    type="button"
+                    data-progress-period="7"
+                    class="${
+                        currentPeriod === "7"
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    7 días
+                </button>
+
+                <button
+                    type="button"
+                    data-progress-period="30"
+                    class="${
+                        currentPeriod === "30"
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    30 días
+                </button>
+
+                <button
+                    type="button"
+                    data-progress-period="90"
+                    class="${
+                        currentPeriod === "90"
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    90 días
+                </button>
+
+                <button
+                    type="button"
+                    data-progress-period="all"
+                    class="${
+                        currentPeriod === "all"
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    Todo
+                </button>
+
+            </div>
+
+
+            <div
+                class="strong-gym-progress-analytics-grid"
+            >
+
+                <div
+                    class="strong-gym-progress-analytics-card"
+                >
+
+                    <span>
+                        Volumen
+                    </span>
+
+                    <strong>
+                        ${formatNumber(volume)} kg
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="strong-gym-progress-analytics-card"
+                >
+
+                    <span>
+                        RIR promedio
+                    </span>
+
+                    <strong>
+                        ${
+                            averageRIR === null
+                                ? "—"
+                                : formatNumber(
+                                    averageRIR
+                                )
+                        }
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="strong-gym-progress-analytics-card"
+                >
+
+                    <span>
+                        Récords
+                    </span>
+
+                    <strong>
+                        ${records}
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="strong-gym-progress-analytics-card"
+                >
+
+                    <span>
+                        Tendencia
+                    </span>
+
+                    <strong
+                        class="${trendClass}"
+                    >
+                        ${trendText}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="strong-gym-progress-detail-grid"
+            >
+
+                <div
+                    class="strong-gym-progress-detail"
+                >
+
+                    <h3>
+                        📊 Última sesión
+                    </h3>
+
+
+                    ${
+                        lastWorkout
+
+                            ? `
+
+                                <div
+                                    class="strong-gym-progress-last"
+                                >
+
+                                    <div>
+
+                                        <span>
+                                            Fecha
+                                        </span>
+
+                                        <strong>
+                                            ${formatDate(
+                                                lastWorkout.date
+                                            )}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            Cumplimiento
+                                        </span>
+
+                                        <strong>
+                                            ${lastCompleted}
+                                            /
+                                            ${lastTotal}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            Volumen
+                                        </span>
+
+                                        <strong>
+                                            ${formatNumber(
+                                                lastVolume
+                                            )} kg
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span>
+                                            RIR promedio
+                                        </span>
+
+                                        <strong>
+                                            ${
+                                                lastRIR === null
+                                                    ? "—"
+                                                    : formatNumber(
+                                                        lastRIR
+                                                    )
+                                            }
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            `
+
+                            : `
+
+                                <div
+                                    class="strong-gym-progress-empty"
+                                >
+                                    Todavía no hay datos.
+                                </div>
+
+                            `
+                    }
+
+                </div>
+
+
+                <div
+                    class="strong-gym-progress-detail"
+                >
+
+                    <h3>
+                        💪 Cambios de fuerza
+                    </h3>
+
+
+                    ${
+                        rows
+
+                            ? `
+
+                                <div>
+
+                                    <div
+                                        class="strong-gym-progress-exercise-row"
+                                    >
+
+                                        <strong>
+                                            Ejercicio
+                                        </strong>
+
+                                        <strong>
+                                            Inicio
+                                        </strong>
+
+                                        <strong>
+                                            Cambio
+                                        </strong>
+
+                                        <strong
+                                            class="strong-gym-progress-record"
+                                        >
+                                            Récord
+                                        </strong>
+
+                                    </div>
+
+                                    ${rows}
+
+                                </div>
+
+                            `
+
+                            : `
+
+                                <div
+                                    class="strong-gym-progress-empty"
+                                >
+                                    No hay ejercicios registrados
+                                    en este período.
+                                </div>
+
+                            `
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div
+                style="
+                    margin-top:12px;
+                    font-size:11px;
+                    opacity:.55;
+                "
+            >
+                ${periodLabel}
+            </div>
+
+        `;
+
+
+        panel
+            .querySelectorAll(
+                "[data-progress-period]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            currentPeriod =
+                                button.dataset.progressPeriod;
+
+                            render();
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    function updateExistingBestMark(){
+
+        const element =
+            document.getElementById(
+                "progressBestMark"
+            );
+
+
+        if(
+            !element
+        ){
+
+            return;
+
+        }
+
+
+        const history =
+            getHistory();
+
+
+        let best =
+            0;
+
+
+        history.forEach(
+            workout => {
+
+                getCompletedSets(
+                    workout
+                ).forEach(
+                    item => {
+
+                        best =
+                            Math.max(
+                                best,
+                                number(
+                                    item.set.weight
+                                )
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+
+        element.textContent =
+            `${formatNumber(best)} kg`;
+
+    }
+
+
+    function install(){
+
+        ensureStyles();
+
+
+        const progressSection =
+            document.getElementById(
+                "progressSection"
+            );
+
+
+        if(
+            !progressSection
+        ){
+
+            return;
+
+        }
+
+
+        let panel =
+            document.getElementById(
+                "strongGymProgressAnalytics"
+            );
+
+
+        if(
+            !panel
+        ){
+
+            panel =
+                document.createElement(
+                    "div"
+                );
+
+
+            panel.id =
+                "strongGymProgressAnalytics";
+
+
+            panel.className =
+                "strong-gym-progress-analytics";
+
+
+            const strengthPanel =
+                document.getElementById(
+                    "strengthProgressPanel"
+                );
+
+
+            if(
+                strengthPanel
+            ){
+
+                strengthPanel.insertAdjacentElement(
+                    "afterend",
+                    panel
+                );
+
+            }else{
+
+                progressSection.appendChild(
+                    panel
+                );
+
+            }
+
+        }
+
+
+        render();
+
+        updateExistingBestMark();
+
+    }
+
+
+    function refresh(){
+
+        install();
+
+        render();
+
+        updateExistingBestMark();
+
+    }
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            setTimeout(
+                refresh,
+                200
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const button =
+                event.target.closest(
+                    '[data-section="progressSection"]'
+                );
+
+
+            if(
+                button
+            ){
+
+                setTimeout(
+                    refresh,
+                    180
+                );
+
+            }
+
+        }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            /*
+             * No redibujamos los gráficos
+             * existentes desde este módulo.
+             * Solo mantenemos actualizado
+             * el panel analítico.
+             */
+
+        }
+    );
+
+})();
+
