@@ -7219,6 +7219,86 @@ function startWorkoutMode(
                                       lastExerciseProgress.get(
                                           exerciseKey
                                       ) || [];
+                                  /*
+                                   * ============================================================
+                                   * STRONG_GYM_PROGRESION_REAL
+                                   * PROGRESION AUTOMATICA DE FUERZA
+                                   * ============================================================
+                                   */
+
+                                  let bestPreviousWeight = 0;
+
+                                  let completedPreviousSets = 0;
+
+                                  const previousSetsCount =
+                                      savedProgress.length;
+
+                                  let reachedTargetReps = true;
+
+
+                                  savedProgress.forEach(
+                                      previousSet => {
+
+                                          const previousWeight =
+                                              Number(previousSet.weight) || 0;
+
+                                          const previousReps =
+                                              Number(previousSet.reps) || 0;
+
+
+                                          if(
+                                              previousWeight >
+                                              bestPreviousWeight
+                                          ){
+
+                                              bestPreviousWeight =
+                                                  previousWeight;
+
+                                          }
+
+
+                                          if(
+                                              previousSet.completed === true
+                                          ){
+
+                                              completedPreviousSets++;
+
+                                          }
+
+
+                                          if(
+                                              previousReps < reps
+                                          ){
+
+                                              reachedTargetReps = false;
+
+                                          }
+
+                                      }
+                                  );
+
+
+                                  const completedPreviousWorkout =
+                                      previousSetsCount > 0 &&
+                                      completedPreviousSets === previousSetsCount;
+
+
+                                  const canProgress =
+                                      bestPreviousWeight > 0 &&
+                                      completedPreviousWorkout &&
+                                      reachedTargetReps;
+
+
+                                  const nextSuggestedWeight =
+                                      canProgress
+                                          ? bestPreviousWeight + 2.5
+                                          : (
+                                              bestPreviousWeight > 0
+                                                  ? bestPreviousWeight
+                                                  : weight
+                                          );
+
+
 
 
 return `
@@ -7286,14 +7366,18 @@ return `
                                                             min="0"
                                                             step="0.5"
                                                             class="workout-weight"
-                                                            value="${
-                                                                  savedProgress[setIndex]
-                                                                      ? Number(
-                                                                          savedProgress[setIndex].weight
-                                                                      ) || 0
-                                                                      : weight
-                                                              }"
-                                                            placeholder="kg"
+                                                              value="${
+                                                                    canProgress
+                                                                        ? nextSuggestedWeight
+                                                                        : (
+                                                                            savedProgress[setIndex]
+                                                                                ? Number(
+                                                                                    savedProgress[setIndex].weight
+                                                                                ) || 0
+                                                                                : weight
+                                                                        )
+                                                                }"
+                                                              placeholder="kg"
                                                         >
 
 
