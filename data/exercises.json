@@ -1,0 +1,435 @@
+[
+  {
+    "id": "pecho-press-banca",
+    "name": "Press banca",
+    "category": "Pecho",
+    "primaryMuscles": ["Pectoral mayor"],
+    "secondaryMuscles": ["Tríceps", "Deltoides anterior"],
+    "equipment": "Barra y banco",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-12",
+    "rest": "90-120 s",
+    "description": "Ejercicio compuesto para desarrollar principalmente el pecho.",
+    "technique": [
+      "Apoyar firmemente los pies en el suelo.",
+      "Mantener las escápulas retraídas y los hombros estables.",
+      "Descender la barra de forma controlada hacia la zona media del pecho.",
+      "Empujar la barra manteniendo una trayectoria estable.",
+      "Evitar perder la posición de los hombros durante el movimiento."
+    ],
+    "errors": [
+      "Rebotar la barra contra el pecho.",
+      "Levantar los glúteos del banco.",
+      "Abrir excesivamente los codos.",
+      "Perder el control durante el descenso."
+    ]
+  },
+  {
+    "id": "pecho-press-inclinado",
+    "name": "Press inclinado",
+    "category": "Pecho",
+    "primaryMuscles": ["Pectoral superior"],
+    "secondaryMuscles": ["Tríceps", "Deltoides anterior"],
+    "equipment": "Barra o mancuernas y banco inclinado",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Variante del press que enfatiza la porción superior del pecho.",
+    "technique": [
+      "Ajustar el banco en una inclinación moderada.",
+      "Mantener los pies firmes.",
+      "Descender el peso de forma controlada.",
+      "Empujar sin perder la estabilidad de los hombros."
+    ],
+    "errors": [
+      "Utilizar una inclinación excesiva.",
+      "Bajar el peso sin control.",
+      "Encoger los hombros."
+    ]
+  },
+  {
+    "id": "pecho-aperturas",
+    "name": "Aperturas con mancuernas",
+    "category": "Pecho",
+    "primaryMuscles": ["Pectoral mayor"],
+    "secondaryMuscles": ["Deltoides anterior"],
+    "equipment": "Mancuernas y banco",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de aislamiento para trabajar el pecho mediante aducción horizontal.",
+    "technique": [
+      "Mantener una ligera flexión de los codos.",
+      "Abrir los brazos de forma controlada.",
+      "Cerrar los brazos concentrando el movimiento en el pecho."
+    ],
+    "errors": [
+      "Utilizar demasiado peso.",
+      "Bloquear los codos.",
+      "Realizar movimientos bruscos."
+    ]
+  },
+
+  {
+    "id": "espalda-jalon-pecho",
+    "name": "Jalón al pecho",
+    "category": "Espalda",
+    "primaryMuscles": ["Dorsal ancho"],
+    "secondaryMuscles": ["Bíceps", "Romboides"],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de tracción vertical para desarrollar la espalda.",
+    "technique": [
+      "Sentarse con los muslos firmemente sujetos.",
+      "Iniciar el movimiento llevando los hombros hacia abajo.",
+      "Tirar de la barra hacia la parte superior del pecho.",
+      "Controlar el regreso hasta extender los brazos."
+    ],
+    "errors": [
+      "Tirar detrás de la nuca.",
+      "Balancear excesivamente el torso.",
+      "Utilizar impulso para mover la carga."
+    ]
+  },
+  {
+    "id": "espalda-remo-sentado",
+    "name": "Remo sentado",
+    "category": "Espalda",
+    "primaryMuscles": ["Dorsal ancho", "Romboides"],
+    "secondaryMuscles": ["Bíceps", "Trapecio"],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de tracción horizontal para desarrollar la espalda.",
+    "technique": [
+      "Mantener el torso estable.",
+      "Llevar los codos hacia atrás.",
+      "Acercar el agarre al abdomen.",
+      "Controlar completamente la fase de regreso."
+    ],
+    "errors": [
+      "Redondear excesivamente la espalda.",
+      "Utilizar impulso.",
+      "Separar demasiado los codos."
+    ]
+  },
+  {
+    "id": "espalda-remo-mancuerna",
+    "name": "Remo con mancuerna",
+    "category": "Espalda",
+    "primaryMuscles": ["Dorsal ancho"],
+    "secondaryMuscles": ["Romboides", "Bíceps", "Trapecio"],
+    "equipment": "Mancuerna y banco",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio unilateral para desarrollar la espalda.",
+    "technique": [
+      "Apoyar una mano y una rodilla en el banco.",
+      "Mantener la espalda estable.",
+      "Llevar la mancuerna hacia la cadera.",
+      "Descender lentamente."
+    ],
+    "errors": [
+      "Girar el torso.",
+      "Tirar únicamente con el brazo.",
+      "Perder la posición de la espalda."
+    ]
+  },
+
+  {
+    "id": "hombros-press",
+    "name": "Press de hombros",
+    "category": "Hombros",
+    "primaryMuscles": ["Deltoides"],
+    "secondaryMuscles": ["Tríceps"],
+    "equipment": "Mancuernas o máquina",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio compuesto para desarrollar los hombros.",
+    "technique": [
+      "Mantener el torso estable.",
+      "Iniciar con las manos aproximadamente a la altura de los hombros.",
+      "Empujar verticalmente.",
+      "Descender de forma controlada."
+    ],
+    "errors": [
+      "Arquear excesivamente la zona lumbar.",
+      "Utilizar impulso.",
+      "Bajar el peso sin control."
+    ]
+  },
+  {
+    "id": "hombros-laterales",
+    "name": "Elevaciones laterales",
+    "category": "Hombros",
+    "primaryMuscles": ["Deltoides lateral"],
+    "secondaryMuscles": ["Trapecio"],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de aislamiento para enfatizar el deltoides lateral.",
+    "technique": [
+      "Mantener una ligera flexión de los codos.",
+      "Elevar los brazos hacia los lados.",
+      "Detener el movimiento aproximadamente a la altura de los hombros.",
+      "Descender lentamente."
+    ],
+    "errors": [
+      "Balancear el cuerpo.",
+      "Utilizar demasiado peso.",
+      "Encoger los hombros."
+    ]
+  },
+
+  {
+    "id": "biceps-curl",
+    "name": "Curl de bíceps",
+    "category": "Bíceps",
+    "primaryMuscles": ["Bíceps braquial"],
+    "secondaryMuscles": ["Braquial"],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de aislamiento para los flexores del codo.",
+    "technique": [
+      "Mantener los codos cerca del cuerpo.",
+      "Flexionar los codos sin balancear el torso.",
+      "Contraer el bíceps en la parte superior.",
+      "Descender lentamente."
+    ],
+    "errors": [
+      "Balancear el torso.",
+      "Mover los codos hacia adelante.",
+      "Utilizar impulso."
+    ]
+  },
+
+  {
+    "id": "triceps-polea",
+    "name": "Extensión de tríceps en polea",
+    "category": "Tríceps",
+    "primaryMuscles": ["Tríceps"],
+    "secondaryMuscles": [],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de aislamiento para los tríceps.",
+    "technique": [
+      "Mantener los codos cerca del cuerpo.",
+      "Extender los antebrazos hacia abajo.",
+      "Contraer el tríceps al final del movimiento.",
+      "Regresar lentamente."
+    ],
+    "errors": [
+      "Separar demasiado los codos.",
+      "Inclinarse excesivamente.",
+      "Utilizar impulso."
+    ]
+  },
+
+  {
+    "id": "piernas-sentadilla",
+    "name": "Sentadilla",
+    "category": "Piernas",
+    "primaryMuscles": ["Cuádriceps", "Glúteos"],
+    "secondaryMuscles": ["Isquiotibiales", "Aductores"],
+    "equipment": "Barra",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-12",
+    "rest": "90-120 s",
+    "description": "Ejercicio compuesto para desarrollar la fuerza y musculatura de las piernas.",
+    "technique": [
+      "Apoyar firmemente los pies.",
+      "Descender flexionando cadera y rodillas.",
+      "Mantener el tronco estable.",
+      "Empujar el suelo para volver a la posición inicial."
+    ],
+    "errors": [
+      "Perder la estabilidad de las rodillas.",
+      "Redondear excesivamente la espalda.",
+      "Utilizar una carga superior a la capacidad técnica."
+    ]
+  },
+  {
+    "id": "piernas-prensa",
+    "name": "Prensa de piernas",
+    "category": "Piernas",
+    "primaryMuscles": ["Cuádriceps", "Glúteos"],
+    "secondaryMuscles": ["Isquiotibiales"],
+    "equipment": "Máquina de prensa",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-15",
+    "rest": "90 s",
+    "description": "Ejercicio de máquina para trabajar principalmente piernas y glúteos.",
+    "technique": [
+      "Apoyar completamente la espalda.",
+      "Colocar los pies de forma estable.",
+      "Descender la plataforma con control.",
+      "Extender las piernas sin bloquear agresivamente las rodillas."
+    ],
+    "errors": [
+      "Despegar la pelvis del respaldo.",
+      "Bloquear las rodillas.",
+      "Descender sin control."
+    ]
+  },
+  {
+    "id": "piernas-rumano",
+    "name": "Peso muerto rumano",
+    "category": "Piernas",
+    "primaryMuscles": ["Isquiotibiales", "Glúteos"],
+    "secondaryMuscles": ["Erectores espinales"],
+    "equipment": "Barra o mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90-120 s",
+    "description": "Movimiento de bisagra de cadera para trabajar la cadena posterior.",
+    "technique": [
+      "Mantener la espalda neutra.",
+      "Llevar la cadera hacia atrás.",
+      "Mantener la carga cerca del cuerpo.",
+      "Volver a extender la cadera de forma controlada."
+    ],
+    "errors": [
+      "Redondear la espalda.",
+      "Alejar demasiado la carga del cuerpo.",
+      "Flexionar excesivamente las rodillas."
+    ]
+  },
+
+  {
+    "id": "gluteos-hip-thrust",
+    "name": "Hip thrust",
+    "category": "Glúteos",
+    "primaryMuscles": ["Glúteo mayor"],
+    "secondaryMuscles": ["Isquiotibiales"],
+    "equipment": "Banco y barra o máquina",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-15",
+    "rest": "90 s",
+    "description": "Ejercicio para desarrollar principalmente la musculatura de los glúteos.",
+    "technique": [
+      "Apoyar la parte superior de la espalda en el banco.",
+      "Colocar los pies de forma estable.",
+      "Elevar la cadera mediante extensión.",
+      "Realizar una contracción controlada de los glúteos."
+    ],
+    "errors": [
+      "Hiperextender la zona lumbar.",
+      "Utilizar una carga excesiva.",
+      "Perder la posición de los pies."
+    ]
+  },
+  {
+    "id": "gluteos-abduccion",
+    "name": "Abducción de cadera",
+    "category": "Glúteos",
+    "primaryMuscles": ["Glúteo medio"],
+    "secondaryMuscles": ["Glúteo menor"],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "60 s",
+    "description": "Ejercicio de aislamiento para la musculatura lateral de la cadera.",
+    "technique": [
+      "Mantener el torso estable.",
+      "Separar las piernas de forma controlada.",
+      "Realizar una pausa breve.",
+      "Regresar lentamente."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Mover excesivamente el torso.",
+      "Usar una carga que impida controlar el movimiento."
+    ]
+  },
+
+  {
+    "id": "abdomen-crunch",
+    "name": "Crunch abdominal",
+    "category": "Abdomen",
+    "primaryMuscles": ["Recto abdominal"],
+    "secondaryMuscles": [],
+    "equipment": "Peso corporal o máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio para trabajar la flexión del tronco y el recto abdominal.",
+    "technique": [
+      "Mantener el abdomen activo.",
+      "Flexionar el tronco de forma controlada.",
+      "Evitar tirar del cuello.",
+      "Regresar lentamente."
+    ],
+    "errors": [
+      "Tirar de la cabeza.",
+      "Realizar movimientos bruscos.",
+      "Buscar velocidad en lugar de control."
+    ]
+  },
+  {
+    "id": "abdomen-plancha",
+    "name": "Plancha",
+    "category": "Abdomen",
+    "primaryMuscles": ["Core"],
+    "secondaryMuscles": ["Recto abdominal", "Oblicuos"],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Isométrico",
+    "sets": "3",
+    "reps": "20-60 s",
+    "rest": "45-60 s",
+    "description": "Ejercicio isométrico para desarrollar la estabilidad del core.",
+    "technique": [
+      "Mantener el cuerpo alineado.",
+      "Activar abdomen y glúteos.",
+      "Mantener los hombros estables.",
+      "Respirar de forma controlada."
+    ],
+    "errors": [
+      "Dejar caer la cadera.",
+      "Elevar demasiado la cadera.",
+      "Contener la respiración."
+    ]
+  }
+]
