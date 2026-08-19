@@ -1431,7 +1431,7 @@ button:active {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(5, 1fr);
 
     height: 72px;
 
@@ -1476,6 +1476,38 @@ button:active {
     align-items: center;
 
     gap: 3px;
+
+    flex: 1 1 0;
+
+    min-width: 0;
+
+    padding: 6px 2px;
+
+    cursor: pointer;
+
+}
+
+.nav-button[data-section="coachSection"] {
+
+    position: relative;
+
+    color: var(--accent-dark);
+
+    font-weight: 800;
+
+}
+
+.nav-button[data-section="coachSection"] span {
+
+    font-size: 21px;
+
+}
+
+.nav-button[data-section="coachSection"] small {
+
+    font-size: 10px;
+
+    font-weight: 800;
 
 }
 

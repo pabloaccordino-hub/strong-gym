@@ -13056,9 +13056,9 @@ function updateStrongGymCoach(){
 
     function getStagnantSessions(exercise){
 
-        let stagnantSessions = 0;
+        let stagnantSessions = 1;
 
-        let referenceWeight = null;
+        let previousWeight = null;
 
         for(
             let i = 0;
@@ -13124,25 +13124,33 @@ function updateStrongGymCoach(){
 
             }
 
+            /*
+             * history[0] es la sesión más reciente.
+             *
+             * Comparamos cada sesión con la inmediatamente
+             * anterior. Si hubo mejora, se corta el conteo.
+             */
+
             if(
-                referenceWeight === null
+                previousWeight === null
             ){
 
-                referenceWeight =
+                previousWeight =
                     sessionWeight;
-
-                stagnantSessions = 1;
 
                 continue;
 
             }
 
             if(
-                sessionWeight <=
-                referenceWeight
+                previousWeight <=
+                sessionWeight
             ){
 
                 stagnantSessions++;
+
+                previousWeight =
+                    sessionWeight;
 
             }else{
 
@@ -13292,6 +13300,71 @@ function updateStrongGymCoach(){
                                 ) * 100
                             )
                             : 0;
+
+                    /*
+                     * SCORE DE RENDIMIENTO
+                     */
+
+                    let exerciseScore =
+                        completion;
+
+                    if(
+                        rir !== null
+                    ){
+
+                        if(rir >= 3){
+
+                            exerciseScore += 10;
+
+                        }else if(rir >= 2){
+
+                            exerciseScore += 5;
+
+                        }else if(rir < 1){
+
+                            exerciseScore -= 10;
+
+                        }
+
+                    }
+
+                    exerciseScore =
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                Math.round(
+                                    exerciseScore
+                                )
+                            )
+                        );
+
+                    let scoreLabel =
+                        "🟠 Rendimiento moderado";
+
+                    if(
+                        exerciseScore >= 85
+                    ){
+
+                        scoreLabel =
+                            "🟢 Excelente rendimiento";
+
+                    }else if(
+                        exerciseScore >= 70
+                    ){
+
+                        scoreLabel =
+                            "🟡 Buen rendimiento";
+
+                    }else if(
+                        exerciseScore < 50
+                    ){
+
+                        scoreLabel =
+                            "🔴 Rendimiento bajo";
+
+                    }
+
 
 
                     let status =
