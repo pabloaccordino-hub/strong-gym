@@ -547,6 +547,25 @@ navigationButtons.forEach(
             "click",
             () => {
 
+                if(
+                    button.dataset.section ===
+                    "progressSection"
+                ){
+
+                    if(
+                        typeof window.openStrongGymProgress ===
+                        "function"
+                    ){
+
+                        window.openStrongGymProgress();
+
+                    }
+
+                    return;
+
+                }
+
+
                 showSection(
                     button.dataset.section
                 );
@@ -567,6 +586,25 @@ quickButtons.forEach(
         button.addEventListener(
             "click",
             () => {
+
+                if(
+                    button.dataset.section ===
+                    "progressSection"
+                ){
+
+                    if(
+                        typeof window.openStrongGymProgress ===
+                        "function"
+                    ){
+
+                        window.openStrongGymProgress();
+
+                    }
+
+                    return;
+
+                }
+
 
                 showSection(
                     button.dataset.section
@@ -9468,6 +9506,10 @@ function startStrongGymRestTimer(){
             );
 
     }
+
+
+    window.openStrongGymProgress =
+        showProgress;
 
 
     function addButton(){
