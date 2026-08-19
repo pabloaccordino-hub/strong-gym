@@ -1180,7 +1180,8 @@ async function loadExercisesDatabase() {
 
         const response =
             await fetch(
-                "data/exercises.json"
+                "data/exercises.json?v=1428",
+                { cache: "no-store" }
             );
 
 
