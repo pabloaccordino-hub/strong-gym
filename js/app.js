@@ -8807,6 +8807,187 @@ function startStrongGymRestTimer(){
             );
 
 
+        /*
+         * =========================================================
+         * ESTADÍSTICAS GENERALES DE PROGRESO
+         * =========================================================
+         */
+
+        const totalCompletedSets =
+            history.reduce(
+                (total, workout) =>
+                    total +
+                    Number(
+                        workout.completedSets || 0
+                    ),
+                0
+            );
+
+
+        const totalPlannedSets =
+            history.reduce(
+                (total, workout) =>
+                    total +
+                    Number(
+                        workout.totalSets || 0
+                    ),
+                0
+            );
+
+
+        const completionPercentage =
+            totalPlannedSets > 0
+                ? Math.round(
+                    (
+                        totalCompletedSets /
+                        totalPlannedSets
+                    ) * 100
+                )
+                : 0;
+
+
+        let totalVolume = 0;
+
+        let personalRecords = 0;
+
+
+        const processedRecords =
+            new Set();
+
+
+        history.forEach(
+            workout => {
+
+                if(
+                    !Array.isArray(
+                        workout.exercises
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                workout.exercises.forEach(
+                    exercise => {
+
+                        if(
+                            !exercise ||
+                            !Array.isArray(
+                                exercise.sets
+                            )
+                        ){
+
+                            return;
+
+                        }
+
+
+                        exercise.sets.forEach(
+                            set => {
+
+                                if(
+                                    !set ||
+                                    set.completed !== true
+                                ){
+
+                                    return;
+
+                                }
+
+
+                                const weight =
+                                    num(
+                                        set.weight
+                                    );
+
+
+                                const reps =
+                                    num(
+                                        set.reps
+                                    );
+
+
+                                totalVolume +=
+                                    weight * reps;
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        exercises.forEach(
+            exercise => {
+
+                const sessions =
+                    getSessions(
+                        history,
+                        exercise
+                    );
+
+
+                if(
+                    sessions.length === 0
+                ){
+
+                    return;
+
+                }
+
+
+                const record =
+                    sessions.reduce(
+                        (
+                            best,
+                            session
+                        ) =>
+                            Math.max(
+                                best,
+                                num(
+                                    session.maxWeight
+                                )
+                            ),
+                        0
+                    );
+
+
+                if(
+                    record > 0
+                ){
+
+                    const key =
+                        String(
+                            exercise.id ||
+                            exercise.name
+                        );
+
+
+                    if(
+                        !processedRecords.has(
+                            key
+                        )
+                    ){
+
+                        processedRecords.add(
+                            key
+                        );
+
+                        personalRecords++;
+
+                    }
+
+                }
+
+            }
+        );
+
+
         const overlay =
             document.createElement(
                 "div"
@@ -8880,7 +9061,7 @@ function startStrongGymRestTimer(){
                                         <div class="strong-gym-progress-card">
 
                                             <span>
-                                                Entrenamientos
+                                                🏋️ Entrenamientos
                                             </span>
 
                                             <strong>
@@ -8893,7 +9074,59 @@ function startStrongGymRestTimer(){
                                         <div class="strong-gym-progress-card">
 
                                             <span>
-                                                Ejercicios
+                                                🔥 Series completadas
+                                            </span>
+
+                                            <strong>
+                                                ${totalCompletedSets}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                📊 Cumplimiento
+                                            </span>
+
+                                            <strong>
+                                                ${completionPercentage}%
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                ⚖️ Volumen total
+                                            </span>
+
+                                            <strong>
+                                                ${fmt(totalVolume)} kg
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                💪 Ejercicios con progreso
+                                            </span>
+
+                                            <strong>
+                                                ${personalRecords}
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="strong-gym-progress-card">
+
+                                            <span>
+                                                💪 Ejercicios
                                             </span>
 
                                             <strong>
@@ -8906,7 +9139,7 @@ function startStrongGymRestTimer(){
                                         <div class="strong-gym-progress-card">
 
                                             <span>
-                                                Último entrenamiento
+                                                📅 Último entrenamiento
                                             </span>
 
                                             <strong>
@@ -12143,16 +12376,11 @@ function updateProgressStatistics(){
         );
 
 
-    if(
-        !workoutsElement ||
-        !activeDaysElement ||
-        !bestMarkElement ||
-        !trainingTimeElement
-    ){
-
-        return;
-
-    }
+    /*
+     * Las estadísticas nuevas pueden funcionar
+     * aunque alguna tarjeta antigua no exista.
+     * Solo actualizamos los elementos que estén presentes.
+     */
 
 
     const storageKey =
@@ -12200,19 +12428,34 @@ function updateProgressStatistics(){
     }
 
 
-    /* =====================================================
-       ENTRENAMIENTOS
-       ===================================================== */
+    /*
+     * =========================================================
+     * ESTADÍSTICAS BÁSICAS
+     * =========================================================
+     */
 
-    workoutsElement.textContent =
-        history.length;
+    if(workoutsElement){
+        workoutsElement.textContent =
+            history.length;
+    }
 
-
-    /* =====================================================
-       DÍAS ACTIVOS
-       ===================================================== */
 
     const activeDays =
+        new Set();
+
+
+    let bestMark = 0;
+
+    let totalTrainingSeconds = 0;
+
+    let totalCompletedSets = 0;
+
+    let totalPlannedSets = 0;
+
+    let totalVolume = 0;
+
+
+    const exercisesWithProgress =
         new Set();
 
 
@@ -12220,8 +12463,7 @@ function updateProgressStatistics(){
         workout => {
 
             if(
-                !workout ||
-                !workout.date
+                !workout
             ){
 
                 return;
@@ -12229,15 +12471,97 @@ function updateProgressStatistics(){
             }
 
 
-            const date =
-                new Date(
-                    workout.date
+            /*
+             * Días activos
+             */
+
+            if(
+                workout.date
+            ){
+
+                const date =
+                    new Date(
+                        workout.date
+                    );
+
+
+                if(
+                    !Number.isNaN(
+                        date.getTime()
+                    )
+                ){
+
+                    activeDays.add(
+                        date.toLocaleDateString(
+                            "es-AR"
+                        )
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Tiempo
+             */
+
+            const durationSeconds =
+                Number(
+                    workout.durationSeconds
                 );
 
 
             if(
-                Number.isNaN(
-                    date.getTime()
+                Number.isFinite(
+                    durationSeconds
+                ) &&
+                durationSeconds > 0
+            ){
+
+                totalTrainingSeconds +=
+                    durationSeconds;
+
+            }else{
+
+                const durationMinutes =
+                    Number(
+                        workout.durationMinutes
+                    );
+
+
+                if(
+                    Number.isFinite(
+                        durationMinutes
+                    ) &&
+                    durationMinutes > 0
+                ){
+
+                    totalTrainingSeconds +=
+                        durationMinutes * 60;
+
+                }
+
+            }
+
+
+            /*
+             * Series planificadas
+             */
+
+            totalPlannedSets +=
+                Number(
+                    workout.totalSets
+                ) || 0;
+
+
+            /*
+             * Ejercicios y series completadas
+             */
+
+            if(
+                !Array.isArray(
+                    workout.exercises
                 )
             ){
 
@@ -12246,55 +12570,46 @@ function updateProgressStatistics(){
             }
 
 
-            activeDays.add(
-                date.toLocaleDateString(
-                    "es-AR"
-                )
-            );
-
-        }
-    );
-
-
-    activeDaysElement.textContent =
-        activeDays.size;
-
-
-    /* =====================================================
-       MEJOR MARCA
-       ===================================================== */
-
-    let bestMark = 0;
-
-
-    history.forEach(
-        workout => {
-
-            const exercises =
-                Array.isArray(
-                    workout.exercises
-                )
-                    ? workout.exercises
-                    : [];
-
-
-            exercises.forEach(
+            workout.exercises.forEach(
                 exercise => {
 
-                    const sets =
-                        Array.isArray(
+                    if(
+                        !exercise ||
+                        !Array.isArray(
                             exercise.sets
                         )
-                            ? exercise.sets
-                            : [];
+                    ){
+
+                        return;
+
+                    }
 
 
-                    sets.forEach(
+                    let exerciseHasProgress =
+                        false;
+
+
+                    exercise.sets.forEach(
                         set => {
+
+                            if(
+                                !set
+                            ){
+
+                                return;
+
+                            }
+
 
                             const weight =
                                 Number(
                                     set.weight
+                                ) || 0;
+
+
+                            const reps =
+                                Number(
+                                    set.reps
                                 ) || 0;
 
 
@@ -12308,8 +12623,40 @@ function updateProgressStatistics(){
 
                             }
 
+
+                            if(
+                                set.completed === true
+                            ){
+
+                                totalCompletedSets++;
+
+
+                                totalVolume +=
+                                    weight * reps;
+
+
+                                exerciseHasProgress =
+                                    true;
+
+                            }
+
                         }
                     );
+
+
+                    if(
+                        exerciseHasProgress
+                    ){
+
+                        exercisesWithProgress.add(
+                            String(
+                                exercise.id ||
+                                exercise.name ||
+                                ""
+                            )
+                        );
+
+                    }
 
                 }
             );
@@ -12318,44 +12665,37 @@ function updateProgressStatistics(){
     );
 
 
-    bestMarkElement.textContent =
-        `${bestMark} kg`;
+    if(activeDaysElement){
+        activeDaysElement.textContent =
+            activeDays.size;
+    }
 
 
-    /* =====================================================
-       TIEMPO DE ENTRENAMIENTO
-       =====================================================
-
-       El sistema actual todavía no guarda duración.
-       Por eso mostramos 0 min hasta implementar
-       el cronómetro real.
-       */
-
-    let totalMinutes = 0;
+    if(bestMarkElement){
+        bestMarkElement.textContent =
+            `${bestMark} kg`;
+    }
 
 
-    history.forEach(
-        workout => {
-
-            if(
-                workout.durationMinutes
-            ){
-
-                totalMinutes +=
-                    Number(
-                        workout.durationMinutes
-                    ) || 0;
-
-            }
-
-        }
-    );
+    const totalTrainingMinutes =
+        Math.round(
+            totalTrainingSeconds / 60
+        );
 
 
-    trainingTimeElement.textContent =
-        `${Math.round(
-            totalMinutes
-        )} min`;
+    if(trainingTimeElement){
+        trainingTimeElement.textContent =
+            `${totalTrainingMinutes} min`;
+    }
+
+
+    /*
+     * El resumen visual de estadísticas ahora es generado
+     * exclusivamente por showProgress().
+     *
+     * updateProgressStatistics() conserva aquí solamente
+     * la actualización de las estadísticas base.
+     */
 
 }
 
