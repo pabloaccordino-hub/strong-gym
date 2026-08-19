@@ -10643,9 +10643,9 @@ return `
                                                     bestPreviousWeight > 0
                                                         ? `
                                                             <div class="workout-progression recommendation-maintain">
-                                                                🔵 MANTENER
+                                                                🟡 REPETIR
                                                                 <strong>
-                                                                    Carga sugerida: ${bestPreviousWeight} kg
+                                                                    Repetí: ${bestPreviousWeight} kg
                                                                 </strong>
                                                             </div>
                                                         `
