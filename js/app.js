@@ -9855,6 +9855,39 @@ function startWorkoutMode(
         }
 
 
+
+        .workout-progression{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            margin:8px 0 10px;
+            padding:9px 12px;
+            border-radius:10px;
+            font-size:13px;
+            font-weight:800;
+        }
+
+        .workout-progression strong{
+            font-weight:900;
+        }
+
+        .recommendation-progress{
+            background:#dcfce7;
+            color:#166534;
+        }
+
+        .recommendation-maintain{
+            background:#dbeafe;
+            color:#1e40af;
+        }
+
+        .recommendation-start{
+            background:#f3f4f6;
+            color:#374151;
+        }
+
+
         .workout-mode-card{
 
             width:100%;
@@ -10598,6 +10631,38 @@ return `
                                             </span>
 
                                         </div>
+
+
+                                        ${
+                                            canProgress
+                                                ? `
+                                                    <div class="workout-progression recommendation-progress">
+                                                        🟢 PROGRESAR
+                                                        <strong>
+                                                            Próxima carga: ${nextSuggestedWeight} kg
+                                                        </strong>
+                                                    </div>
+                                                `
+                                                : (
+                                                    bestPreviousWeight > 0
+                                                        ? `
+                                                            <div class="workout-progression recommendation-maintain">
+                                                                🔵 MANTENER
+                                                                <strong>
+                                                                    Carga sugerida: ${bestPreviousWeight} kg
+                                                                </strong>
+                                                            </div>
+                                                        `
+                                                        : `
+                                                            <div class="workout-progression recommendation-start">
+                                                                ⚪ INICIAR
+                                                                <strong>
+                                                                    Carga inicial: ${weight} kg
+                                                                </strong>
+                                                            </div>
+                                                        `
+                                                )
+                                        }
 
 
                                         ${
