@@ -3851,6 +3851,8 @@ function openRoutineExerciseConfigurator(
 
                         const result = {
 
+                            ...original,
+
                             id:
                                 original.id,
 
