@@ -2411,7 +2411,12 @@ function escapeExerciseHTML(
    INICIAR BIBLIOTECA
    ========================================================= */
 
-loadExercisesDatabase();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        loadExercisesDatabase();
+    }
+);
 
 
 
