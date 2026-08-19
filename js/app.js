@@ -5633,12 +5633,84 @@ function showSavedRoutine(
     routine
 ){
 
-    const exercises =
+    const routineExercises =
         Array.isArray(
             routine.exercises
         )
             ? routine.exercises
             : [];
+
+
+    /*
+     * Enriquecer ejercicios desde la biblioteca.
+     * Esto permite recuperar media/GIF incluso para
+     * rutinas creadas antes de incorporar el catálogo.
+     */
+
+    const exercises =
+        routineExercises.map(
+            exercise => {
+
+                const exerciseId =
+                    String(
+                        exercise.id || ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const exerciseName =
+                    String(
+                        exercise.name || ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                let catalogExercise =
+                    exercisesDatabase.find(
+                        item =>
+                            String(
+                                item.id || ""
+                            )
+                                .trim()
+                                .toLowerCase() ===
+                            exerciseId
+                    );
+
+
+                if(!catalogExercise){
+
+                    catalogExercise =
+                        exercisesDatabase.find(
+                            item =>
+                                String(
+                                    item.name || ""
+                                )
+                                    .trim()
+                                    .toLowerCase() ===
+                                exerciseName
+                        );
+
+                }
+
+
+                if(!catalogExercise){
+
+                    return {
+                        ...exercise
+                    };
+
+                }
+
+
+                return {
+                    ...catalogExercise,
+                    ...exercise
+                };
+
+            }
+        );
 
 
     let modal =
@@ -10251,6 +10323,14 @@ return `
                                             </span>
 
                                         </div>
+
+
+                                        ${
+                                            getExerciseMediaHTML(
+                                                exercise,
+                                                false
+                                            )
+                                        }
 
 
                                         ${
