@@ -7057,6 +7057,7 @@ function showWorkoutCompletionSummary(
 
 
                     if(
+                        set.completed === true &&
                         weight > bestWeight
                     ){
 
@@ -7085,20 +7086,6 @@ function showWorkoutCompletionSummary(
 
                 history.forEach(
                     workout => {
-
-                        if(
-                            routine &&
-                            String(
-                                workout.routineId
-                            ) !== String(
-                                routine.id
-                            )
-                        ){
-
-                            return;
-
-                        }
-
 
                         if(
                             !Array.isArray(
@@ -7168,6 +7155,7 @@ function showWorkoutCompletionSummary(
 
 
                                         if(
+                                            previousSet.completed === true &&
                                             previousWeight >
                                             bestPreviousWeight
                                         ){
@@ -7223,7 +7211,10 @@ function showWorkoutCompletionSummary(
 
                     difference:
                         bestWeight -
-                        bestPreviousWeight
+                        bestPreviousWeight,
+
+                    isPersonalRecord:
+                        true
 
                 });
 
@@ -7281,17 +7272,22 @@ function showWorkoutCompletionSummary(
                             class="summary-progression-item"
                         >
                             <span>
-                                ${escapeExerciseHTML(
-                                    item.name
-                                )}
+                                🏆 NUEVO RÉCORD PERSONAL
                             </span>
 
                             <strong>
+                                ${escapeExerciseHTML(
+                                    item.name
+                                )}
+
+                                <br>
+
                                 ${item.previous}
                                 kg
                                 →
                                 ${item.current}
                                 kg
+
                                 <small>
                                     (+${item.difference} kg)
                                 </small>
