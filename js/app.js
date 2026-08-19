@@ -12851,6 +12851,615 @@ document.addEventListener(
 
 
 
+
+/* =========================================================
+   STRONG GYM COACH
+   ANALISIS POR EJERCICIO
+   ========================================================= */
+
+function updateStrongGymCoach(){
+
+    const container =
+        document.getElementById(
+            "strongGymCoachContent"
+        );
+
+    if(!container){
+        return;
+    }
+
+    let history = [];
+
+    try{
+
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    "strongGymWorkoutHistory"
+                ) || "[]"
+            );
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo leer el historial para Coach:",
+            error
+        );
+
+        history = [];
+
+    }
+
+    if(!Array.isArray(history)){
+        history = [];
+    }
+
+    if(history.length === 0){
+
+        container.innerHTML = `
+            <div class="chart-card">
+                <h3>🧠 Strong Gym Coach</h3>
+                <p>
+                    Todavía no hay entrenamientos suficientes
+                    para realizar un análisis.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    const currentWorkout =
+        history[0];
+
+    const currentExercises =
+        Array.isArray(
+            currentWorkout.exercises
+        )
+            ? currentWorkout.exercises
+            : [];
+
+
+    if(currentExercises.length === 0){
+
+        container.innerHTML = `
+            <div class="chart-card">
+                <h3>🧠 Strong Gym Coach</h3>
+                <p>
+                    La última sesión no contiene ejercicios
+                    registrados.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    function exerciseName(exercise){
+
+        return String(
+            exercise.name ||
+            "Ejercicio"
+        ).trim();
+
+    }
+
+
+    function sameExercise(a,b){
+
+        if(
+            a &&
+            b &&
+            a.id &&
+            b.id
+        ){
+
+            return String(a.id) ===
+                   String(b.id);
+
+        }
+
+        return exerciseName(a).toLowerCase() ===
+               exerciseName(b).toLowerCase();
+
+    }
+
+
+    function getCompletedSets(exercise){
+
+        if(
+            !exercise ||
+            !Array.isArray(exercise.sets)
+        ){
+
+            return [];
+
+        }
+
+        return exercise.sets.filter(
+            set =>
+                set &&
+                set.completed === true
+        );
+
+    }
+
+
+    function getBestWeight(sets){
+
+        let best = 0;
+
+        sets.forEach(
+            set => {
+
+                const weight =
+                    Number(set.weight) || 0;
+
+                if(weight > best){
+                    best = weight;
+                }
+
+            }
+        );
+
+        return best;
+
+    }
+
+
+    function getTotalReps(sets){
+
+        return sets.reduce(
+            (total,set) =>
+                total +
+                (
+                    Number(set.reps) || 0
+                ),
+            0
+        );
+
+    }
+
+
+    function getRIR(sets){
+
+        let total = 0;
+        let count = 0;
+
+        sets.forEach(
+            set => {
+
+                const rir =
+                    Number(set.rir);
+
+                if(
+                    Number.isFinite(rir)
+                ){
+
+                    total += rir;
+                    count++;
+
+                }
+
+            }
+        );
+
+        return count > 0
+            ? total / count
+            : null;
+
+    }
+
+
+    function getPreviousExercise(exercise){
+
+        for(
+            let i = 1;
+            i < history.length;
+            i++
+        ){
+
+            const workout =
+                history[i];
+
+            if(
+                !workout ||
+                !Array.isArray(
+                    workout.exercises
+                )
+            ){
+
+                continue;
+
+            }
+
+            const found =
+                workout.exercises.find(
+                    previous =>
+                        sameExercise(
+                            exercise,
+                            previous
+                        )
+                );
+
+            if(found){
+                return found;
+            }
+
+        }
+
+        return null;
+
+    }
+
+
+    const items =
+        currentExercises
+            .map(
+                exercise => {
+
+                    if(!exercise){
+                        return "";
+                    }
+
+
+                    const completed =
+                        getCompletedSets(
+                            exercise
+                        );
+
+
+                    if(
+                        completed.length === 0
+                    ){
+
+                        return `
+                            <div class="chart-card">
+
+                                <h3>
+                                    ${exerciseName(exercise)}
+                                </h3>
+
+                                <p>
+                                    ⚪ Sin series completadas
+                                    para analizar.
+                                </p>
+
+                            </div>
+                        `;
+
+                    }
+
+
+                    const bestWeight =
+                        getBestWeight(
+                            completed
+                        );
+
+
+                    const reps =
+                        getTotalReps(
+                            completed
+                        );
+
+
+                    const rir =
+                        getRIR(
+                            completed
+                        );
+
+
+                    const previousExercise =
+                        getPreviousExercise(
+                            exercise
+                        );
+
+
+                    const previousSets =
+                        previousExercise
+                            ? getCompletedSets(
+                                previousExercise
+                            )
+                            : [];
+
+
+                    const previousWeight =
+                        getBestWeight(
+                            previousSets
+                        );
+
+
+                    const totalExerciseSets =
+                        Array.isArray(
+                            exercise.sets
+                        )
+                            ? exercise.sets.length
+                            : completed.length;
+
+
+                    const completion =
+                        totalExerciseSets > 0
+                            ? Math.round(
+                                (
+                                    completed.length /
+                                    totalExerciseSets
+                                ) * 100
+                            )
+                            : 0;
+
+
+                    let status =
+                        "⚪ INICIAR";
+
+                    let recommendation =
+                        `Trabajá con ${bestWeight} kg y registrá tus resultados.`;
+
+                    let nextWeight =
+                        bestWeight;
+
+
+                    if(previousWeight > 0){
+
+                        if(
+                            completion < 100
+                        ){
+
+                            status =
+                                "🟡 COMPLETAR";
+
+                            recommendation =
+                                "Te faltan series. Completá el volumen antes de aumentar la carga.";
+
+                            nextWeight =
+                                previousWeight;
+
+                        }else if(
+                            rir !== null &&
+                            rir < 2
+                        ){
+
+                            status =
+                                "🔴 REVISAR";
+
+                            recommendation =
+                                "Llegaste muy cerca del fallo. Mantené la carga antes de progresar.";
+
+                            nextWeight =
+                                bestWeight;
+
+                        }else if(
+                            bestWeight > previousWeight
+                        ){
+
+                            status =
+                                "🟢 PROGRESAR";
+
+                            recommendation =
+                                "Mejoraste tu carga. Podés avanzar.";
+
+                            nextWeight =
+                                bestWeight + 2.5;
+
+                        }else if(
+                            bestWeight === previousWeight
+                        ){
+
+                            status =
+                                "🟡 MANTENER";
+
+                            recommendation =
+                                "Repetí la carga buscando mejorar la ejecución o las repeticiones.";
+
+                            nextWeight =
+                                bestWeight;
+
+                        }else{
+
+                            status =
+                                "🟡 MANTENER";
+
+                            recommendation =
+                                "La carga bajó respecto a la sesión anterior. Consolidá antes de subir.";
+
+                            nextWeight =
+                                previousWeight;
+
+                        }
+
+                    }
+
+
+                    return `
+                        <div
+                            class="chart-card"
+                            style="
+                                margin-bottom:14px;
+                                border-left:5px solid currentColor;
+                            "
+                        >
+
+                            <div
+                                style="
+                                    display:flex;
+                                    justify-content:space-between;
+                                    align-items:center;
+                                    gap:10px;
+                                    flex-wrap:wrap;
+                                "
+                            >
+
+                                <h3>
+                                    ${exerciseName(exercise)}
+                                </h3>
+
+                                <strong>
+                                    ${status}
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                style="
+                                    display:grid;
+                                    grid-template-columns:
+                                        repeat(auto-fit,minmax(130px,1fr));
+                                    gap:10px;
+                                    margin:12px 0;
+                                "
+                            >
+
+                                <div>
+                                    <small>
+                                        Carga actual
+                                    </small>
+
+                                    <strong>
+                                        ${bestWeight} kg
+                                    </strong>
+                                </div>
+
+
+                                <div>
+                                    <small>
+                                        Carga anterior
+                                    </small>
+
+                                    <strong>
+                                        ${
+                                            previousWeight > 0
+                                                ? previousWeight + " kg"
+                                                : "—"
+                                        }
+                                    </strong>
+                                </div>
+
+
+                                <div>
+                                    <small>
+                                        Repeticiones
+                                    </small>
+
+                                    <strong>
+                                        ${reps}
+                                    </strong>
+                                </div>
+
+
+                                <div>
+                                    <small>
+                                        RIR
+                                    </small>
+
+                                    <strong>
+                                        ${
+                                            rir !== null
+                                                ? rir.toFixed(1)
+                                                : "—"
+                                        }
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <p>
+                                ${recommendation}
+                            </p>
+
+
+                            <strong>
+                                🎯 Próxima carga:
+                                ${nextWeight} kg
+                            </strong>
+
+                        </div>
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    container.innerHTML = `
+
+        <div class="chart-card">
+
+            <h3>
+                🧠 Análisis de tu última sesión
+            </h3>
+
+            <p>
+                ${
+                    currentWorkout.routineName ||
+                    "Entrenamiento"
+                }
+            </p>
+
+            <strong>
+                📅 ${
+                    currentWorkout.date
+                        ? new Date(
+                            currentWorkout.date
+                          ).toLocaleDateString(
+                            "es-AR"
+                          )
+                        : "—"
+                }
+            </strong>
+
+        </div>
+
+
+        ${items}
+
+    `;
+
+}
+
+
+/* =========================================================
+   ACTUALIZAR STRONG GYM COACH
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateStrongGymCoach();
+
+    }
+);
+
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const button =
+            event.target.closest(
+                '[data-section="coachSection"]'
+            );
+
+        if(!button){
+            return;
+        }
+
+        setTimeout(
+            () => {
+
+                updateStrongGymCoach();
+
+            },
+            100
+        );
+
+    }
+);
+
+
 /* =========================================================
    GRÁFICO REAL DE EVOLUCIÓN
    ========================================================= */
