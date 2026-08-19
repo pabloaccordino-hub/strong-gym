@@ -13053,6 +13053,110 @@ function updateStrongGymCoach(){
     }
 
 
+
+    function getStagnantSessions(exercise){
+
+        let stagnantSessions = 0;
+
+        let referenceWeight = null;
+
+        for(
+            let i = 0;
+            i < history.length;
+            i++
+        ){
+
+            const workout =
+                history[i];
+
+            if(
+                !workout ||
+                !Array.isArray(
+                    workout.exercises
+                )
+            ){
+
+                continue;
+
+            }
+
+            const found =
+                workout.exercises.find(
+                    previous =>
+                        sameExercise(
+                            exercise,
+                            previous
+                        )
+                );
+
+            if(!found){
+
+                continue;
+
+            }
+
+            const completedSets =
+                getCompletedSets(
+                    found
+                );
+
+            if(
+                completedSets.length === 0
+            ){
+
+                continue;
+
+            }
+
+            const sessionWeight =
+                getBestWeight(
+                    completedSets
+                );
+
+            if(
+                !Number.isFinite(
+                    sessionWeight
+                ) ||
+                sessionWeight <= 0
+            ){
+
+                continue;
+
+            }
+
+            if(
+                referenceWeight === null
+            ){
+
+                referenceWeight =
+                    sessionWeight;
+
+                stagnantSessions = 1;
+
+                continue;
+
+            }
+
+            if(
+                sessionWeight <=
+                referenceWeight
+            ){
+
+                stagnantSessions++;
+
+            }else{
+
+                break;
+
+            }
+
+        }
+
+        return stagnantSessions;
+
+    }
+
+
     function getPreviousExercise(exercise){
 
         for(
@@ -13199,10 +13303,28 @@ function updateStrongGymCoach(){
                     let nextWeight =
                         bestWeight;
 
+                    const stagnantSessions =
+                        getStagnantSessions(
+                            exercise
+                        );
+
 
                     if(previousWeight > 0){
 
                         if(
+                            stagnantSessions >= 3
+                        ){
+
+                            status =
+                                "⚠️ ESTANCAMIENTO";
+
+                            recommendation =
+                                `Llevás ${stagnantSessions} sesiones sin mejorar la carga. Mantené ${previousWeight} kg y buscá mejorar las repeticiones o la ejecución.`;
+
+                            nextWeight =
+                                previousWeight;
+
+                        }else if(
                             completion < 100
                         ){
 
