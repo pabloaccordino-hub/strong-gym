@@ -1239,6 +1239,96 @@ async function loadExercisesDatabase() {
 }
 
 
+
+/* =========================================================
+   MEDIA DE EJERCICIOS
+   ========================================================= */
+
+function getExerciseMediaURL(
+    exercise
+){
+
+    if(
+        !exercise ||
+        !exercise.media ||
+        !exercise.media.url
+    ){
+
+        return "";
+
+    }
+
+    const url = String(
+        exercise.media.url
+    );
+
+    // Evitar que el navegador reutilice GIFs antiguos
+    // cuando se reemplaza un archivo local manteniendo
+    // el mismo nombre.
+    if (
+        exercise.media.local === true &&
+        /^assets\/exercises\//.test(url) &&
+        !/[?&]v=/.test(url)
+    ) {
+        return url + "?v=2";
+    }
+
+    return url;
+
+}
+
+
+function getExerciseMediaHTML(
+    exercise,
+    compactMode = false
+){
+
+    const url =
+        getExerciseMediaURL(
+            exercise
+        );
+
+    if(!url){
+
+        return `
+            <div class="exercise-image exercise-image-empty">
+                🏋️
+            </div>
+        `;
+
+    }
+
+    const className =
+        compactMode
+            ? "exercise-media exercise-media-compact"
+            : "exercise-media";
+
+    return `
+        <div class="${className}">
+            <img
+                src="${escapeExerciseHTML(url)}"
+                alt="Demostración de ${escapeExerciseHTML(
+                    exercise.name || "ejercicio"
+                )}"
+                loading="lazy"
+                referrerpolicy="no-referrer"
+                onerror="
+                    this.style.display='none';
+                    this.parentElement.classList.add(
+                        'exercise-media-error'
+                    );
+                "
+            >
+
+            <span class="exercise-media-error-icon">
+                🏋️
+            </span>
+        </div>
+    `;
+
+}
+
+
 /* =========================================================
    GENERAR TARJETAS
    ========================================================= */
@@ -1318,9 +1408,10 @@ function renderExerciseCards(
 
             card.innerHTML = `
 
-                <div class="exercise-image">
-                    🏋️
-                </div>
+                ${getExerciseMediaHTML(
+                    exercise,
+                    true
+                )}
 
 
                 <div class="exercise-info">
@@ -1526,12 +1617,34 @@ function applyExerciseFilters() {
                     );
 
 
+                const exerciseGroup =
+                    String(
+                        exercise.muscleGroup ||
+                        exercise.category ||
+                        ""
+                    )
+                    .trim()
+                    .toLowerCase();
+
+                const isArmsFilter =
+                    filter === "brazos";
+
                 const matchesFilter =
                     filter === "todos" ||
-                    exercise.category
-                        .toLowerCase()
-                        ===
-                    filter;
+                    (
+                        isArmsFilter &&
+                        (
+                            exerciseGroup === "brazos" ||
+                            String(
+                                exercise.bodyPart ||
+                                ""
+                            ).toLowerCase() === "arms"
+                        )
+                    ) ||
+                    (
+                        !isArmsFilter &&
+                        exerciseGroup === filter
+                    );
 
 
                 return (
@@ -1669,6 +1782,65 @@ function showExerciseDetails(
             .exercise-detail-close:hover{
                 background:#e5e7eb;
             }
+
+            .exercise-media{
+                position:relative;
+                width:100%;
+                min-height:220px;
+                margin-bottom:18px;
+                overflow:hidden;
+                border-radius:20px;
+                background:#f3f4f6;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+            }
+
+            .exercise-media img{
+                display:block;
+                width:100%;
+                max-height:320px;
+                object-fit:contain;
+                background:#ffffff;
+            }
+
+            .exercise-media-compact{
+                height:190px;
+                min-height:190px;
+                margin:0;
+                border-radius:18px 18px 0 0;
+            }
+
+            .exercise-media-compact img{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+
+            .exercise-media-error-icon{
+                display:none;
+                font-size:42px;
+            }
+
+            .exercise-media-error
+            .exercise-media-error-icon{
+                display:block;
+            }
+
+            .exercise-image-empty{
+                min-height:190px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:42px;
+                background:#f3f4f6;
+            }
+
+            .exercise-detail-media{
+                width:100%;
+                margin-bottom:18px;
+            }
+
 
             .exercise-detail-header{
                 padding-right:50px;
@@ -1907,6 +2079,14 @@ function showExerciseDetails(
             >
                 ×
             </button>
+
+            <div class="exercise-detail-media">
+                ${getExerciseMediaHTML(
+                    exercise,
+                    false
+                )}
+            </div>
+
 
             <div class="exercise-detail-header">
 

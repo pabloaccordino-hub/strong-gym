@@ -3,8 +3,13 @@
     "id": "pecho-press-banca",
     "name": "Press banca",
     "category": "Pecho",
-    "primaryMuscles": ["Pectoral mayor"],
-    "secondaryMuscles": ["Tríceps", "Deltoides anterior"],
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
     "equipment": "Barra y banco",
     "level": "Principiante",
     "type": "Compuesto",
@@ -24,14 +29,29 @@
       "Levantar los glúteos del banco.",
       "Abrir excesivamente los codos.",
       "Perder el control durante el descenso."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/press-banca.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "pecho-press-inclinado",
     "name": "Press inclinado",
     "category": "Pecho",
-    "primaryMuscles": ["Pectoral superior"],
-    "secondaryMuscles": ["Tríceps", "Deltoides anterior"],
+    "primaryMuscles": [
+      "Pectoral superior"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
     "equipment": "Barra o mancuernas y banco inclinado",
     "level": "Principiante",
     "type": "Compuesto",
@@ -49,14 +69,28 @@
       "Utilizar una inclinación excesiva.",
       "Bajar el peso sin control.",
       "Encoger los hombros."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/press-inclinado.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "pecho-aperturas",
     "name": "Aperturas con mancuernas",
     "category": "Pecho",
-    "primaryMuscles": ["Pectoral mayor"],
-    "secondaryMuscles": ["Deltoides anterior"],
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Deltoides anterior"
+    ],
     "equipment": "Mancuernas y banco",
     "level": "Principiante",
     "type": "Aislamiento",
@@ -73,15 +107,28 @@
       "Utilizar demasiado peso.",
       "Bloquear los codos.",
       "Realizar movimientos bruscos."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Pecho",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
-
   {
     "id": "espalda-jalon-pecho",
     "name": "Jalón al pecho",
     "category": "Espalda",
-    "primaryMuscles": ["Dorsal ancho"],
-    "secondaryMuscles": ["Bíceps", "Romboides"],
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Romboides"
+    ],
     "equipment": "Polea",
     "level": "Principiante",
     "type": "Compuesto",
@@ -99,14 +146,30 @@
       "Tirar detrás de la nuca.",
       "Balancear excesivamente el torso.",
       "Utilizar impulso para mover la carga."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/jalon-al-pecho.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "espalda-remo-sentado",
     "name": "Remo sentado",
     "category": "Espalda",
-    "primaryMuscles": ["Dorsal ancho", "Romboides"],
-    "secondaryMuscles": ["Bíceps", "Trapecio"],
+    "primaryMuscles": [
+      "Dorsal ancho",
+      "Romboides"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Trapecio"
+    ],
     "equipment": "Polea",
     "level": "Principiante",
     "type": "Compuesto",
@@ -124,14 +187,30 @@
       "Redondear excesivamente la espalda.",
       "Utilizar impulso.",
       "Separar demasiado los codos."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/remo-sentado.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "espalda-remo-mancuerna",
     "name": "Remo con mancuerna",
     "category": "Espalda",
-    "primaryMuscles": ["Dorsal ancho"],
-    "secondaryMuscles": ["Romboides", "Bíceps", "Trapecio"],
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Romboides",
+      "Bíceps",
+      "Trapecio"
+    ],
     "equipment": "Mancuerna y banco",
     "level": "Principiante",
     "type": "Compuesto",
@@ -149,15 +228,27 @@
       "Girar el torso.",
       "Tirar únicamente con el brazo.",
       "Perder la posición de la espalda."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
-
   {
     "id": "hombros-press",
     "name": "Press de hombros",
     "category": "Hombros",
-    "primaryMuscles": ["Deltoides"],
-    "secondaryMuscles": ["Tríceps"],
+    "primaryMuscles": [
+      "Deltoides"
+    ],
+    "secondaryMuscles": [
+      "Tríceps"
+    ],
     "equipment": "Mancuernas o máquina",
     "level": "Principiante",
     "type": "Compuesto",
@@ -175,14 +266,28 @@
       "Arquear excesivamente la zona lumbar.",
       "Utilizar impulso.",
       "Bajar el peso sin control."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/press-de-hombros.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "hombros-laterales",
     "name": "Elevaciones laterales",
     "category": "Hombros",
-    "primaryMuscles": ["Deltoides lateral"],
-    "secondaryMuscles": ["Trapecio"],
+    "primaryMuscles": [
+      "Deltoides lateral"
+    ],
+    "secondaryMuscles": [
+      "Trapecio"
+    ],
     "equipment": "Mancuernas",
     "level": "Principiante",
     "type": "Aislamiento",
@@ -200,15 +305,27 @@
       "Balancear el cuerpo.",
       "Utilizar demasiado peso.",
       "Encoger los hombros."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
-
   {
     "id": "biceps-curl",
     "name": "Curl de bíceps",
     "category": "Bíceps",
-    "primaryMuscles": ["Bíceps braquial"],
-    "secondaryMuscles": ["Braquial"],
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
     "equipment": "Mancuernas",
     "level": "Principiante",
     "type": "Aislamiento",
@@ -226,14 +343,25 @@
       "Balancear el torso.",
       "Mover los codos hacia adelante.",
       "Utilizar impulso."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/curl-de-biceps.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
-
   {
     "id": "triceps-polea",
     "name": "Extensión de tríceps en polea",
     "category": "Tríceps",
-    "primaryMuscles": ["Tríceps"],
+    "primaryMuscles": [
+      "Tríceps"
+    ],
     "secondaryMuscles": [],
     "equipment": "Polea",
     "level": "Principiante",
@@ -252,15 +380,30 @@
       "Separar demasiado los codos.",
       "Inclinarse excesivamente.",
       "Utilizar impulso."
-    ]
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/extension-de-triceps-en-polea.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
-
   {
     "id": "piernas-sentadilla",
     "name": "Sentadilla",
     "category": "Piernas",
-    "primaryMuscles": ["Cuádriceps", "Glúteos"],
-    "secondaryMuscles": ["Isquiotibiales", "Aductores"],
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales",
+      "Aductores"
+    ],
     "equipment": "Barra",
     "level": "Intermedio",
     "type": "Compuesto",
@@ -278,14 +421,29 @@
       "Perder la estabilidad de las rodillas.",
       "Redondear excesivamente la espalda.",
       "Utilizar una carga superior a la capacidad técnica."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/sentadilla.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "piernas-prensa",
     "name": "Prensa de piernas",
     "category": "Piernas",
-    "primaryMuscles": ["Cuádriceps", "Glúteos"],
-    "secondaryMuscles": ["Isquiotibiales"],
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
     "equipment": "Máquina de prensa",
     "level": "Principiante",
     "type": "Compuesto",
@@ -303,14 +461,29 @@
       "Despegar la pelvis del respaldo.",
       "Bloquear las rodillas.",
       "Descender sin control."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/prensa-de-piernas.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
   },
   {
     "id": "piernas-rumano",
     "name": "Peso muerto rumano",
     "category": "Piernas",
-    "primaryMuscles": ["Isquiotibiales", "Glúteos"],
-    "secondaryMuscles": ["Erectores espinales"],
+    "primaryMuscles": [
+      "Isquiotibiales",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Erectores espinales"
+    ],
     "equipment": "Barra o mancuernas",
     "level": "Intermedio",
     "type": "Compuesto",
@@ -328,15 +501,27 @@
       "Redondear la espalda.",
       "Alejar demasiado la carga del cuerpo.",
       "Flexionar excesivamente las rodillas."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
-
   {
     "id": "gluteos-hip-thrust",
     "name": "Hip thrust",
     "category": "Glúteos",
-    "primaryMuscles": ["Glúteo mayor"],
-    "secondaryMuscles": ["Isquiotibiales"],
+    "primaryMuscles": [
+      "Glúteo mayor"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
     "equipment": "Banco y barra o máquina",
     "level": "Principiante",
     "type": "Compuesto",
@@ -354,14 +539,27 @@
       "Hiperextender la zona lumbar.",
       "Utilizar una carga excesiva.",
       "Perder la posición de los pies."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
   {
     "id": "gluteos-abduccion",
     "name": "Abducción de cadera",
     "category": "Glúteos",
-    "primaryMuscles": ["Glúteo medio"],
-    "secondaryMuscles": ["Glúteo menor"],
+    "primaryMuscles": [
+      "Glúteo medio"
+    ],
+    "secondaryMuscles": [
+      "Glúteo menor"
+    ],
     "equipment": "Máquina",
     "level": "Principiante",
     "type": "Aislamiento",
@@ -379,14 +577,24 @@
       "Utilizar impulso.",
       "Mover excesivamente el torso.",
       "Usar una carga que impida controlar el movimiento."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
-
   {
     "id": "abdomen-crunch",
     "name": "Crunch abdominal",
     "category": "Abdomen",
-    "primaryMuscles": ["Recto abdominal"],
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
     "secondaryMuscles": [],
     "equipment": "Peso corporal o máquina",
     "level": "Principiante",
@@ -405,14 +613,28 @@
       "Tirar de la cabeza.",
       "Realizar movimientos bruscos.",
       "Buscar velocidad en lugar de control."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   },
   {
     "id": "abdomen-plancha",
     "name": "Plancha",
     "category": "Abdomen",
-    "primaryMuscles": ["Core"],
-    "secondaryMuscles": ["Recto abdominal", "Oblicuos"],
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Recto abdominal",
+      "Oblicuos"
+    ],
     "equipment": "Peso corporal",
     "level": "Principiante",
     "type": "Isométrico",
@@ -430,6 +652,3857 @@
       "Dejar caer la cadera.",
       "Elevar demasiado la cadera.",
       "Contener la respiración."
-    ]
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-declinado-con-barra",
+    "name": "Press declinado con barra",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Barra y banco declinado",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-12",
+    "rest": "90-120 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-con-mancuernas",
+    "name": "Press con mancuernas",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Mancuernas y banco",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-inclinado-con-mancuernas",
+    "name": "Press inclinado con mancuernas",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral superior"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Mancuernas y banco inclinado",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral superior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-declinado-con-mancuernas",
+    "name": "Press declinado con mancuernas",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps"
+    ],
+    "equipment": "Mancuernas y banco declinado",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-de-pecho-en-maquina",
+    "name": "Press de pecho en máquina",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-15",
+    "rest": "75-90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-pec-deck",
+    "name": "Pec Deck",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Deltoides anterior"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Pecho",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-cruce-de-poleas-alto",
+    "name": "Cruce de poleas alto",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Deltoides anterior"
+    ],
+    "equipment": "Poleas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Pecho",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-cruce-de-poleas-bajo",
+    "name": "Cruce de poleas bajo",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral superior"
+    ],
+    "secondaryMuscles": [
+      "Deltoides anterior"
+    ],
+    "equipment": "Poleas",
+    "level": "Intermedio",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral superior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Pecho",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-fondos-para-pecho",
+    "name": "Fondos para pecho",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Peso corporal o máquina asistida",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "6-12",
+    "rest": "90 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-flexiones-de-brazos",
+    "name": "Flexiones de brazos",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-20",
+    "rest": "60 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-flexiones-inclinadas",
+    "name": "Flexiones inclinadas",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-20",
+    "rest": "60 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-flexiones-declinadas",
+    "name": "Flexiones declinadas",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral superior"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Deltoides anterior"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-15",
+    "rest": "60 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral superior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-press-unilateral-en-polea",
+    "name": "Press unilateral en polea",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Core"
+    ],
+    "equipment": "Polea",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "pecho-aperturas-en-maquina",
+    "name": "Aperturas en máquina",
+    "category": "Pecho",
+    "primaryMuscles": [
+      "Pectoral mayor"
+    ],
+    "secondaryMuscles": [
+      "Deltoides anterior"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de pecho para desarrollar principalmente pectoral mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Pecho",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-remo-con-barra",
+    "name": "Remo con barra",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho",
+      "Romboides"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Trapecio"
+    ],
+    "equipment": "Barra",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-12",
+    "rest": "90-120 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho, romboides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-remo-en-maquina",
+    "name": "Remo en máquina",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho",
+      "Romboides"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Trapecio"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho, romboides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-remo-t",
+    "name": "Remo T",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho",
+      "Romboides"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Trapecio"
+    ],
+    "equipment": "Barra T",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho, romboides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-jalon-al-pecho-agarre-cerrado",
+    "name": "Jalón al pecho agarre cerrado",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Romboides"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-jalon-al-pecho-agarre-ancho",
+    "name": "Jalón al pecho agarre ancho",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Romboides"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-jalon-unilateral",
+    "name": "Jalón unilateral",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps"
+    ],
+    "equipment": "Polea",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-pullover-en-polea",
+    "name": "Pullover en polea",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Tríceps largo",
+      "Core"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-dominadas",
+    "name": "Dominadas",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Romboides"
+    ],
+    "equipment": "Barra fija",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "5-12",
+    "rest": "90-120 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-dominadas-asistidas",
+    "name": "Dominadas asistidas",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps"
+    ],
+    "equipment": "Máquina asistida",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "6-12",
+    "rest": "90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-remo-unilateral-en-polea",
+    "name": "Remo unilateral en polea",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Romboides",
+      "Bíceps"
+    ],
+    "equipment": "Polea",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-remo-sentado-agarre-ancho",
+    "name": "Remo sentado agarre ancho",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Romboides",
+      "Dorsal ancho"
+    ],
+    "secondaryMuscles": [
+      "Bíceps",
+      "Trapecio"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente romboides, dorsal ancho.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-hiperextensiones",
+    "name": "Hiperextensiones",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Erectores espinales"
+    ],
+    "secondaryMuscles": [
+      "Glúteos",
+      "Isquiotibiales"
+    ],
+    "equipment": "Banco romano",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente erectores espinales.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Espalda",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "espalda-peso-muerto-convencional",
+    "name": "Peso muerto convencional",
+    "category": "Espalda",
+    "primaryMuscles": [
+      "Erectores espinales",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales",
+      "Trapecio"
+    ],
+    "equipment": "Barra",
+    "level": "Avanzado",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "3-8",
+    "rest": "120-180 s",
+    "description": "Ejercicio de espalda para desarrollar principalmente erectores espinales, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Espalda",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-press-militar-con-barra",
+    "name": "Press militar con barra",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides"
+    ],
+    "secondaryMuscles": [
+      "Tríceps",
+      "Trapecio"
+    ],
+    "equipment": "Barra",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-12",
+    "rest": "90 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-press-arnold",
+    "name": "Press Arnold",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides"
+    ],
+    "secondaryMuscles": [
+      "Tríceps"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-press-de-hombros-en-maquina",
+    "name": "Press de hombros en máquina",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides"
+    ],
+    "secondaryMuscles": [
+      "Tríceps"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-elevaciones-frontales",
+    "name": "Elevaciones frontales",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides anterior"
+    ],
+    "secondaryMuscles": [
+      "Pectoral superior"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides anterior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-elevacion-lateral-unilateral",
+    "name": "Elevación lateral unilateral",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides lateral"
+    ],
+    "secondaryMuscles": [
+      "Trapecio"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides lateral.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-pajaros-con-mancuernas",
+    "name": "Pájaros con mancuernas",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides posterior"
+    ],
+    "secondaryMuscles": [
+      "Romboides",
+      "Trapecio"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides posterior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-pajaros-en-maquina",
+    "name": "Pájaros en máquina",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides posterior"
+    ],
+    "secondaryMuscles": [
+      "Romboides"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides posterior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-face-pull",
+    "name": "Face pull",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides posterior"
+    ],
+    "secondaryMuscles": [
+      "Trapecio",
+      "Romboides"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides posterior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-remo-al-menton",
+    "name": "Remo al mentón",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides lateral",
+      "Trapecio"
+    ],
+    "secondaryMuscles": [
+      "Bíceps"
+    ],
+    "equipment": "Barra",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides lateral, trapecio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "hombros-elevaciones-laterales-en-maquina",
+    "name": "Elevaciones laterales en máquina",
+    "category": "Hombros",
+    "primaryMuscles": [
+      "Deltoides lateral"
+    ],
+    "secondaryMuscles": [
+      "Trapecio"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de hombros para desarrollar principalmente deltoides lateral.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Hombros",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-con-barra",
+    "name": "Curl con barra",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial",
+      "Antebrazo"
+    ],
+    "equipment": "Barra",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "60-75 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0/biceps/barbell-curl.gif",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": true
+    }
+  },
+  {
+    "id": "biceps-curl-con-barra-ez",
+    "name": "Curl con barra EZ",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial",
+      "Antebrazo"
+    ],
+    "equipment": "Barra EZ",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "60-75 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-martillo",
+    "name": "Curl martillo",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Braquial",
+      "Braquiorradial"
+    ],
+    "secondaryMuscles": [
+      "Bíceps"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "60 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente braquial, braquiorradial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "assets/exercises/curl-martillo.gif",
+      "source": "Strong Gym",
+      "attribution": "Demostración generada para Strong Gym",
+      "available": true,
+      "local": true
+    }
+  },
+  {
+    "id": "biceps-curl-inclinado",
+    "name": "Curl inclinado",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
+    "equipment": "Mancuernas y banco",
+    "level": "Intermedio",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "60-75 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-predicador",
+    "name": "Curl predicador",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
+    "equipment": "Banco predicador",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-concentrado",
+    "name": "Curl concentrado",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
+    "equipment": "Mancuerna",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-en-polea-baja",
+    "name": "Curl en polea baja",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "biceps-curl-unilateral-en-polea",
+    "name": "Curl unilateral en polea",
+    "category": "Bíceps",
+    "primaryMuscles": [
+      "Bíceps braquial"
+    ],
+    "secondaryMuscles": [
+      "Braquial"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de bíceps para desarrollar principalmente bíceps braquial.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-press-frances",
+    "name": "Press francés",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Barra EZ",
+    "level": "Intermedio",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "60-90 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-extension-de-triceps-sobre-la-cabeza",
+    "name": "Extensión de tríceps sobre la cabeza",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Mancuerna",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-extension-unilateral-en-polea",
+    "name": "Extensión unilateral en polea",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-extension-con-cuerda",
+    "name": "Extensión con cuerda",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-fondos-en-paralelas",
+    "name": "Fondos en paralelas",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [
+      "Pectoral",
+      "Deltoides anterior"
+    ],
+    "equipment": "Paralelas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "6-12",
+    "rest": "90 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-press-cerrado",
+    "name": "Press cerrado",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [
+      "Pectoral",
+      "Deltoides anterior"
+    ],
+    "equipment": "Barra y banco",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "6-12",
+    "rest": "90 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "triceps-patada-de-triceps",
+    "name": "Patada de tríceps",
+    "category": "Tríceps",
+    "primaryMuscles": [
+      "Tríceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Mancuerna",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de tríceps para desarrollar principalmente tríceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-sentadilla-frontal",
+    "name": "Sentadilla frontal",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps"
+    ],
+    "secondaryMuscles": [
+      "Glúteos",
+      "Core"
+    ],
+    "equipment": "Barra",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "6-10",
+    "rest": "90-120 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-hack-squat",
+    "name": "Hack squat",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Máquina",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-extension-de-cuadriceps",
+    "name": "Extensión de cuádriceps",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-75 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-zancadas-con-mancuernas",
+    "name": "Zancadas con mancuernas",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75-90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-zancadas-caminando",
+    "name": "Zancadas caminando",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-16",
+    "rest": "75-90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-sentadilla-bulgara",
+    "name": "Sentadilla búlgara",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-step-up",
+    "name": "Step up",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Banco y mancuernas",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "75 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-sentadilla-goblet",
+    "name": "Sentadilla goblet",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Core"
+    ],
+    "equipment": "Mancuerna",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "75 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-sentadilla-en-smith",
+    "name": "Sentadilla en Smith",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Máquina Smith",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3-4",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-curl-femoral-tumbado",
+    "name": "Curl femoral tumbado",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "secondaryMuscles": [
+      "Gemelos"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-75 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente isquiotibiales.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-curl-femoral-sentado",
+    "name": "Curl femoral sentado",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-75 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente isquiotibiales.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-curl-femoral-unilateral",
+    "name": "Curl femoral unilateral",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente isquiotibiales.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "piernas-peso-muerto-rumano-con-mancuernas",
+    "name": "Peso muerto rumano con mancuernas",
+    "category": "Piernas",
+    "primaryMuscles": [
+      "Isquiotibiales",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Erectores espinales"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de piernas para desarrollar principalmente isquiotibiales, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Piernas",
+    "media": {
+      "type": "gif",
+      "url": "https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0/glutes/dumbbell-romanian-deadlift.gif",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": true
+    }
+  },
+  {
+    "id": "gluteos-glute-bridge",
+    "name": "Glute bridge",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo mayor"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Peso corporal o barra",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gluteos-hip-thrust-con-mancuerna",
+    "name": "Hip thrust con mancuerna",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo mayor"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Mancuerna y banco",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "75-90 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gluteos-patada-de-gluteo-en-polea",
+    "name": "Patada de glúteo en polea",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo mayor"
+    ],
+    "secondaryMuscles": [
+      "Isquiotibiales"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gluteos-patada-de-gluteo-en-maquina",
+    "name": "Patada de glúteo en máquina",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo mayor"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-15",
+    "rest": "60 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo mayor.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gluteos-abduccion-de-cadera-en-polea",
+    "name": "Abducción de cadera en polea",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo medio"
+    ],
+    "secondaryMuscles": [
+      "Glúteo menor"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "60 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo medio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gluteos-abduccion-con-banda",
+    "name": "Abducción con banda",
+    "category": "Glúteos",
+    "primaryMuscles": [
+      "Glúteo medio"
+    ],
+    "secondaryMuscles": [
+      "Glúteo menor"
+    ],
+    "equipment": "Banda elástica",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "15-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio de glúteos para desarrollar principalmente glúteo medio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Mantener el control durante el movimiento.",
+      "Mantener las articulaciones alineadas.",
+      "Regresar de forma controlada."
+    ],
+    "errors": [
+      "Perder la estabilidad.",
+      "Utilizar impulso.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Glúteos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gemelos-elevacion-de-talones-de-pie",
+    "name": "Elevación de talones de pie",
+    "category": "Gemelos",
+    "primaryMuscles": [
+      "Gastrocnemio"
+    ],
+    "secondaryMuscles": [
+      "Sóleo"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-20",
+    "rest": "60 s",
+    "description": "Ejercicio de gemelos para desarrollar principalmente gastrocnemio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Gemelos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gemelos-elevacion-de-talones-sentado",
+    "name": "Elevación de talones sentado",
+    "category": "Gemelos",
+    "primaryMuscles": [
+      "Sóleo"
+    ],
+    "secondaryMuscles": [
+      "Gastrocnemio"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "60 s",
+    "description": "Ejercicio de gemelos para desarrollar principalmente sóleo.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Gemelos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "gemelos-elevacion-de-talones-en-prensa",
+    "name": "Elevación de talones en prensa",
+    "category": "Gemelos",
+    "primaryMuscles": [
+      "Gastrocnemio"
+    ],
+    "secondaryMuscles": [
+      "Sóleo"
+    ],
+    "equipment": "Prensa",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "60 s",
+    "description": "Ejercicio de gemelos para desarrollar principalmente gastrocnemio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Gemelos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "trapecio-encogimientos-con-barra",
+    "name": "Encogimientos con barra",
+    "category": "Trapecio",
+    "primaryMuscles": [
+      "Trapecio superior"
+    ],
+    "secondaryMuscles": [
+      "Antebrazos"
+    ],
+    "equipment": "Barra",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de trapecio para desarrollar principalmente trapecio superior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "trapecio-encogimientos-con-mancuernas",
+    "name": "Encogimientos con mancuernas",
+    "category": "Trapecio",
+    "primaryMuscles": [
+      "Trapecio superior"
+    ],
+    "secondaryMuscles": [
+      "Antebrazos"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de trapecio para desarrollar principalmente trapecio superior.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "antebrazos-curl-de-muneca",
+    "name": "Curl de muñeca",
+    "category": "Antebrazos",
+    "primaryMuscles": [
+      "Flexores del antebrazo"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio de antebrazos para desarrollar principalmente flexores del antebrazo.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "antebrazos-curl-inverso-de-muneca",
+    "name": "Curl inverso de muñeca",
+    "category": "Antebrazos",
+    "primaryMuscles": [
+      "Extensores del antebrazo"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio de antebrazos para desarrollar principalmente extensores del antebrazo.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-crunch-en-maquina",
+    "name": "Crunch en máquina",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
+    "secondaryMuscles": [
+      "Oblicuos"
+    ],
+    "equipment": "Máquina",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente recto abdominal.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-crunch-en-polea",
+    "name": "Crunch en polea",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
+    "secondaryMuscles": [
+      "Oblicuos"
+    ],
+    "equipment": "Polea",
+    "level": "Principiante",
+    "type": "Aislamiento",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente recto abdominal.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-elevacion-de-piernas",
+    "name": "Elevación de piernas",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
+    "secondaryMuscles": [
+      "Flexores de cadera"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-15",
+    "rest": "60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente recto abdominal.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-elevacion-de-rodillas",
+    "name": "Elevación de rodillas",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
+    "secondaryMuscles": [
+      "Flexores de cadera"
+    ],
+    "equipment": "Barra fija",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-15",
+    "rest": "60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente recto abdominal.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-plancha-lateral",
+    "name": "Plancha lateral",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Oblicuos"
+    ],
+    "secondaryMuscles": [
+      "Core"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Isométrico",
+    "sets": "3",
+    "reps": "20-60 s",
+    "rest": "45-60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente oblicuos.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-dead-bug",
+    "name": "Dead bug",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Recto abdominal",
+      "Oblicuos"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "45-60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente core.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-pallof-press",
+    "name": "Pallof press",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Oblicuos"
+    ],
+    "equipment": "Polea o banda",
+    "level": "Principiante",
+    "type": "Isométrico",
+    "sets": "3",
+    "reps": "10-15",
+    "rest": "45-60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente core.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-russian-twist",
+    "name": "Russian twist",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Oblicuos"
+    ],
+    "secondaryMuscles": [
+      "Recto abdominal"
+    ],
+    "equipment": "Peso corporal o disco",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "12-20",
+    "rest": "45-60 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente oblicuos.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "abdomen-ab-wheel",
+    "name": "Ab wheel",
+    "category": "Abdomen",
+    "primaryMuscles": [
+      "Recto abdominal"
+    ],
+    "secondaryMuscles": [
+      "Dorsal ancho",
+      "Core"
+    ],
+    "equipment": "Rueda abdominal",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "6-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de abdomen para desarrollar principalmente recto abdominal.",
+    "technique": [
+      "Activar el core antes de iniciar.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener una respiración regular.",
+      "Evitar utilizar impulso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Realizar el movimiento demasiado rápido."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Abdomen",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cardio-caminata-en-cinta",
+    "name": "Caminata en cinta",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Piernas"
+    ],
+    "equipment": "Cinta de correr",
+    "level": "Principiante",
+    "type": "Cardio",
+    "sets": "1",
+    "reps": "10-30 min",
+    "rest": "—",
+    "description": "Ejercicio de cardio para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cardio",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cardio-caminata-inclinada",
+    "name": "Caminata inclinada",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Glúteos",
+      "Cuádriceps"
+    ],
+    "equipment": "Cinta de correr",
+    "level": "Principiante",
+    "type": "Cardio",
+    "sets": "1",
+    "reps": "10-30 min",
+    "rest": "—",
+    "description": "Ejercicio de cardio para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cardio",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cardio-bicicleta-estatica",
+    "name": "Bicicleta estática",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "equipment": "Bicicleta",
+    "level": "Principiante",
+    "type": "Cardio",
+    "sets": "1",
+    "reps": "10-30 min",
+    "rest": "—",
+    "description": "Ejercicio de cardio para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cardio",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cardio-eliptica",
+    "name": "Elíptica",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "equipment": "Elíptica",
+    "level": "Principiante",
+    "type": "Cardio",
+    "sets": "1",
+    "reps": "10-30 min",
+    "rest": "—",
+    "description": "Ejercicio de cardio para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cardio",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cardio-remo-ergometro",
+    "name": "Remo ergómetro",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Espalda",
+      "Piernas"
+    ],
+    "equipment": "Remo",
+    "level": "Intermedio",
+    "type": "Cardio",
+    "sets": "1",
+    "reps": "10-30 min",
+    "rest": "—",
+    "description": "Ejercicio de cardio para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cardio",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-kettlebell-swing",
+    "name": "Kettlebell swing",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Glúteos",
+      "Isquiotibiales"
+    ],
+    "secondaryMuscles": [
+      "Core",
+      "Espalda"
+    ],
+    "equipment": "Kettlebell",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "10-20",
+    "rest": "60-90 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente glúteos, isquiotibiales.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-farmer-walk",
+    "name": "Farmer walk",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Antebrazos",
+      "Trapecio"
+    ],
+    "secondaryMuscles": [
+      "Core",
+      "Piernas"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Principiante",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "20-40 m",
+    "rest": "60-90 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente antebrazos, trapecio.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-thruster-con-mancuernas",
+    "name": "Thruster con mancuernas",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Deltoides"
+    ],
+    "secondaryMuscles": [
+      "Glúteos",
+      "Tríceps",
+      "Core"
+    ],
+    "equipment": "Mancuernas",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "8-12",
+    "rest": "90 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente cuádriceps, deltoides.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "arms",
+    "muscleGroup": "Brazos",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-turkish-get-up",
+    "name": "Turkish get up",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Hombros",
+      "Glúteos",
+      "Piernas"
+    ],
+    "equipment": "Kettlebell",
+    "level": "Avanzado",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "3-6",
+    "rest": "90-120 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente core.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-burpee",
+    "name": "Burpee",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Sistema cardiovascular"
+    ],
+    "secondaryMuscles": [
+      "Pectoral",
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Intermedio",
+    "type": "Cardio",
+    "sets": "3",
+    "reps": "8-15",
+    "rest": "60-90 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente sistema cardiovascular.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0/cardio/burpee.gif",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": true
+    }
+  },
+  {
+    "id": "cuerpo-completo-mountain-climbers",
+    "name": "Mountain climbers",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Deltoides",
+      "Cuádriceps"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Principiante",
+    "type": "Cardio",
+    "sets": "3",
+    "reps": "20-40",
+    "rest": "45-60 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente core.",
+    "technique": [
+      "Adoptar una postura estable.",
+      "Comenzar a una intensidad controlada.",
+      "Mantener un ritmo constante.",
+      "Aumentar progresivamente la intensidad."
+    ],
+    "errors": [
+      "Comenzar con una intensidad excesiva.",
+      "Perder la postura.",
+      "No adaptar la intensidad al nivel individual."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-bear-crawl",
+    "name": "Bear crawl",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Core"
+    ],
+    "secondaryMuscles": [
+      "Hombros",
+      "Piernas"
+    ],
+    "equipment": "Peso corporal",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "20-40 m",
+    "rest": "60 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente core.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
+  },
+  {
+    "id": "cuerpo-completo-sled-push",
+    "name": "Sled push",
+    "category": "Cuerpo completo",
+    "primaryMuscles": [
+      "Cuádriceps",
+      "Glúteos"
+    ],
+    "secondaryMuscles": [
+      "Gemelos",
+      "Core"
+    ],
+    "equipment": "Trineo",
+    "level": "Intermedio",
+    "type": "Compuesto",
+    "sets": "3",
+    "reps": "15-30 m",
+    "rest": "90 s",
+    "description": "Ejercicio de cuerpo completo para desarrollar principalmente cuádriceps, glúteos.",
+    "technique": [
+      "Adoptar una posición estable.",
+      "Realizar el movimiento de forma controlada.",
+      "Mantener activa la musculatura objetivo.",
+      "Controlar la fase de regreso."
+    ],
+    "errors": [
+      "Utilizar impulso.",
+      "Perder la posición corporal.",
+      "Utilizar una carga excesiva."
+    ],
+    "bodyPart": "",
+    "muscleGroup": "Cuerpo completo",
+    "media": {
+      "type": "gif",
+      "url": "",
+      "source": "ExerciseGymGifsDB",
+      "attribution": "GIF © sus respectivos autores",
+      "available": false
+    }
   }
 ]
