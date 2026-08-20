@@ -13305,37 +13305,136 @@ function updateStrongGymCoach(){
                      * SCORE DE RENDIMIENTO
                      */
 
-                    let exerciseScore =
-                        completion;
+                    let exerciseScore = 60;
+
+
+                    /*
+                     * SCORE INDIVIDUAL
+                     *
+                     * 40% series completadas
+                     * 30% progresión de carga
+                     * 20% RIR
+                     * 10% consistencia
+                     */
+
+                    const completionScore =
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                completion
+                            )
+                        );
+
+
+                    let progressionScore =
+                        70;
+
+
+                    if(
+                        previousWeight > 0
+                    ){
+
+                        if(
+                            bestWeight >
+                            previousWeight
+                        ){
+
+                            progressionScore =
+                                100;
+
+                        }else if(
+                            bestWeight ===
+                            previousWeight
+                        ){
+
+                            progressionScore =
+                                75;
+
+                        }else{
+
+                            progressionScore =
+                                40;
+
+                        }
+
+                    }
+
+
+                    let rirScore =
+                        70;
+
 
                     if(
                         rir !== null
                     ){
 
-                        if(rir >= 3){
+                        if(
+                            rir >= 3
+                        ){
 
-                            exerciseScore += 10;
+                            rirScore =
+                                100;
 
-                        }else if(rir >= 2){
+                        }else if(
+                            rir >= 2
+                        ){
 
-                            exerciseScore += 5;
+                            rirScore =
+                                85;
 
-                        }else if(rir < 1){
+                        }else if(
+                            rir >= 1
+                        ){
 
-                            exerciseScore -= 10;
+                            rirScore =
+                                65;
+
+                        }else{
+
+                            rirScore =
+                                40;
 
                         }
 
                     }
+
+
+                    const consistencyScore =
+                        history.length >= 4
+                            ? 100
+                            : history.length >= 2
+                                ? 80
+                                : 60;
+
+
+                    exerciseScore =
+                        Math.round(
+                            (
+                                completionScore *
+                                0.40
+                            ) +
+                            (
+                                progressionScore *
+                                0.30
+                            ) +
+                            (
+                                rirScore *
+                                0.20
+                            ) +
+                            (
+                                consistencyScore *
+                                0.10
+                            )
+                        );
+
 
                     exerciseScore =
                         Math.max(
                             0,
                             Math.min(
                                 100,
-                                Math.round(
-                                    exerciseScore
-                                )
+                                exerciseScore
                             )
                         );
 
@@ -13488,6 +13587,29 @@ function updateStrongGymCoach(){
                                 <h3>
                                     ${exerciseName(exercise)}
                                 </h3>
+
+                                <div
+                                    style="
+                                        text-align:center;
+                                        padding:8px 14px;
+                                        border-radius:12px;
+                                        background:#f9fafb;
+                                    "
+                                >
+                                    <small>
+                                        📊 Rendimiento
+                                    </small>
+
+                                    <strong
+                                        style="
+                                            display:block;
+                                            font-size:24px;
+                                            margin-top:3px;
+                                        "
+                                    >
+                                        ${exerciseScore}/100
+                                    </strong>
+                                </div>
 
                                 <strong>
                                     ${status}
