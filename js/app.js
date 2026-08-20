@@ -13616,6 +13616,467 @@ function updateStrongGymCoach(){
 
 
 /* =========================================================
+   SCORE REAL DE STRONG GYM COACH
+   ========================================================= */
+
+function updateStrongGymCoachScore(){
+
+    const scoreElement =
+        document.getElementById(
+            "strongGymCoachScoreValue"
+        );
+
+    const labelElement =
+        document.getElementById(
+            "strongGymCoachScoreLabel"
+        );
+
+    if(
+        !scoreElement ||
+        !labelElement
+    ){
+
+        return;
+
+    }
+
+
+    let history = [];
+
+    try{
+
+        history =
+            JSON.parse(
+                localStorage.getItem(
+                    "strongGymWorkoutHistory"
+                ) || "[]"
+            );
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo leer el historial:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(history) ||
+        history.length === 0
+    ){
+
+        scoreElement.innerHTML =
+            '0<span>/100</span>';
+
+        labelElement.textContent =
+            "⚪ Sin datos";
+
+        return;
+
+    }
+
+
+    const workout =
+        history[0];
+
+
+    const exercises =
+        Array.isArray(
+            workout.exercises
+        )
+            ? workout.exercises
+            : [];
+
+
+    if(
+        exercises.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    let totalSets = 0;
+
+    let completedSets = 0;
+
+    let rirTotal = 0;
+
+    let rirCount = 0;
+
+    let progressionTotal = 0;
+
+    let progressionCount = 0;
+
+
+    exercises.forEach(
+        exercise => {
+
+            if(
+                !exercise ||
+                !Array.isArray(
+                    exercise.sets
+                )
+            ){
+
+                return;
+
+            }
+
+
+            const sets =
+                exercise.sets;
+
+
+            totalSets +=
+                sets.length;
+
+
+            const completed =
+                sets.filter(
+                    set =>
+                        set &&
+                        set.completed === true
+                );
+
+
+            completedSets +=
+                completed.length;
+
+
+            completed.forEach(
+                set => {
+
+                    const rir =
+                        Number(
+                            set.rir
+                        );
+
+                    if(
+                        Number.isFinite(
+                            rir
+                        )
+                    ){
+
+                        rirTotal +=
+                            rir;
+
+                        rirCount++;
+
+                    }
+
+                }
+            );
+
+
+            const currentWeight =
+                completed.reduce(
+                    (
+                        best,
+                        set
+                    ) =>
+                        Math.max(
+                            best,
+                            Number(
+                                set.weight
+                            ) || 0
+                        ),
+                    0
+                );
+
+
+            if(
+                currentWeight <= 0
+            ){
+
+                return;
+
+            }
+
+
+            /*
+             * Buscar la sesión anterior
+             * del mismo ejercicio.
+             */
+
+            let previousWeight = 0;
+
+
+            for(
+                let i = 1;
+                i < history.length;
+                i++
+            ){
+
+                const previousWorkout =
+                    history[i];
+
+
+                if(
+                    !previousWorkout ||
+                    !Array.isArray(
+                        previousWorkout.exercises
+                    )
+                ){
+
+                    continue;
+
+                }
+
+
+                const previous =
+                    previousWorkout.exercises.find(
+                        item => {
+
+                            if(
+                                exercise.id &&
+                                item &&
+                                item.id
+                            ){
+
+                                return String(
+                                    exercise.id
+                                ) ===
+                                String(
+                                    item.id
+                                );
+
+                            }
+
+
+                            return (
+                                String(
+                                    exercise.name ||
+                                    ""
+                                )
+                                    .trim()
+                                    .toLowerCase()
+                                ===
+                                String(
+                                    item &&
+                                    item.name ||
+                                    ""
+                                )
+                                    .trim()
+                                    .toLowerCase()
+                            );
+
+                        }
+                    );
+
+
+                if(
+                    previous &&
+                    Array.isArray(
+                        previous.sets
+                    )
+                ){
+
+                    previousWeight =
+                        previous.sets.reduce(
+                            (
+                                best,
+                                set
+                            ) =>
+                                Math.max(
+                                    best,
+                                    Number(
+                                        set.weight
+                                    ) || 0
+                                ),
+                            0
+                        );
+
+                    break;
+
+                }
+
+            }
+
+
+            if(
+                previousWeight > 0
+            ){
+
+                progressionCount++;
+
+
+                if(
+                    currentWeight >
+                    previousWeight
+                ){
+
+                    progressionTotal +=
+                        100;
+
+                }else if(
+                    currentWeight ===
+                    previousWeight
+                ){
+
+                    progressionTotal +=
+                        70;
+
+                }else{
+
+                    progressionTotal +=
+                        40;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /*
+     * 40% cumplimiento
+     */
+
+    const completionScore =
+        totalSets > 0
+            ? (
+                completedSets /
+                totalSets
+            ) * 100
+            : 0;
+
+
+    /*
+     * 30% progresión
+     */
+
+    const progressionScore =
+        progressionCount > 0
+            ? progressionTotal /
+              progressionCount
+            : 70;
+
+
+    /*
+     * 20% RIR
+     */
+
+    let rirScore = 70;
+
+
+    if(
+        rirCount > 0
+    ){
+
+        const averageRIR =
+            rirTotal /
+            rirCount;
+
+
+        if(
+            averageRIR >= 3
+        ){
+
+            rirScore = 100;
+
+        }else if(
+            averageRIR >= 2
+        ){
+
+            rirScore = 85;
+
+        }else if(
+            averageRIR >= 1
+        ){
+
+            rirScore = 65;
+
+        }else{
+
+            rirScore = 40;
+
+        }
+
+    }
+
+
+    /*
+     * 10% consistencia
+     */
+
+    const consistencyScore =
+        Math.min(
+            100,
+            history.length * 20
+        );
+
+
+    let score =
+        (
+            completionScore * 0.40
+        ) +
+        (
+            progressionScore * 0.30
+        ) +
+        (
+            rirScore * 0.20
+        ) +
+        (
+            consistencyScore * 0.10
+        );
+
+
+    score =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Math.round(score)
+            )
+        );
+
+
+    let label =
+        "🟠 Rendimiento moderado";
+
+
+    if(
+        score >= 85
+    ){
+
+        label =
+            "🟢 Excelente rendimiento";
+
+    }else if(
+        score >= 70
+    ){
+
+        label =
+            "🟡 Buen rendimiento";
+
+    }else if(
+        score < 50
+    ){
+
+        label =
+            "🔴 Rendimiento bajo";
+
+    }
+
+
+    scoreElement.innerHTML =
+        `${score}<span>/100</span>`;
+
+
+    labelElement.textContent =
+        label;
+
+}
+
+
+/* =========================================================
    ACTUALIZAR STRONG GYM COACH
    ========================================================= */
 
@@ -13641,6 +14102,16 @@ document.addEventListener(
         if(!button){
             return;
         }
+
+        setTimeout(
+            () => {
+
+                updateStrongGymCoach();
+                updateStrongGymCoachScore();
+
+            },
+            100
+        );
 
         setTimeout(
             () => {
