@@ -529,6 +529,34 @@ function showSection(sectionId) {
     );
 
 
+    /*
+     * =========================================================
+     * STRONG GYM - RECORDAR ÚLTIMA SECCIÓN
+     * =========================================================
+     *
+     * Guardamos solamente la pantalla actual.
+     *
+     * Esto permitirá recuperar la última pantalla
+     * después de una recarga accidental.
+     */
+
+    try {
+
+        localStorage.setItem(
+            "strongGymLastSection",
+            sectionId
+        );
+
+    } catch(error) {
+
+        console.warn(
+            "No se pudo guardar la última sección:",
+            error
+        );
+
+    }
+
+
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -16372,8 +16400,44 @@ document.addEventListener(
 
         updateWelcomeUser();
 
+        /*
+         * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
+         */
+
+        let initialSection =
+            "homeSection";
+
+        try {
+
+            const savedSection =
+                localStorage.getItem(
+                    "strongGymLastSection"
+                );
+
+            if (
+                savedSection &&
+                document.getElementById(
+                    savedSection
+                )
+            ) {
+
+                initialSection =
+                    savedSection;
+
+            }
+
+        } catch(error) {
+
+            console.warn(
+                "No se pudo recuperar la última pantalla:",
+                error
+            );
+
+        }
+
+
         showSection(
-            "homeSection"
+            initialSection
         );
 
         updateTimerDisplay();
@@ -18149,4 +18213,100 @@ document.addEventListener(
         }
     );
 
+
+/*
+ * =========================================================
+ * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
+ * =========================================================
+ *
+ * Si la aplicación se recarga o se vuelve a abrir,
+ * recupera la última sección visitada.
+ */
+
+
 })();
+
+
+/*
+ * =========================================================
+ * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
+ * =========================================================
+ */
+
+window.restoreStrongGymLastSection =
+    function(){
+
+        try{
+
+            const lastSection =
+                localStorage.getItem(
+                    "strongGymLastSection"
+                );
+
+
+            if(
+                !lastSection
+            ){
+
+                return;
+
+            }
+
+
+            const section =
+                document.getElementById(
+                    lastSection
+                );
+
+
+            if(
+                !section
+            ){
+
+                return;
+
+            }
+
+
+            showSection(
+                lastSection
+            );
+
+
+        }catch(error){
+
+            console.warn(
+                "No se pudo restaurar la última pantalla:",
+                error
+            );
+
+        }
+
+    };
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        setTimeout(
+            function(){
+
+                if(
+                    typeof window.restoreStrongGymLastSection
+                    ===
+                    "function"
+                ){
+
+                    window.restoreStrongGymLastSection();
+
+                }
+
+            },
+            500
+        );
+
+    }
+);
+
+
