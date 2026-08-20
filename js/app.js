@@ -14027,6 +14027,35 @@ function updateStrongGymCoachScore(){
             consistencyScore * 0.10
         );
 
+    /*
+     * Guardar componentes del Score
+     * para mostrarlos visualmente.
+     */
+
+    window.strongGymCoachScoreDetails = {
+
+        completion:
+            Math.round(
+                completionScore
+            ),
+
+        progression:
+            Math.round(
+                progressionScore
+            ),
+
+        rir:
+            Math.round(
+                rirScore
+            ),
+
+        consistency:
+            Math.round(
+                consistencyScore
+            )
+
+    };
+
 
     score =
         Math.max(
@@ -14073,6 +14102,73 @@ function updateStrongGymCoachScore(){
     labelElement.textContent =
         label;
 
+    renderStrongGymCoachScoreDetails();
+
+}
+
+
+function renderStrongGymCoachScoreDetails(){
+
+    const details =
+        window.strongGymCoachScoreDetails;
+
+    if(!details){
+        return;
+    }
+
+
+    const completion =
+        document.getElementById(
+            "coachScoreCompletion"
+        );
+
+    const progression =
+        document.getElementById(
+            "coachScoreProgression"
+        );
+
+    const rir =
+        document.getElementById(
+            "coachScoreRIR"
+        );
+
+    const consistency =
+        document.getElementById(
+            "coachScoreConsistency"
+        );
+
+
+    if(completion){
+
+        completion.textContent =
+            `${details.completion}/100`;
+
+    }
+
+
+    if(progression){
+
+        progression.textContent =
+            `${details.progression}/100`;
+
+    }
+
+
+    if(rir){
+
+        rir.textContent =
+            `${details.rir}/100`;
+
+    }
+
+
+    if(consistency){
+
+        consistency.textContent =
+            `${details.consistency}/100`;
+
+    }
+
 }
 
 
@@ -14085,6 +14181,15 @@ document.addEventListener(
     () => {
 
         updateStrongGymCoach();
+
+        setTimeout(
+            () => {
+
+                updateStrongGymCoachScore();
+
+            },
+            150
+        );
 
     }
 );
@@ -14107,16 +14212,15 @@ document.addEventListener(
             () => {
 
                 updateStrongGymCoach();
-                updateStrongGymCoachScore();
 
-            },
-            100
-        );
+                setTimeout(
+                    () => {
 
-        setTimeout(
-            () => {
+                        updateStrongGymCoachScore();
 
-                updateStrongGymCoach();
+                    },
+                    150
+                );
 
             },
             100
