@@ -978,7 +978,7 @@ function closeTimerModal() {
 
     if (timerModal) {
         timerModal.classList.remove("active");
-        
+
     }
 }
 
@@ -2005,7 +2005,65 @@ function showExerciseDetails(
                 color:#111827;
             }
 
-            @media(min-width:700px){
+
+        .routine-config-day-header{
+
+            margin:
+                22px
+                0
+                12px;
+
+            padding:
+                14px
+                16px;
+
+            border-radius:
+                16px;
+
+            background:
+                #f3f4f6;
+
+            border-left:
+                5px solid
+                var(--accent);
+
+        }
+
+
+        .routine-config-day-header h3{
+
+            margin:
+                0;
+
+            color:
+                #111827;
+
+            font-size:
+                18px;
+
+        }
+
+
+        .routine-config-day-header p{
+
+            margin:
+                5px
+                0
+                0;
+
+            color:
+                #6b7280;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        @media(min-width:700px){
 
                 .exercise-detail-modal{
                     align-items:center;
@@ -3127,6 +3185,59 @@ function openRoutineCreator() {
                 }
 
 
+                /*
+                 * STRONG GYM
+                 * BORRADOR DE RUTINA
+                 *
+                 * Guardamos inmediatamente el progreso
+                 * para evitar perder la rutina si la app
+                 * se cierra, recarga o se toca accidentalmente.
+                 */
+
+                const routineDraft = {
+
+                    name:
+                        routineName,
+
+                    days:
+                        selectedDays,
+
+                    currentDayIndex:
+                        0,
+
+                    dayPlans:
+                        selectedDays.map(
+                            day => ({
+
+                                day:
+                                    day,
+
+                                muscles:
+                                    [],
+
+                                exercises:
+                                    []
+
+                            })
+                        ),
+
+                    createdAt:
+                        new Date().toISOString(),
+
+                    updatedAt:
+                        new Date().toISOString()
+
+                };
+
+
+                localStorage.setItem(
+                    "strongGymRoutineDraft",
+                    JSON.stringify(
+                        routineDraft
+                    )
+                );
+
+
                 openRoutineExerciseSelector(
                     routineName,
                     selectedDays
@@ -3150,7 +3261,8 @@ function openRoutineCreator() {
 function openRoutineExerciseConfigurator(
     routineName,
     selectedDays,
-    selectedExercises
+    selectedExercises,
+    dayPlans = []
 ){
 
     let modal =
@@ -3660,30 +3772,149 @@ function openRoutineExerciseConfigurator(
         );
 
 
-    const exerciseSettings =
-        selectedExercises.map(
-            exercise => ({
+    /*
+     * =====================================================
+     * CONFIGURACIÓN SEPARADA POR DÍA
+     * =====================================================
+     */
 
-                id:
-                    exercise.id,
+    const exerciseSettings = [];
 
-                name:
-                    exercise.name,
 
-                sets:
-                    4,
+    dayPlans.forEach(
+        plan => {
 
-                reps:
-                    10,
+            if(
+                !plan ||
+                !Array.isArray(
+                    plan.exercises
+                )
+            ){
 
-                weight:
-                    0,
+                return;
 
-                rest:
-                    90
+            }
 
-            })
+
+            plan.exercises.forEach(
+                exercise => {
+
+                    exerciseSettings.push({
+
+                        ...exercise,
+
+                        id:
+                            exercise.id,
+
+                        name:
+                            exercise.name,
+
+                        day:
+                            plan.day,
+
+                        muscles:
+                            Array.isArray(
+                                plan.muscles
+                            )
+                                ? [
+                                    ...plan.muscles
+                                ]
+                                : [],
+
+                        sets:
+                            Number.isFinite(
+                                Number(exercise.sets)
+                            ) &&
+                            Number(exercise.sets) > 0
+                                ? Number(exercise.sets)
+                                : 4,
+
+                        reps:
+                            Number.isFinite(
+                                Number(exercise.reps)
+                            ) &&
+                            Number(exercise.reps) > 0
+                                ? Number(exercise.reps)
+                                : 10,
+
+                        weight:
+                            Number.isFinite(
+                                Number(exercise.weight)
+                            ) &&
+                            Number(exercise.weight) >= 0
+                                ? Number(exercise.weight)
+                                : 0,
+
+                        rest:
+                            Number.isFinite(
+                                Number(exercise.rest)
+                            ) &&
+                            Number(exercise.rest) >= 0
+                                ? Number(exercise.rest)
+                                : 90
+
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+    /*
+     * Compatibilidad con rutinas anteriores:
+     * si no recibimos dayPlans, usamos la lista
+     * plana existente.
+     */
+
+    if(
+        exerciseSettings.length === 0 &&
+        selectedExercises.length > 0
+    ){
+
+        selectedExercises.forEach(
+            exercise => {
+
+                exerciseSettings.push({
+
+                    ...exercise,
+
+                    id:
+                        exercise.id,
+
+                    name:
+                        exercise.name,
+
+                    day:
+                        selectedDays[0] ||
+                        "",
+
+                    muscles:
+                        [],
+
+                    sets:
+                        exercise.sets ||
+                        4,
+
+                    reps:
+                        exercise.reps ||
+                        10,
+
+                    weight:
+                        exercise.weight ||
+                        0,
+
+                    rest:
+                        exercise.rest ||
+                        90
+
+                });
+
+            }
         );
+
+    }
 
 
     exercisesContainer.innerHTML =
@@ -3691,10 +3922,50 @@ function openRoutineExerciseConfigurator(
             .map(
                 (item,index) => `
 
+                    ${
+                        index === 0 ||
+                        exerciseSettings[
+                            index - 1
+                        ].day !== item.day
+                            ? `
+                                <div
+                                    class="routine-config-day-header"
+                                >
+
+                                    <h3>
+                                        📅 ${escapeExerciseHTML(
+                                            item.day ||
+                                            "Día"
+                                        )}
+                                    </h3>
+
+                                    ${
+                                        item.muscles &&
+                                        item.muscles.length
+                                            ? `
+                                                <p>
+                                                    💪 ${escapeExerciseHTML(
+                                                        item.muscles.join(
+                                                            " + "
+                                                        )
+                                                    )}
+                                                </p>
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+                            `
+                            : ""
+                    }
+
                     <div
                         class="routine-config-exercise"
                         data-exercise-id="${escapeExerciseHTML(
                             item.id
+                        )}"
+                        data-exercise-day="${escapeExerciseHTML(
+                            item.day || ""
                         )}"
                     >
 
@@ -3847,7 +4118,149 @@ function openRoutineExerciseConfigurator(
                 modal
             ){
 
-                closeConfigurator();
+                /*
+                 * Cerrar toda la cadena de creación.
+                 *
+                 * Antes solamente se cerraba el configurador,
+                 * dejando abiertos el selector y el creador.
+                 */
+
+                if(
+                    typeof closeConfigurator ===
+                    "function"
+                ){
+
+                    closeConfigurator();
+
+                /*
+                 * =================================================
+                 * CIERRE DEFINITIVO DE LA CREACIÓN DE RUTINA
+                 * =================================================
+                 *
+                 * Eliminamos físicamente los modales relacionados
+                 * con la creación. No dependemos de la clase active.
+                 */
+
+
+                document
+                    .querySelectorAll(
+                        "#routineCreatorModal, .routine-creator-modal, #routineExerciseSelector, .routine-exercise-selector, #routineExerciseConfigurator, #routineExerciseConfigurator"
+                    )
+                    .forEach(
+                        element => {
+
+                            element.remove();
+
+                        }
+                    );
+
+
+                /*
+                 * También eliminar cualquier modal de configuración
+                 * que haya quedado abierto.
+                 */
+
+                const creatorModal =
+                    document.getElementById(
+                        "routineCreatorModal"
+                    );
+
+
+                if(creatorModal){
+
+                    creatorModal.remove();
+
+                }
+
+
+                /*
+                 * Actualizar la pantalla de Mis rutinas.
+                 */
+
+                if(
+                    typeof loadSavedRoutines ===
+                    "function"
+                ){
+
+                    loadSavedRoutines();
+
+                }
+
+
+
+                /*
+                 * Cerrar el modal real "Nueva rutina".
+                 */
+
+                const finalRoutineCreatorModal =
+                    document.getElementById(
+                        "routineCreatorModal"
+                    );
+
+
+                if(finalRoutineCreatorModal){
+
+                    finalRoutineCreatorModal.classList.remove(
+                        "active"
+                    );
+
+                }
+
+
+
+                }
+
+
+                const routineConfigurator =
+                    document.getElementById(
+                        "routineExerciseConfigurator"
+                    );
+
+                if(
+                    routineConfigurator
+                ){
+
+                    routineConfigurator.remove();
+
+                }
+
+
+                const routineSelector =
+                    document.getElementById(
+                        "routineExerciseSelector"
+                    );
+
+                if(
+                    routineSelector
+                ){
+
+                    routineSelector.remove();
+
+                }
+
+
+                document
+                    .querySelectorAll(
+                        ".routine-creator-modal, #routineCreatorModal"
+                    )
+                    .forEach(
+                        element =>
+                            element.remove()
+                    );
+
+
+                /*
+                 * Actualizar Mis rutinas inmediatamente.
+                 */
+
+                if(
+                    typeof loadSavedRoutines ===
+                    "function"
+                ){
+
+                    loadSavedRoutines();
+
+                }
 
             }
 
@@ -3877,7 +4290,23 @@ function openRoutineExerciseConfigurator(
                             card.dataset.exerciseId;
 
 
+                        const cardDay =
+                            card.dataset.exerciseDay ||
+                            "";
+
+
                         const original =
+                            selectedExercises.find(
+                                exercise =>
+                                    String(
+                                        exercise.id
+                                    ) ===
+                                    String(id) &&
+                                    String(
+                                        exercise.day || ""
+                                    ) ===
+                                    String(cardDay)
+                            ) ||
                             selectedExercises.find(
                                 exercise =>
                                     String(
@@ -3887,7 +4316,100 @@ function openRoutineExerciseConfigurator(
                             );
 
 
-                        const result = {
+                        if(!original){
+
+                            throw new Error(
+                                "No se encontró el ejercicio seleccionado."
+                            );
+
+                        }
+
+
+                        const setsInput =
+                            card.querySelector(
+                                '[data-field="sets"]'
+                            );
+
+
+                        const repsInput =
+                            card.querySelector(
+                                '[data-field="reps"]'
+                            );
+
+
+                        const weightInput =
+                            card.querySelector(
+                                '[data-field="weight"]'
+                            );
+
+
+                        const restInput =
+                            card.querySelector(
+                                '[data-field="rest"]'
+                            );
+
+
+                        const setsValue =
+                            Number(
+                                setsInput?.value
+                            );
+
+
+                        const repsValue =
+                            Number(
+                                repsInput?.value
+                            );
+
+
+                        const weightValue =
+                            Number(
+                                weightInput?.value
+                            );
+
+
+                        const restValue =
+                            Number(
+                                restInput?.value
+                            );
+
+
+                        const sets =
+                            Number.isFinite(
+                                setsValue
+                            ) &&
+                            setsValue > 0
+                                ? setsValue
+                                : 4;
+
+
+                        const reps =
+                            Number.isFinite(
+                                repsValue
+                            ) &&
+                            repsValue > 0
+                                ? repsValue
+                                : 10;
+
+
+                        const weight =
+                            Number.isFinite(
+                                weightValue
+                            ) &&
+                            weightValue >= 0
+                                ? weightValue
+                                : 0;
+
+
+                        const rest =
+                            Number.isFinite(
+                                restValue
+                            ) &&
+                            restValue >= 0
+                                ? restValue
+                                : 90;
+
+
+                        return {
 
                             ...original,
 
@@ -3897,52 +4419,24 @@ function openRoutineExerciseConfigurator(
                             name:
                                 original.name,
 
+                            day:
+                                original.day ||
+                                cardDay ||
+                                null,
+
                             sets:
-                                Number(
-                                    card.querySelector(
-                                        '[data-field="sets"]'
-                                    ).value
-                                ),
+                                sets,
 
                             reps:
-                                Number(
-                                    card.querySelector(
-                                        '[data-field="reps"]'
-                                    ).value
-                                ),
+                                reps,
 
                             weight:
-                                Number(
-                                    card.querySelector(
-                                        '[data-field="weight"]'
-                                    ).value
-                                ),
+                                weight,
 
                             rest:
-                                Number(
-                                    card.querySelector(
-                                        '[data-field="rest"]'
-                                    ).value
-                                )
+                                rest
 
                         };
-
-
-                        if(
-                            result.sets < 1 ||
-                            result.reps < 1 ||
-                            result.weight < 0 ||
-                            result.rest < 0
-                        ){
-
-                            throw new Error(
-                                "Los valores de entrenamiento no son válidos."
-                            );
-
-                        }
-
-
-                        return result;
 
                     }
                 );
@@ -3962,6 +4456,84 @@ function openRoutineExerciseConfigurator(
                     );
 
 
+                /*
+                 * =================================================
+                 * STRONG GYM - GUARDAR EJERCICIOS POR DÍA
+                 * =================================================
+                 */
+
+                const configuredDayPlans =
+                    Array.isArray(dayPlans)
+                        ? dayPlans.map(
+                            plan => {
+
+                                const planExercises =
+                                    Array.isArray(
+                                        plan.exercises
+                                    )
+                                        ? plan.exercises
+                                        : [];
+
+
+                                return {
+
+                                    ...plan,
+
+                                    day:
+                                        plan.day,
+
+                                    muscles:
+                                        Array.isArray(
+                                            plan.muscles
+                                        )
+                                            ? [
+                                                ...plan.muscles
+                                            ]
+                                            : [],
+
+                                    exercises:
+                                        planExercises.map(
+                                            exercise => {
+
+                                                const configured =
+                                                    configuredExercises.find(
+                                                        item =>
+                                                            String(
+                                                                item.id
+                                                            ) ===
+                                                            String(
+                                                                exercise.id
+                                                            ) &&
+                                                            String(
+                                                                item.day || ""
+                                                            ) ===
+                                                            String(
+                                                                plan.day || ""
+                                                            )
+                                                    );
+
+
+                                                return {
+
+                                                    ...exercise,
+
+                                                    ...(configured || {}),
+
+                                                    day:
+                                                        plan.day
+
+                                                };
+
+                                            }
+                                        )
+
+                                };
+
+                            }
+                        )
+                        : [];
+
+
                 const newRoutine = {
 
                     id:
@@ -3974,6 +4546,16 @@ function openRoutineExerciseConfigurator(
                     days:
                         selectedDays,
 
+                    /*
+                     * NUEVA ESTRUCTURA PRINCIPAL
+                     */
+                    dayPlans:
+                        configuredDayPlans,
+
+                    /*
+                     * Mantener ejercicios planos para
+                     * compatibilidad con el sistema anterior.
+                     */
                     exercises:
                         configuredExercises,
 
@@ -4035,6 +4617,74 @@ function openRoutineExerciseConfigurator(
 
                 closeConfigurator();
 
+
+                /*
+                 * Cerrar también el selector de ejercicios
+                 * que quedó debajo del configurador.
+                 *
+                 * Esto evita tener que presionar "Volver"
+                 * varias veces para regresar a Mis rutinas.
+                 */
+
+                const routineSelector =
+                    document.getElementById(
+                        "routineExerciseSelector"
+                    );
+
+
+                if(routineSelector){
+
+                    routineSelector.remove();
+
+                }
+
+
+                /*
+                 * Cerrar cualquier creador de rutina
+                 * que haya quedado abierto.
+                 */
+
+                const routineCreator =
+                    document.getElementById(
+                        "routineCreatorModal"
+                    );
+
+
+                if(routineCreator){
+
+                    routineCreator.classList.remove(
+                        "active"
+                    );
+
+                }
+
+
+                /*
+                 * Actualizar Mis rutinas inmediatamente.
+                 */
+
+                if(
+                    typeof loadSavedRoutines ===
+                    "function"
+                ){
+
+                    loadSavedRoutines();
+
+                }
+
+
+                if(
+                    typeof showSection ===
+                    "function"
+                ){
+
+                    showSection(
+                        "routinesSection"
+                    );
+
+                }
+
+
             }catch(error){
 
                 console.error(
@@ -4064,6 +4714,7 @@ function openRoutineExerciseConfigurator(
 
 }
 
+
 function openRoutineExerciseSelector(
     routineName,
     selectedDays
@@ -4074,496 +4725,352 @@ function openRoutineExerciseSelector(
             "routineExerciseSelector"
         );
 
-
     if(selector){
-
         selector.remove();
-
     }
-
 
     selector =
         document.createElement(
             "div"
         );
 
-
     selector.id =
         "routineExerciseSelector";
 
-
     selector.className =
         "routine-exercise-selector";
-
 
     document.body.appendChild(
         selector
     );
 
+    const draftKey =
+        "strongGymRoutineDraft";
+
+    let draft = null;
+
+    try{
+
+        draft =
+            JSON.parse(
+                localStorage.getItem(
+                    draftKey
+                ) || "null"
+            );
+
+    }catch(error){
+
+        draft = null;
+
+    }
+
+    if(
+        !draft ||
+        draft.name !== routineName
+    ){
+
+        draft = {
+
+            name:
+                routineName,
+
+            days:
+                selectedDays,
+
+            currentDayIndex:
+                0,
+
+            dayPlans:
+                selectedDays.map(
+                    day => ({
+
+                        day:
+                            day,
+
+                        muscles:
+                            [],
+
+                        exercises:
+                            []
+
+                    })
+                ),
+
+            createdAt:
+                new Date().toISOString(),
+
+            updatedAt:
+                new Date().toISOString()
+
+        };
+
+    }
+
+    if(
+        !Array.isArray(
+            draft.dayPlans
+        )
+    ){
+
+        draft.dayPlans =
+            selectedDays.map(
+                day => ({
+
+                    day:
+                        day,
+
+                    muscles:
+                        [],
+
+                    exercises:
+                        []
+
+                })
+            );
+
+    }
+
+    let currentDayIndex =
+        Number(
+            draft.currentDayIndex || 0
+        );
+
+    if(
+        currentDayIndex < 0 ||
+        currentDayIndex >= selectedDays.length
+    ){
+
+        currentDayIndex = 0;
+
+    }
+
+    function saveDraft(){
+
+        draft.currentDayIndex =
+            currentDayIndex;
+
+        draft.updatedAt =
+            new Date().toISOString();
+
+        localStorage.setItem(
+            draftKey,
+            JSON.stringify(
+                draft
+            )
+        );
+
+    }
 
     const style =
         document.createElement(
             "style"
         );
 
-
     style.id =
         "routineExerciseSelectorStyles";
-
 
     style.textContent = `
 
         .routine-exercise-selector{
-
             position:fixed;
-
             inset:0;
-
             z-index:1200;
-
             display:flex;
-
             align-items:flex-end;
-
             justify-content:center;
-
             padding:12px;
-
-            background:
-                rgba(17,24,39,.60);
-
+            background:rgba(17,24,39,.60);
             opacity:0;
-
             visibility:hidden;
-
-            transition:
-                opacity .2s ease,
-                visibility .2s ease;
-
         }
-
 
         .routine-exercise-selector.active{
-
             opacity:1;
-
             visibility:visible;
-
         }
 
-
         .routine-exercise-selector-card{
-
             width:100%;
-
             max-width:600px;
-
             max-height:92vh;
-
             overflow-y:auto;
-
             padding:22px;
-
-            border-radius:
-                28px
-                28px
-                18px
-                18px;
-
+            border-radius:28px 28px 18px 18px;
             background:#ffffff;
-
             box-shadow:
                 0 -12px 40px
                 rgba(0,0,0,.20);
-
-            transform:
-                translateY(20px);
-
-            transition:
-                transform .2s ease;
-
         }
 
-
-        .routine-exercise-selector.active
-        .routine-exercise-selector-card{
-
-            transform:
-                translateY(0);
-
-        }
-
-
-        .routine-exercise-selector-header{
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:space-between;
-
-            gap:12px;
-
-            margin-bottom:16px;
-
-        }
-
-
-        .routine-exercise-selector-header h2{
-
-            margin:0;
-
-            color:#111827;
-
-            font-size:23px;
-
-        }
-
-
-        .routine-exercise-selector-close{
-
-            width:40px;
-
-            height:40px;
-
-            border:none;
-
-            border-radius:50%;
-
-            background:#f3f4f6;
-
-            color:#111827;
-
+        .routine-day-title{
+            margin:0 0 4px;
             font-size:24px;
-
-            cursor:pointer;
-
+            color:#111827;
         }
 
-
-        .routine-exercise-selector-info{
-
-            margin:
-                0
-                0
-                18px;
-
+        .routine-day-progress{
+            margin:0 0 18px;
             color:#6b7280;
-
             font-size:13px;
-
-            line-height:1.5;
-
         }
 
+        .routine-muscle-grid{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+            margin-bottom:16px;
+        }
+
+        .routine-muscle-button{
+            border:1px solid #e5e7eb;
+            background:#ffffff;
+            color:#374151;
+            padding:9px 12px;
+            border-radius:12px;
+            font-size:12px;
+            font-weight:800;
+            cursor:pointer;
+        }
+
+        .routine-muscle-button.active{
+            background:var(--accent);
+            border-color:var(--accent);
+            color:#ffffff;
+        }
 
         .routine-exercise-search{
-
             width:100%;
-
             box-sizing:border-box;
-
             min-height:46px;
-
             margin-bottom:16px;
-
-            padding:
-                10px
-                14px;
-
-            border:
-                1px solid
-                #e5e7eb;
-
+            padding:10px 14px;
+            border:1px solid #e5e7eb;
             border-radius:14px;
-
             outline:none;
-
             font-size:14px;
-
         }
-
-
-        .routine-exercise-search:focus{
-
-            border-color:
-                var(--accent);
-
-        }
-
 
         .routine-exercise-list{
-
             display:flex;
-
             flex-direction:column;
-
             gap:8px;
-
-            max-height:48vh;
-
+            max-height:40vh;
             overflow-y:auto;
-
         }
-
 
         .routine-exercise-item{
-
             display:flex;
-
             align-items:center;
-
             justify-content:space-between;
-
             gap:12px;
-
             padding:12px;
-
-            border:
-                1px solid
-                #e5e7eb;
-
+            border:1px solid #e5e7eb;
             border-radius:15px;
-
             background:#ffffff;
-
         }
-
-
-        .routine-exercise-item-info{
-
-            min-width:0;
-
-        }
-
 
         .routine-exercise-item-name{
-
             margin:0;
-
             color:#111827;
-
             font-size:14px;
-
             font-weight:800;
-
         }
-
 
         .routine-exercise-item-muscle{
-
             display:block;
-
             margin-top:3px;
-
             color:#6b7280;
-
             font-size:11px;
-
         }
-
 
         .routine-exercise-add{
-
             flex-shrink:0;
-
             min-height:38px;
-
-            padding:
-                8px
-                13px;
-
+            padding:8px 13px;
             border:none;
-
             border-radius:11px;
-
-            background:
-                var(--accent);
-
+            background:var(--accent);
             color:#ffffff;
-
             font-size:12px;
-
             font-weight:800;
-
             cursor:pointer;
-
         }
-
 
         .routine-exercise-add.added{
-
             background:#e5e7eb;
-
             color:#6b7280;
-
             cursor:default;
-
         }
-
 
         .routine-selected-title{
-
-            margin:
-                22px
-                0
-                10px;
-
+            margin:22px 0 10px;
             color:#111827;
-
             font-size:16px;
-
         }
-
 
         .routine-selected-list{
-
             display:flex;
-
             flex-direction:column;
-
             gap:8px;
-
         }
-
 
         .routine-selected-item{
-
             display:flex;
-
             align-items:center;
-
             justify-content:space-between;
-
             gap:10px;
-
             padding:12px;
-
             border-radius:14px;
-
             background:#f9fafb;
-
-            border:
-                1px solid
-                #e5e7eb;
-
+            border:1px solid #e5e7eb;
         }
-
-
-        .routine-selected-number{
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            width:28px;
-
-            height:28px;
-
-            flex-shrink:0;
-
-            border-radius:50%;
-
-            background:
-                var(--accent);
-
-            color:#ffffff;
-
-            font-size:12px;
-
-            font-weight:800;
-
-        }
-
 
         .routine-selected-name{
-
             flex:1;
-
             color:#111827;
-
             font-size:13px;
-
             font-weight:700;
-
         }
-
 
         .routine-selected-remove{
-
             border:none;
-
             background:transparent;
-
             color:#dc2626;
-
             font-size:18px;
-
             cursor:pointer;
-
         }
-
 
         .routine-exercise-footer{
-
             display:flex;
-
             gap:10px;
-
             margin-top:20px;
-
         }
-
 
         .routine-exercise-footer button{
-
             flex:1;
-
             min-height:48px;
-
             border:none;
-
             border-radius:14px;
-
             font-size:14px;
-
             font-weight:800;
-
             cursor:pointer;
-
         }
 
-
-        .routine-exercise-cancel{
-
+        .routine-exercise-back{
             background:#f3f4f6;
-
             color:#111827;
-
         }
 
-
-        .routine-exercise-continue{
-
-            background:
-                var(--accent);
-
+        .routine-exercise-next{
+            background:var(--accent);
             color:#ffffff;
-
         }
 
     `;
 
-
     document.head.appendChild(
         style
     );
-
-
-    const selectedExercises = [];
-
 
     selector.innerHTML = `
 
@@ -4573,47 +5080,24 @@ function openRoutineExerciseSelector(
             aria-modal="true"
         >
 
-            <div
-                class="routine-exercise-selector-header"
-            >
-
-                <h2>
-                    ➕ Agregar ejercicios
-                </h2>
-
-
-                <button
-                    type="button"
-                    class="routine-exercise-selector-close"
-                    id="routineExerciseClose"
-                >
-                    ×
-                </button>
-
-            </div>
-
+            <h2
+                class="routine-day-title"
+                id="routineCurrentDayTitle"
+            ></h2>
 
             <p
-                class="routine-exercise-selector-info"
-            >
+                class="routine-day-progress"
+                id="routineDayProgress"
+            ></p>
 
-                <strong>
-                    ${escapeExerciseHTML(
-                        routineName
-                    )}
-                </strong>
+            <h3>
+                Grupos musculares
+            </h3>
 
-                <br>
-
-                Días:
-                ${escapeExerciseHTML(
-                    selectedDays.join(
-                        ", "
-                    )
-                )}
-
-            </p>
-
+            <div
+                class="routine-muscle-grid"
+                id="routineMuscleGrid"
+            ></div>
 
             <input
                 type="search"
@@ -4622,33 +5106,21 @@ function openRoutineExerciseSelector(
                 placeholder="🔎 Buscar ejercicio..."
             >
 
-
             <div
                 id="routineExerciseList"
                 class="routine-exercise-list"
             ></div>
 
-
             <h3
                 class="routine-selected-title"
             >
-                Ejercicios seleccionados
+                Ejercicios del día
             </h3>
-
 
             <div
                 id="routineSelectedList"
                 class="routine-selected-list"
-            >
-
-                <p
-                    class="routine-exercise-selector-info"
-                >
-                    Todavía no agregaste ejercicios.
-                </p>
-
-            </div>
-
+            ></div>
 
             <div
                 class="routine-exercise-footer"
@@ -4656,19 +5128,18 @@ function openRoutineExerciseSelector(
 
                 <button
                     type="button"
-                    class="routine-exercise-cancel"
-                    id="routineExerciseCancel"
+                    class="routine-exercise-back"
+                    id="routineExerciseBack"
                 >
-                    Volver
+                    ← Atrás
                 </button>
-
 
                 <button
                     type="button"
-                    class="routine-exercise-continue"
-                    id="routineExerciseContinue"
+                    class="routine-exercise-next"
+                    id="routineExerciseNext"
                 >
-                    Continuar →
+                    Siguiente →
                 </button>
 
             </div>
@@ -4677,146 +5148,308 @@ function openRoutineExerciseSelector(
 
     `;
 
+    const dayTitle =
+        selector.querySelector(
+            "#routineCurrentDayTitle"
+        );
+
+    const progress =
+        selector.querySelector(
+            "#routineDayProgress"
+        );
+
+    const muscleGrid =
+        selector.querySelector(
+            "#routineMuscleGrid"
+        );
 
     const exerciseList =
         selector.querySelector(
             "#routineExerciseList"
         );
 
-
     const selectedList =
         selector.querySelector(
             "#routineSelectedList"
         );
-
 
     const searchInput =
         selector.querySelector(
             "#routineExerciseSearch"
         );
 
+    const muscleNames = [
+        "Pecho",
+        "Espalda",
+        "Hombros",
+        "Bíceps",
+        "Tríceps",
+        "Piernas",
+        "Glúteos",
+        "Abdomen",
+        "Antebrazos",
+        "Pantorrillas"
+    ];
 
-    function renderExerciseSelector(){
+    function getCurrentPlan(){
+
+        if(
+            !draft.dayPlans[
+                currentDayIndex
+            ]
+        ){
+
+            draft.dayPlans[
+                currentDayIndex
+            ] = {
+
+                day:
+                    selectedDays[
+                        currentDayIndex
+                    ],
+
+                muscles:
+                    [],
+
+                exercises:
+                    []
+
+            };
+
+        }
+
+        return draft.dayPlans[
+            currentDayIndex
+        ];
+
+    }
+
+    function renderMuscles(){
+
+        const plan =
+            getCurrentPlan();
+
+        muscleGrid.innerHTML =
+            muscleNames
+                .map(
+                    muscle => `
+
+                        <button
+                            type="button"
+                            class="routine-muscle-button ${
+                                plan.muscles.includes(
+                                    muscle
+                                )
+                                    ? "active"
+                                    : ""
+                            }"
+                            data-muscle="${muscle}"
+                        >
+                            ${muscle}
+                        </button>
+
+                    `
+                )
+                .join("");
+
+        muscleGrid
+            .querySelectorAll(
+                ".routine-muscle-button"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const muscle =
+                                button.dataset.muscle;
+
+                            if(
+                                plan.muscles.includes(
+                                    muscle
+                                )
+                            ){
+
+                                plan.muscles =
+                                    plan.muscles.filter(
+                                        item =>
+                                            item !==
+                                            muscle
+                                    );
+
+                            }else{
+
+                                plan.muscles.push(
+                                    muscle
+                                );
+
+                            }
+
+                            saveDraft();
+
+                            renderMuscles();
+
+                            renderExercises();
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+    function renderExercises(){
+
+        const plan =
+            getCurrentPlan();
 
         const search =
             searchInput.value
                 .trim()
                 .toLowerCase();
 
-
         const filtered =
             exercisesDatabase.filter(
                 exercise => {
 
-                    const text = [
+                    const category =
+                        String(
+                            exercise.category ||
+                            ""
+                        ).toLowerCase();
 
-                        exercise.name,
+                    const primary =
+                        (
+                            exercise.primaryMuscles ||
+                            []
+                        )
+                            .join(" ")
+                            .toLowerCase();
 
-                        exercise.category,
+                    const secondary =
+                        (
+                            exercise.secondaryMuscles ||
+                            []
+                        )
+                            .join(" ")
+                            .toLowerCase();
 
-                        exercise.equipment,
+                    const name =
+                        String(
+                            exercise.name ||
+                            ""
+                        ).toLowerCase();
 
-                        ...(exercise.primaryMuscles || []),
+                    const muscleMatch =
+                        plan.muscles.length === 0 ||
+                        plan.muscles.some(
+                            muscle => {
 
-                        ...(exercise.secondaryMuscles || [])
+                                const m =
+                                    muscle.toLowerCase();
 
-                    ]
-                        .join(" ")
-                        .toLowerCase();
+                                return (
+                                    category.includes(m) ||
+                                    primary.includes(m) ||
+                                    secondary.includes(m)
+                                );
 
+                            }
+                        );
 
-                    return text.includes(
-                        search
+                    const searchMatch =
+                        !search ||
+                        name.includes(search) ||
+                        category.includes(search) ||
+                        primary.includes(search) ||
+                        secondary.includes(search);
+
+                    return (
+                        muscleMatch &&
+                        searchMatch
                     );
 
                 }
             );
 
-
         exerciseList.innerHTML =
-            filtered.map(
-                exercise => {
+            filtered
+                .map(
+                    exercise => {
 
-                    const id =
-                        String(
-                            exercise.id
-                        );
+                        const added =
+                            plan.exercises.some(
+                                item =>
+                                    String(
+                                        item.id
+                                    ) ===
+                                    String(
+                                        exercise.id
+                                    )
+                            );
 
-
-                    const added =
-                        selectedExercises.some(
-                            item =>
-                                String(item.id) ===
-                                id
-                        );
-
-
-                    return `
-
-                        <div
-                            class="routine-exercise-item"
-                        >
+                        return `
 
                             <div
-                                class="routine-exercise-item-info"
+                                class="routine-exercise-item"
                             >
 
-                                <p
-                                    class="routine-exercise-item-name"
+                                <div>
+
+                                    <p
+                                        class="routine-exercise-item-name"
+                                    >
+                                        ${escapeExerciseHTML(
+                                            exercise.name
+                                        )}
+                                    </p>
+
+                                    <span
+                                        class="routine-exercise-item-muscle"
+                                    >
+                                        ${escapeExerciseHTML(
+                                            exercise.category ||
+                                            ""
+                                        )}
+                                    </span>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="routine-exercise-add ${
+                                        added
+                                            ? "added"
+                                            : ""
+                                    }"
+                                    data-exercise-id="${escapeExerciseHTML(
+                                        String(
+                                            exercise.id
+                                        )
+                                    )}"
+                                    ${
+                                        added
+                                            ? "disabled"
+                                            : ""
+                                    }
                                 >
-
-                                    ${escapeExerciseHTML(
-                                        exercise.name
-                                    )}
-
-                                </p>
-
-
-                                <span
-                                    class="routine-exercise-item-muscle"
-                                >
-
-                                    ${escapeExerciseHTML(
-                                        exercise.category ||
-                                        ""
-                                    )}
-
-                                </span>
+                                    ${
+                                        added
+                                            ? "✓ Agregado"
+                                            : "＋ Agregar"
+                                    }
+                                </button>
 
                             </div>
 
+                        `;
 
-                            <button
-                                type="button"
-                                class="routine-exercise-add ${
-                                    added
-                                        ? "added"
-                                        : ""
-                                }"
-                                data-exercise-id="${escapeExerciseHTML(id)}"
-                                ${
-                                    added
-                                        ? "disabled"
-                                        : ""
-                                }
-                            >
-
-                                ${
-                                    added
-                                        ? "✓ Agregado"
-                                        : "＋ Agregar"
-                                }
-
-                            </button>
-
-                        </div>
-
-                    `;
-
-                }
-            )
-            .join("");
-
+                    }
+                )
+                .join("");
 
         exerciseList
             .querySelectorAll(
@@ -4832,37 +5465,48 @@ function openRoutineExerciseSelector(
                             const exercise =
                                 exercisesDatabase.find(
                                     item =>
-                                        String(item.id) ===
+                                        String(
+                                            item.id
+                                        ) ===
                                         String(
                                             button.dataset.exerciseId
                                         )
                                 );
 
-
                             if(!exercise){
                                 return;
                             }
 
+                            const plan =
+                                getCurrentPlan();
 
                             if(
-                                selectedExercises.some(
+                                plan.exercises.some(
                                     item =>
-                                        String(item.id) ===
-                                        String(exercise.id)
+                                        String(
+                                            item.id
+                                        ) ===
+                                        String(
+                                            exercise.id
+                                        )
                                 )
                             ){
+
                                 return;
+
                             }
 
-
-                            selectedExercises.push(
-                                exercise
+                            plan.exercises.push(
+                                {
+                                    ...exercise
+                                }
                             );
 
+                            saveDraft();
 
-                            renderExerciseSelector();
+                            renderExercises();
 
-                            renderSelectedExercises();
+                            renderSelected();
 
                         }
                     );
@@ -4872,67 +5516,52 @@ function openRoutineExerciseSelector(
 
     }
 
+    function renderSelected(){
 
-    function renderSelectedExercises(){
+        const plan =
+            getCurrentPlan();
 
         if(
-            selectedExercises.length ===
-            0
+            plan.exercises.length === 0
         ){
 
             selectedList.innerHTML = `
-
-                <p
-                    class="routine-exercise-selector-info"
-                >
+                <p>
                     Todavía no agregaste ejercicios.
                 </p>
-
             `;
 
             return;
 
         }
 
-
         selectedList.innerHTML =
-            selectedExercises
+            plan.exercises
                 .map(
-                    (exercise,index) => `
+                    exercise => `
 
                         <div
                             class="routine-selected-item"
                         >
 
                             <span
-                                class="routine-selected-number"
-                            >
-                                ${index + 1}
-                            </span>
-
-
-                            <span
                                 class="routine-selected-name"
                             >
-
                                 ${escapeExerciseHTML(
                                     exercise.name
                                 )}
-
                             </span>
-
 
                             <button
                                 type="button"
                                 class="routine-selected-remove"
                                 data-remove-id="${escapeExerciseHTML(
-                                    exercise.id
+                                    String(
+                                        exercise.id
+                                    )
                                 )}"
-                                aria-label="Eliminar ejercicio"
                             >
-
                                 ×
-
                             </button>
 
                         </div>
@@ -4940,7 +5569,6 @@ function openRoutineExerciseSelector(
                     `
                 )
                 .join("");
-
 
         selectedList
             .querySelectorAll(
@@ -4953,29 +5581,25 @@ function openRoutineExerciseSelector(
                         "click",
                         () => {
 
-                            const index =
-                                selectedExercises.findIndex(
+                            const plan =
+                                getCurrentPlan();
+
+                            plan.exercises =
+                                plan.exercises.filter(
                                     item =>
-                                        String(item.id) ===
+                                        String(
+                                            item.id
+                                        ) !==
                                         String(
                                             button.dataset.removeId
                                         )
                                 );
 
+                            saveDraft();
 
-                            if(index !== -1){
+                            renderExercises();
 
-                                selectedExercises.splice(
-                                    index,
-                                    1
-                                );
-
-                            }
-
-
-                            renderExerciseSelector();
-
-                            renderSelectedExercises();
+                            renderSelected();
 
                         }
                     );
@@ -4985,58 +5609,107 @@ function openRoutineExerciseSelector(
 
     }
 
-
     searchInput.addEventListener(
         "input",
-        renderExerciseSelector
+        () => {
+
+            renderExercises();
+
+        }
     );
 
-
     selector.querySelector(
-        "#routineExerciseClose"
-    ).addEventListener(
-        "click",
-        () => selector.remove()
-    );
-
-
-    selector.querySelector(
-        "#routineExerciseCancel"
-    ).addEventListener(
-        "click",
-        () => selector.remove()
-    );
-
-
-    selector.querySelector(
-        "#routineExerciseContinue"
+        "#routineExerciseBack"
     ).addEventListener(
         "click",
         () => {
 
             if(
-                selectedExercises.length ===
-                0
+                currentDayIndex === 0
+            ){
+
+                saveDraft();
+
+                selector.remove();
+
+                return;
+
+            }
+
+            currentDayIndex--;
+
+            saveDraft();
+
+            renderDay();
+
+        }
+    );
+
+    selector.querySelector(
+        "#routineExerciseNext"
+    ).addEventListener(
+        "click",
+        () => {
+
+            const plan =
+                getCurrentPlan();
+
+            if(
+                plan.muscles.length === 0
             ){
 
                 alert(
-                    "Agregá al menos un ejercicio a la rutina."
+                    "Seleccioná al menos un grupo muscular para este día."
                 );
 
                 return;
 
             }
 
+            if(
+                plan.exercises.length === 0
+            ){
+
+                alert(
+                    "Agregá al menos un ejercicio para este día."
+                );
+
+                return;
+
+            }
+
+            if(
+                currentDayIndex <
+                selectedDays.length - 1
+            ){
+
+                currentDayIndex++;
+
+                saveDraft();
+
+                renderDay();
+
+                return;
+
+            }
+
+            saveDraft();
+
+            const allExercises =
+                draft.dayPlans.flatMap(
+                    plan =>
+                        plan.exercises
+                );
 
             openRoutineExerciseConfigurator(
                 routineName,
                 selectedDays,
-                selectedExercises
+                allExercises,
+                draft.dayPlans
             );
 
         }
     );
-
 
     selector.addEventListener(
         "click",
@@ -5047,6 +5720,8 @@ function openRoutineExerciseSelector(
                 selector
             ){
 
+                saveDraft();
+
                 selector.remove();
 
             }
@@ -5054,11 +5729,37 @@ function openRoutineExerciseSelector(
         }
     );
 
+    function renderDay(){
 
-    renderExerciseSelector();
+        const plan =
+            getCurrentPlan();
 
-    renderSelectedExercises();
+        dayTitle.textContent =
+            plan.day;
 
+        progress.textContent =
+            `Día ${
+                currentDayIndex + 1
+            } de ${
+                selectedDays.length
+            }`;
+
+        searchInput.value =
+            "";
+
+        renderMuscles();
+
+        renderExercises();
+
+        renderSelected();
+
+        saveDraft();
+
+    }
+
+    saveDraft();
+
+    renderDay();
 
     requestAnimationFrame(
         () => {
@@ -5671,1054 +6372,551 @@ function showSavedRoutine(
     routine
 ){
 
-    const routineExercises =
-        Array.isArray(
-            routine.exercises
-        )
-            ? routine.exercises
+    if(!routine){
+        return;
+    }
+
+    /* =====================================================
+       NORMALIZAR RUTINA
+       La estructura principal es dayPlans.
+       exercises queda como compatibilidad con rutinas viejas.
+       ===================================================== */
+
+    const normalizedDayPlans =
+        Array.isArray(routine.dayPlans)
+            ? routine.dayPlans.map(plan => ({
+                ...plan,
+                day: plan?.day || "",
+                muscles: Array.isArray(plan?.muscles)
+                    ? [...plan.muscles]
+                    : [],
+                exercises: Array.isArray(plan?.exercises)
+                    ? plan.exercises.map(exercise => ({ ...exercise }))
+                    : []
+            }))
             : [];
 
+    if(normalizedDayPlans.length === 0){
+        const legacyExercises =
+            Array.isArray(routine.exercises)
+                ? routine.exercises.map(exercise => ({ ...exercise }))
+                : [];
 
-    /*
-     * Enriquecer ejercicios desde la biblioteca.
-     * Esto permite recuperar media/GIF incluso para
-     * rutinas creadas antes de incorporar el catálogo.
-     */
+        const legacyDays =
+            Array.isArray(routine.days) && routine.days.length
+                ? routine.days
+                : ["Rutina"];
 
-    const exercises =
-        routineExercises.map(
-            exercise => {
+        legacyDays.forEach(day => {
+            const dayExercises =
+                legacyExercises.filter(
+                    exercise =>
+                        !exercise.day ||
+                        String(exercise.day).trim().toLowerCase() ===
+                        String(day).trim().toLowerCase()
+                );
 
-                const exerciseId =
-                    String(
-                        exercise.id || ""
-                    )
+            normalizedDayPlans.push({
+                day,
+                muscles: [],
+                exercises: dayExercises
+            });
+        });
+    }
+
+    if(normalizedDayPlans.length === 0){
+        normalizedDayPlans.push({
+            day: "Rutina",
+            muscles: [],
+            exercises: []
+        });
+    }
+
+    const enrichExercise = exercise => {
+        const exerciseId =
+            String(exercise?.id || "")
+                .trim()
+                .toLowerCase();
+
+        const exerciseName =
+            String(exercise?.name || "")
+                .trim()
+                .toLowerCase();
+
+        let catalogExercise =
+            exercisesDatabase.find(
+                item =>
+                    String(item?.id || "")
                         .trim()
-                        .toLowerCase();
+                        .toLowerCase() === exerciseId
+            );
 
+        if(!catalogExercise){
+            catalogExercise =
+                exercisesDatabase.find(
+                    item =>
+                        String(item?.name || "")
+                            .trim()
+                            .toLowerCase() === exerciseName
+                );
+        }
 
-                const exerciseName =
-                    String(
-                        exercise.name || ""
-                    )
-                        .trim()
-                        .toLowerCase();
+        return catalogExercise
+            ? { ...catalogExercise, ...exercise }
+            : { ...exercise };
+    };
 
-
-                let catalogExercise =
-                    exercisesDatabase.find(
-                        item =>
-                            String(
-                                item.id || ""
-                            )
-                                .trim()
-                                .toLowerCase() ===
-                            exerciseId
-                    );
-
-
-                if(!catalogExercise){
-
-                    catalogExercise =
-                        exercisesDatabase.find(
-                            item =>
-                                String(
-                                    item.name || ""
-                                )
-                                    .trim()
-                                    .toLowerCase() ===
-                                exerciseName
-                        );
-
-                }
-
-
-                if(!catalogExercise){
-
-                    return {
-                        ...exercise
-                    };
-
-                }
-
-
-                return {
-                    ...catalogExercise,
-                    ...exercise
-                };
-
-            }
+    normalizedDayPlans.forEach(plan => {
+        plan.exercises = plan.exercises.map(exercise =>
+            enrichExercise({
+                ...exercise,
+                day: plan.day
+            })
         );
+    });
 
+    let selectedDay =
+        normalizedDayPlans[0]?.day || "Rutina";
 
     let modal =
         document.getElementById(
             "savedRoutineEditor"
         );
 
-
     if(modal){
-
         modal.remove();
-
     }
 
-
-    modal =
-        document.createElement(
-            "div"
-        );
-
-
-    modal.id =
-        "savedRoutineEditor";
-
-
-    modal.className =
-        "saved-routine-editor";
-
-
-    document.body.appendChild(
-        modal
-    );
-
-
-    const style =
-        document.createElement(
-            "style"
-        );
-
-
-    style.id =
-        "savedRoutineEditorStyles";
-
-
-    style.textContent = `
-
-        .saved-routine-editor{
-
-            position:fixed;
-
-            inset:0;
-
-            z-index:1300;
-
-            display:flex;
-
-            align-items:flex-end;
-
-            justify-content:center;
-
-            padding:12px;
-
-            background:
-                rgba(17,24,39,.65);
-
-            opacity:0;
-
-            visibility:hidden;
-
-            transition:
-                opacity .2s ease,
-                visibility .2s ease;
-
-        }
-
-
-        .saved-routine-editor.active{
-
-            opacity:1;
-
-            visibility:visible;
-
-        }
-
-
-        .saved-routine-editor-card{
-
-            width:100%;
-
-            max-width:680px;
-
-            max-height:94vh;
-
-            overflow-y:auto;
-
-            box-sizing:border-box;
-
-            padding:22px;
-
-            border-radius:
-                28px
-                28px
-                18px
-                18px;
-
-            background:#ffffff;
-
-            box-shadow:
-                0 -12px 45px
-                rgba(0,0,0,.25);
-
-            transform:
-                translateY(20px);
-
-            transition:
-                transform .2s ease;
-
-        }
-
-
-        .saved-routine-editor.active
-        .saved-routine-editor-card{
-
-            transform:
-                translateY(0);
-
-        }
-
-
-        .saved-routine-editor-header{
-
-            display:flex;
-
-            align-items:flex-start;
-
-            justify-content:space-between;
-
-            gap:12px;
-
-            margin-bottom:8px;
-
-        }
-
-
-        .saved-routine-editor-header h2{
-
-            margin:0;
-
-            color:#111827;
-
-            font-size:23px;
-
-        }
-
-
-        .saved-routine-editor-days{
-
-            margin:
-                0
-                0
-                20px;
-
-            color:#6b7280;
-
-            font-size:13px;
-
-        }
-
-
-        .saved-routine-editor-close{
-
-            width:40px;
-
-            height:40px;
-
-            flex-shrink:0;
-
-            border:none;
-
-            border-radius:50%;
-
-            background:#f3f4f6;
-
-            color:#111827;
-
-            font-size:24px;
-
-            cursor:pointer;
-
-        }
-
-
-        .saved-routine-exercise{
-
-            margin-bottom:16px;
-
-            padding:16px;
-
-            border:
-                1px solid
-                #e5e7eb;
-
-            border-radius:18px;
-
-            background:#ffffff;
-
-        }
-
-
-        .saved-routine-exercise-title{
-
-            display:flex;
-
-            align-items:center;
-
-            gap:10px;
-
-            margin-bottom:15px;
-
-        }
-
-
-        .saved-routine-exercise-number{
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            width:30px;
-
-            height:30px;
-
-            flex-shrink:0;
-
-            border-radius:50%;
-
-            background:
-                var(--accent);
-
-            color:#ffffff;
-
-            font-size:12px;
-
-            font-weight:800;
-
-        }
-
-
-        .saved-routine-exercise-name{
-
-            color:#111827;
-
-            font-size:15px;
-
-            font-weight:800;
-
-        }
-
-
-        .saved-routine-fields{
-
-            display:grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0,1fr));
-
-            gap:12px;
-
-        }
-
-
-        .saved-routine-field{
-
-            display:flex;
-
-            flex-direction:column;
-
-            gap:6px;
-
-        }
-
-
-        .saved-routine-field label{
-
-            color:#6b7280;
-
-            font-size:11px;
-
-            font-weight:700;
-
-        }
-
-
-        .saved-routine-field input{
-
-            width:100%;
-
-            min-height:44px;
-
-            box-sizing:border-box;
-
-            padding:
-                8px
-                10px;
-
-            border:
-                1px solid
-                #e5e7eb;
-
-            border-radius:12px;
-
-            outline:none;
-
-            color:#111827;
-
-            background:#ffffff;
-
-            font-size:14px;
-
-            font-weight:700;
-
-        }
-
-
-        .saved-routine-field input:focus{
-
-            border-color:
-                var(--accent);
-
-        }
-
-
-        .saved-routine-footer{
-
-            display:flex;
-
-            gap:10px;
-
-            margin-top:20px;
-
-        }
-
-
-        .saved-routine-footer button{
-
-            flex:1;
-
-            min-height:50px;
-
-            border:none;
-
-            border-radius:14px;
-
-            font-size:14px;
-
-            font-weight:800;
-
-            cursor:pointer;
-
-        }
-
-
-        .saved-routine-cancel{
-
-            background:#f3f4f6;
-
-            color:#111827;
-
-        }
-
-
-        .saved-routine-save{
-
-            background:
-                var(--accent);
-
-            color:#ffffff;
-
-        }
-
-
-        .saved-routine-training{
-
-            flex:1;
-
-            min-height:50px;
-
-            border:none;
-
-            border-radius:14px;
-
-            background:#111827;
-
-            color:#ffffff;
-
-            font-size:14px;
-
-            font-weight:800;
-
-            cursor:pointer;
-
-        }
-
-
-        .saved-routine-training:hover{
-
-            opacity:.9;
-
-        }
-
-
-        @media(max-width:480px){
-
-            .saved-routine-fields{
-
-                grid-template-columns:
-                    1fr;
-
+    modal = document.createElement("div");
+    modal.id = "savedRoutineEditor";
+    modal.className = "saved-routine-editor";
+    document.body.appendChild(modal);
+
+    if(!document.getElementById("savedRoutineEditorStrongGymFixStyles")){
+        const style = document.createElement("style");
+        style.id = "savedRoutineEditorStrongGymFixStyles";
+        style.textContent = `
+            .saved-routine-editor{
+                position:fixed;
+                inset:0;
+                z-index:1300;
+                display:flex;
+                align-items:flex-end;
+                justify-content:center;
+                padding:12px;
+                background:rgba(17,24,39,.65);
+                opacity:0;
+                visibility:hidden;
+                transition:opacity .2s ease,visibility .2s ease;
             }
-
-        }
-
-    `;
-
-
-    const oldStyle =
-        document.getElementById(
-            "savedRoutineEditorStyles"
-        );
-
-
-    if(oldStyle){
-
-        oldStyle.remove();
-
+            .saved-routine-editor.active{
+                opacity:1;
+                visibility:visible;
+            }
+            .saved-routine-editor-card{
+                width:100%;
+                max-width:680px;
+                max-height:94vh;
+                overflow-y:auto;
+                box-sizing:border-box;
+                padding:22px;
+                border-radius:28px 28px 18px 18px;
+                background:#fff;
+                box-shadow:0 -12px 45px rgba(0,0,0,.25);
+            }
+            .saved-routine-editor-header{
+                display:flex;
+                align-items:flex-start;
+                justify-content:space-between;
+                gap:12px;
+                margin-bottom:8px;
+            }
+            .saved-routine-editor-header h2{margin:0;color:#111827;font-size:23px;}
+            .saved-routine-editor-days{margin:0 0 16px;color:#6b7280;font-size:13px;}
+            .saved-routine-day-selector{
+                display:flex;
+                flex-wrap:wrap;
+                gap:8px;
+                margin:0 0 20px;
+            }
+            .saved-routine-day-button{
+                flex:1;
+                min-width:85px;
+                min-height:44px;
+                padding:9px 12px;
+                border:1px solid #e5e7eb;
+                border-radius:12px;
+                background:#fff;
+                color:#111827;
+                font-size:13px;
+                font-weight:800;
+                cursor:pointer;
+            }
+            .saved-routine-day-button.active{
+                background:var(--accent);
+                border-color:var(--accent);
+                color:#fff;
+            }
+            .saved-routine-exercise{
+                margin-bottom:16px;
+                padding:16px;
+                border:1px solid #e5e7eb;
+                border-radius:18px;
+                background:#fff;
+            }
+            .saved-routine-exercise-title{
+                display:flex;
+                align-items:center;
+                gap:10px;
+                margin-bottom:15px;
+            }
+            .saved-routine-exercise-number{
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                width:30px;
+                height:30px;
+                flex-shrink:0;
+                border-radius:50%;
+                background:var(--accent);
+                color:#fff;
+                font-size:12px;
+                font-weight:800;
+            }
+            .saved-routine-exercise-name{color:#111827;font-size:15px;font-weight:800;}
+            .saved-routine-fields{
+                display:grid;
+                grid-template-columns:repeat(2,minmax(0,1fr));
+                gap:12px;
+            }
+            .saved-routine-field{display:flex;flex-direction:column;gap:6px;}
+            .saved-routine-field label{color:#6b7280;font-size:11px;font-weight:700;}
+            .saved-routine-field input{
+                width:100%;
+                min-height:44px;
+                box-sizing:border-box;
+                padding:8px 10px;
+                border:1px solid #e5e7eb;
+                border-radius:12px;
+                color:#111827;
+                background:#fff;
+                font-size:14px;
+                font-weight:700;
+            }
+            .saved-routine-footer{display:flex;gap:10px;margin-top:20px;}
+            .saved-routine-footer button{
+                flex:1;
+                min-height:50px;
+                border:none;
+                border-radius:14px;
+                font-size:14px;
+                font-weight:800;
+                cursor:pointer;
+            }
+            .saved-routine-cancel{background:#f3f4f6;color:#111827;}
+            .saved-routine-save{background:var(--accent);color:#fff;}
+            .saved-routine-training{background:#111827;color:#fff;}
+            .saved-routine-empty{
+                padding:20px;
+                border-radius:16px;
+                background:#f9fafb;
+                color:#6b7280;
+                text-align:center;
+            }
+            @media(min-width:700px){
+                .saved-routine-editor{align-items:center;}
+                .saved-routine-editor-card{border-radius:28px;}
+            }
+            @media(max-width:520px){
+                .saved-routine-footer{flex-direction:column;}
+                .saved-routine-fields{grid-template-columns:1fr 1fr;}
+            }
+        `;
+        document.head.appendChild(style);
     }
-
-
-    document.head.appendChild(
-        style
-    );
-
 
     modal.innerHTML = `
-
-        <div
-            class="saved-routine-editor-card"
-            role="dialog"
-            aria-modal="true"
-        >
-
-            <div
-                class="saved-routine-editor-header"
-            >
-
+        <div class="saved-routine-editor-card" role="dialog" aria-modal="true">
+            <div class="saved-routine-editor-header">
                 <div>
-
-                    <h2>
-                        🏋️
-                        ${escapeExerciseHTML(
-                            routine.name
-                        )}
-                    </h2>
-
+                    <h2>🏋️ ${escapeExerciseHTML(routine.name || "Rutina")}</h2>
                 </div>
-
-
-                <button
-                    type="button"
-                    class="saved-routine-editor-close"
-                    id="savedRoutineEditorClose"
-                >
-                    ×
-                </button>
-
+                <button type="button" class="saved-routine-editor-close" id="savedRoutineEditorClose">×</button>
             </div>
 
-
-            <p
-                class="saved-routine-editor-days"
-            >
-
-                📅 Días:
-                ${
-                    Array.isArray(
-                        routine.days
-                    )
-                        ? escapeExerciseHTML(
-                            routine.days.join(
-                                ", "
-                            )
-                        )
-                        : "Sin días"
-                }
-
+            <p class="saved-routine-editor-days">
+                Seleccioná el día. Se mostrarán solamente los ejercicios de ese día.
             </p>
 
-
-            <div
-                id="savedRoutineExercises"
-            >
-
-                ${
-                    exercises.length
-                        ? exercises
-                            .map(
-                                (exercise,index) => {
-
-                                    const sets =
-                                        Number(
-                                            exercise.sets
-                                        ) || 3;
-
-                                    const reps =
-                                        Number(
-                                            exercise.reps
-                                        ) || 10;
-
-                                    const weight =
-                                        Number(
-                                            exercise.weight
-                                        ) || 0;
-
-                                    const rest =
-                                        Number(
-                                            exercise.rest
-                                        ) || 90;
-
-
-                                    return `
-
-                                        <div
-                                            class="saved-routine-exercise"
-                                            data-exercise-index="${index}"
-                                        >
-
-                                            <div
-                                                class="saved-routine-exercise-title"
-                                            >
-
-                                                <span
-                                                    class="saved-routine-exercise-number"
-                                                >
-                                                    ${index + 1}
-                                                </span>
-
-
-                                                <span
-                                                    class="saved-routine-exercise-name"
-                                                >
-
-                                                    ${escapeExerciseHTML(
-                                                        exercise.name
-                                                    )}
-
-                                                </span>
-
-                                            </div>
-
-
-                                            <div
-                                                class="saved-routine-fields"
-                                            >
-
-                                                <div
-                                                    class="saved-routine-field"
-                                                >
-
-                                                    <label>
-                                                        SERIES
-                                                    </label>
-
-                                                    <input
-                                                        type="number"
-                                                        min="1"
-                                                        max="20"
-                                                        step="1"
-                                                        class="routine-field-sets"
-                                                        value="${sets}"
-                                                    >
-
-                                                </div>
-
-
-                                                <div
-                                                    class="saved-routine-field"
-                                                >
-
-                                                    <label>
-                                                        REPETICIONES
-                                                    </label>
-
-                                                    <input
-                                                        type="number"
-                                                        min="1"
-                                                        max="100"
-                                                        step="1"
-                                                        class="routine-field-reps"
-                                                        value="${reps}"
-                                                    >
-
-                                                </div>
-
-
-                                                <div
-                                                    class="saved-routine-field"
-                                                >
-
-                                                    <label>
-                                                        PESO (KG)
-                                                    </label>
-
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        step="0.5"
-                                                        class="routine-field-weight"
-                                                        value="${weight}"
-                                                    >
-
-                                                </div>
-
-
-                                                <div
-                                                    class="saved-routine-field"
-                                                >
-
-                                                    <label>
-                                                        DESCANSO (SEG)
-                                                    </label>
-
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        max="600"
-                                                        step="5"
-                                                        class="routine-field-rest"
-                                                        value="${rest}"
-                                                    >
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    `;
-
-                                }
-                            )
-                            .join("")
-                        : `
-
-                            <p>
-                                Esta rutina no tiene ejercicios.
-                            </p>
-
-                        `
-
-                }
-
+            <div class="saved-routine-day-selector" id="savedRoutineDaySelector">
+                ${normalizedDayPlans.map(plan => `
+                    <button
+                        type="button"
+                        class="saved-routine-day-button ${plan.day === selectedDay ? "active" : ""}"
+                        data-day="${escapeExerciseHTML(plan.day)}"
+                    >
+                        ${escapeExerciseHTML(plan.day)}
+                    </button>
+                `).join("")}
             </div>
 
+            <div id="savedRoutineExercises"></div>
 
-            <div
-                class="saved-routine-footer"
-            >
-
-                <button
-                    type="button"
-                    class="saved-routine-cancel"
-                    id="savedRoutineEditorCancel"
-                >
-                    Cancelar
-                </button>
-
-
-                <button
-                    type="button"
-                    class="saved-routine-save"
-                    id="savedRoutineEditorSave"
-                >
-                    💾 Guardar cambios
-                </button>
-
-
-                <button
-                    type="button"
-                    class="saved-routine-training"
-                    id="savedRoutineStartTraining"
-                >
-                    🏋️ Iniciar entrenamiento
-                </button>
-
+            <div class="saved-routine-footer">
+                <button type="button" class="saved-routine-cancel" id="savedRoutineEditorCancel">Cancelar</button>
+                <button type="button" class="saved-routine-save" id="savedRoutineEditorSave">💾 Guardar cambios</button>
+                <button type="button" class="saved-routine-training" id="savedRoutineStartTraining">🏋️ Iniciar entrenamiento</button>
             </div>
-
         </div>
-
     `;
 
+    const exerciseContainer =
+        modal.querySelector("#savedRoutineExercises");
 
-    function closeEditor(){
-
-        modal.remove();
-
+    function getSelectedPlan(){
+        return normalizedDayPlans.find(
+            plan =>
+                String(plan.day).trim().toLowerCase() ===
+                String(selectedDay).trim().toLowerCase()
+        ) || normalizedDayPlans[0];
     }
 
+    function renderSelectedDay(){
+        const plan = getSelectedPlan();
+        selectedDay = plan?.day || selectedDay;
 
-    modal.querySelector(
-        "#savedRoutineEditorClose"
-    ).addEventListener(
-        "click",
-        closeEditor
-    );
+        const exercises =
+            Array.isArray(plan?.exercises)
+                ? plan.exercises
+                : [];
 
+        if(exercises.length === 0){
+            exerciseContainer.innerHTML = `
+                <div class="saved-routine-empty">
+                    Este día todavía no tiene ejercicios configurados.
+                </div>
+            `;
+            return;
+        }
 
-    modal.querySelector(
-        "#savedRoutineEditorCancel"
-    ).addEventListener(
-        "click",
-        closeEditor
-    );
+        exerciseContainer.innerHTML = exercises.map(
+            (exercise,index) => {
+                const sets = Math.max(1, Number(exercise.sets) || 3);
+                const reps = Math.max(1, Number(exercise.reps) || 10);
+                const weight = Math.max(0, Number(exercise.weight) || 0);
+                const rest = Math.max(0, Number(exercise.rest) || 90);
 
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if(
-                event.target ===
-                modal
-            ){
-
-                closeEditor();
-
+                return `
+                    <div class="saved-routine-exercise" data-exercise-id="${escapeExerciseHTML(String(exercise.id || ""))}">
+                        <div class="saved-routine-exercise-title">
+                            <span class="saved-routine-exercise-number">${index + 1}</span>
+                            <span class="saved-routine-exercise-name">${escapeExerciseHTML(exercise.name || "Ejercicio")}</span>
+                        </div>
+                        <div class="saved-routine-fields">
+                            <div class="saved-routine-field">
+                                <label>SERIES</label>
+                                <input type="number" min="1" max="20" step="1" class="routine-field-sets" value="${sets}">
+                            </div>
+                            <div class="saved-routine-field">
+                                <label>REPETICIONES</label>
+                                <input type="number" min="1" max="100" step="1" class="routine-field-reps" value="${reps}">
+                            </div>
+                            <div class="saved-routine-field">
+                                <label>PESO (KG)</label>
+                                <input type="number" min="0" step="0.5" class="routine-field-weight" value="${weight}">
+                            </div>
+                            <div class="saved-routine-field">
+                                <label>DESCANSO (SEG)</label>
+                                <input type="number" min="0" max="600" step="5" class="routine-field-rest" value="${rest}">
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
+        ).join("");
+    }
 
+    function closeEditor(){
+        modal.remove();
+    }
+
+    modal.querySelector("#savedRoutineEditorClose")
+        .addEventListener("click", closeEditor);
+
+    modal.querySelector("#savedRoutineEditorCancel")
+        .addEventListener("click", closeEditor);
+
+    modal.addEventListener("click", event => {
+        if(event.target === modal){
+            closeEditor();
         }
-    );
+    });
 
+    modal.querySelectorAll(".saved-routine-day-button")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                selectedDay = button.dataset.day || selectedDay;
 
-    modal.querySelector(
-        "#savedRoutineStartTraining"
-    ).addEventListener(
-        "click",
-        () => {
+                modal.querySelectorAll(".saved-routine-day-button")
+                    .forEach(item => item.classList.remove("active"));
 
-            modal.remove();
+                button.classList.add("active");
+                renderSelectedDay();
+            });
+        });
 
-            startWorkoutMode(
-                routine
-            );
+    modal.querySelector("#savedRoutineEditorSave")
+        .addEventListener("click", () => {
+            const plan = getSelectedPlan();
+            const cards =
+                modal.querySelectorAll(".saved-routine-exercise");
 
-        }
-    );
+            plan.exercises = plan.exercises.map((exercise,index) => {
+                const card = cards[index];
+                if(!card){
+                    return { ...exercise, day: plan.day };
+                }
 
-
-    modal.querySelector(
-        "#savedRoutineEditorSave"
-    ).addEventListener(
-        "click",
-        () => {
-
-            const exerciseCards =
-                modal.querySelectorAll(
-                    ".saved-routine-exercise"
-                );
-
-
-            const updatedExercises =
-                exercises.map(
-                    (exercise,index) => {
-
-                        const card =
-                            exerciseCards[index];
-
-
-                        if(!card){
-
-                            return {
-                                ...exercise
-                            };
-
-                        }
-
-
-                        const setsInput =
-                            card.querySelector(
-                                ".routine-field-sets"
-                            );
-
-
-                        const repsInput =
-                            card.querySelector(
-                                ".routine-field-reps"
-                            );
-
-
-                        const weightInput =
-                            card.querySelector(
-                                ".routine-field-weight"
-                            );
-
-
-                        const restInput =
-                            card.querySelector(
-                                ".routine-field-rest"
-                            );
-
-
-                        const sets =
-                            Math.max(
-                                1,
-                                Number(
-                                    setsInput.value
-                                ) || 1
-                            );
-
-
-                        const reps =
-                            Math.max(
-                                1,
-                                Number(
-                                    repsInput.value
-                                ) || 1
-                            );
-
-
-                        const weight =
-                            Math.max(
-                                0,
-                                Number(
-                                    weightInput.value
-                                ) || 0
-                            );
-
-
-                        const rest =
-                            Math.max(
-                                0,
-                                Number(
-                                    restInput.value
-                                ) || 0
-                            );
-
-
-                        return {
-
-                            ...exercise,
-
-                            sets: sets,
-
-                            reps: reps,
-
-                            weight: weight,
-
-                            rest: rest
-
-                        };
-
-                    }
-                );
-
+                return {
+                    ...exercise,
+                    day: plan.day,
+                    sets: Math.max(1, Number(card.querySelector(".routine-field-sets")?.value) || 1),
+                    reps: Math.max(1, Number(card.querySelector(".routine-field-reps")?.value) || 1),
+                    weight: Math.max(0, Number(card.querySelector(".routine-field-weight")?.value) || 0),
+                    rest: Math.max(0, Number(card.querySelector(".routine-field-rest")?.value) || 0)
+                };
+            });
 
             const stored =
-                localStorage.getItem(
-                    "strongGymRoutines"
-                );
-
+                localStorage.getItem("strongGymRoutines");
 
             let routines = [];
 
-
             try{
-
-                routines =
-                    stored
-                        ? JSON.parse(
-                            stored
-                        )
-                        : [];
-
+                routines = stored ? JSON.parse(stored) : [];
             }catch(error){
+                console.error("Error leyendo rutinas:", error);
+            }
 
-                console.error(
-                    "Error leyendo rutinas:",
-                    error
-                );
-
+            if(!Array.isArray(routines)){
                 routines = [];
-
             }
 
+            const routineIndex = routines.findIndex(
+                item => String(item.id) === String(routine.id)
+            );
 
-            const routineIndex =
-                routines.findIndex(
-                    item =>
-                        String(
-                            item.id
-                        ) ===
-                        String(
-                            routine.id
-                        )
-                );
-
-
-            if(
-                routineIndex === -1
-            ){
-
-                alert(
-                    "No se encontró la rutina para guardar."
-                );
-
+            if(routineIndex === -1){
+                alert("No se encontró la rutina para guardar.");
                 return;
-
             }
 
-
-            routines[
-                routineIndex
-            ] = {
-
-                ...routines[
-                    routineIndex
-                ],
-
-                exercises:
-                    updatedExercises
-
+            const updatedRoutine = {
+                ...routines[routineIndex],
+                dayPlans: normalizedDayPlans,
+                days: normalizedDayPlans.map(plan => plan.day),
+                exercises: normalizedDayPlans.flatMap(plan =>
+                    plan.exercises.map(exercise => ({
+                        ...exercise,
+                        day: plan.day
+                    }))
+                ),
+                updatedAt: new Date().toISOString()
             };
 
+            routines[routineIndex] = updatedRoutine;
 
             localStorage.setItem(
                 "strongGymRoutines",
-                JSON.stringify(
-                    routines
-                )
+                JSON.stringify(routines)
             );
 
+            Object.assign(routine, updatedRoutine);
 
-            alert(
-                `✅ Rutina "${routine.name}" actualizada correctamente.`
-            );
-
-
+            alert(`✅ Rutina "${routine.name}" actualizada correctamente.`);
             closeEditor();
-
-
             loadSavedRoutines();
+        });
 
-        }
-    );
+    modal.querySelector("#savedRoutineStartTraining")
+        .addEventListener("click", () => {
+            const plan = getSelectedPlan();
 
+            if(!plan || !Array.isArray(plan.exercises) || plan.exercises.length === 0){
+                alert("Este día no tiene ejercicios configurados.");
+                return;
+            }
 
-    requestAnimationFrame(
-        () => {
+            /*
+             * Guardar cualquier cambio realizado en el día actual
+             * antes de iniciar el entrenamiento.
+             */
+            const cards =
+                modal.querySelectorAll(".saved-routine-exercise");
 
-            modal.classList.add(
-                "active"
-            );
+            plan.exercises = plan.exercises.map((exercise,index) => {
+                const card = cards[index];
+                if(!card){
+                    return { ...exercise, day: plan.day };
+                }
 
-        }
-    );
+                return {
+                    ...exercise,
+                    day: plan.day,
+                    sets: Math.max(1, Number(card.querySelector(".routine-field-sets")?.value) || 1),
+                    reps: Math.max(1, Number(card.querySelector(".routine-field-reps")?.value) || 1),
+                    weight: Math.max(0, Number(card.querySelector(".routine-field-weight")?.value) || 0),
+                    rest: Math.max(0, Number(card.querySelector(".routine-field-rest")?.value) || 0)
+                };
+            });
 
+            const updatedRoutine = {
+                ...routine,
+                dayPlans: normalizedDayPlans,
+                days: normalizedDayPlans.map(item => item.day),
+                exercises: normalizedDayPlans.flatMap(item =>
+                    item.exercises.map(exercise => ({
+                        ...exercise,
+                        day: item.day
+                    }))
+                ),
+                updatedAt: new Date().toISOString()
+            };
+
+            try{
+                const routines =
+                    JSON.parse(
+                        localStorage.getItem("strongGymRoutines") || "[]"
+                    );
+
+                if(Array.isArray(routines)){
+                    const index = routines.findIndex(
+                        item => String(item.id) === String(routine.id)
+                    );
+
+                    if(index !== -1){
+                        routines[index] = updatedRoutine;
+                        localStorage.setItem(
+                            "strongGymRoutines",
+                            JSON.stringify(routines)
+                        );
+                    }
+                }
+            }catch(error){
+                console.error("No se pudo actualizar la rutina antes de iniciar:", error);
+            }
+
+            Object.assign(routine, updatedRoutine);
+            closeEditor();
+            startWorkoutMode(routine, plan.day);
+        });
+
+    renderSelectedDay();
+
+    requestAnimationFrame(() => {
+        modal.classList.add("active");
+    });
 }
-
-
 
 
 /* =========================================================
@@ -9605,19 +9803,67 @@ function startStrongGymRestTimer(){
 })();
 
 function startWorkoutMode(
-    routine
+    routine,
+    selectedDay = null
 ){
 
     const workoutStartTime =
         Date.now();
 
 
-    const exercises =
-        Array.isArray(
-            routine.exercises
-        )
+    /*
+     * =====================================================
+     * EJERCICIOS DEL DÍA
+     * =====================================================
+     *
+     * Si la rutina tiene ejercicios asociados a un día,
+     * solamente se cargan los correspondientes al día
+     * seleccionado.
+     *
+     * Las rutinas antiguas que no tengan información de día
+     * continúan funcionando normalmente.
+     */
+
+    const routineDayPlans =
+        Array.isArray(routine.dayPlans)
+            ? routine.dayPlans
+            : [];
+
+    const selectedPlan =
+        selectedDay && routineDayPlans.length
+            ? routineDayPlans.find(
+                plan =>
+                    String(plan?.day || "")
+                        .trim()
+                        .toLowerCase() ===
+                    String(selectedDay)
+                        .trim()
+                        .toLowerCase()
+            )
+            : null;
+
+    const allRoutineExercises =
+        Array.isArray(routine.exercises)
             ? routine.exercises
             : [];
+
+    const exercises =
+        selectedPlan && Array.isArray(selectedPlan.exercises)
+            ? selectedPlan.exercises.map(exercise => ({
+                ...exercise,
+                day: selectedPlan.day
+            }))
+            : selectedDay
+                ? allRoutineExercises.filter(
+                    exercise =>
+                        String(exercise?.day || "")
+                            .trim()
+                            .toLowerCase() ===
+                        String(selectedDay)
+                            .trim()
+                            .toLowerCase()
+                )
+                : allRoutineExercises;
     /*
      * =========================================================
      * RECUPERAR ÚLTIMOS PESOS DEL HISTORIAL
@@ -9686,6 +9932,12 @@ function startWorkoutMode(
                     ) ===
                     String(
                         routine.id
+                    ) &&
+                    (
+                        !selectedDay ||
+                        !workout.selectedDay ||
+                        String(workout.selectedDay).trim().toLowerCase() ===
+                        String(selectedDay).trim().toLowerCase()
                     )
             )
             .sort(
@@ -10404,7 +10656,7 @@ function startWorkoutMode(
                                     );
 
 
-                                
+
 
 
                                   /*
@@ -10732,7 +10984,7 @@ return `
                                                             placeholder="reps"
                                                         >
 
-                                                          
+
                                                           <select
                                                               class="workout-rir"
                                                               aria-label="RIR de la serie"
@@ -10886,7 +11138,7 @@ return `
 
                     updateWorkoutProgress();
 
-                          
+
                           /*
                            * Iniciar descanso automaticamente
                            * al completar una serie.
@@ -11050,7 +11302,7 @@ return `
                                         (() => {
 
                                             const rirInput =
-                                                modal.querySelector(
+                                                setRow.querySelector(
                                                     ".workout-rir"
                                                 );
 
@@ -11159,6 +11411,9 @@ return `
                             ...routine.days
                         ]
                         : [],
+
+                selectedDay:
+                    selectedDay || null,
 
                 totalSets:
                     totalSets,
@@ -11303,98 +11558,107 @@ return `
                             ? savedRoutine.exercises
                             : [];
 
-
                     const updatedExercises =
-                        savedExercises.map(
-                            (
-                                exercise,
-                                exerciseIndex
-                            ) => {
+                        savedExercises.map(exercise => {
+                            const performed =
+                                workoutExercises.find(
+                                    item =>
+                                        String(item.id || "") ===
+                                        String(exercise.id || "") &&
+                                        (
+                                            !selectedDay ||
+                                            !exercise.day ||
+                                            String(exercise.day).trim().toLowerCase() ===
+                                            String(selectedDay).trim().toLowerCase()
+                                        )
+                                );
 
-                                const performed =
-                                    workoutExercises[
-                                        exerciseIndex
-                                    ];
+                            if(!performed){
+                                return exercise;
+                            }
 
+                            return {
+                                ...exercise,
+                                workoutProgress:
+                                    performed.sets.map(set => ({
+                                        set: set.set,
+                                        weight: set.weight,
+                                        reps: set.reps,
+                                        rir: set.rir,
+                                        completed: set.completed
+                                    }))
+                            };
+                        });
 
-                                if (
-                                    !performed
-                                ) {
-
-                                    return exercise;
-
+                    const updatedDayPlans =
+                        Array.isArray(savedRoutine.dayPlans)
+                            ? savedRoutine.dayPlans.map(plan => {
+                                if(
+                                    !selectedDay ||
+                                    String(plan?.day || "").trim().toLowerCase() !==
+                                    String(selectedDay).trim().toLowerCase()
+                                ){
+                                    return plan;
                                 }
 
-
                                 return {
+                                    ...plan,
+                                    exercises:
+                                        Array.isArray(plan.exercises)
+                                            ? plan.exercises.map(exercise => {
+                                                const performed =
+                                                    workoutExercises.find(
+                                                        item =>
+                                                            String(item.id || "") ===
+                                                            String(exercise.id || "")
+                                                    );
 
-                                    ...exercise,
+                                                if(!performed){
+                                                    return exercise;
+                                                }
 
-                                    workoutProgress:
-                                        performed.sets.map(
-                                            set => ({
-
-                                                set:
-                                                    set.set,
-
-                                                weight:
-                                                    set.weight,
-
-                                                reps:
-                                                    set.reps,
-
-                                                completed:
-                                                    set.completed
-
+                                                return {
+                                                    ...exercise,
+                                                    workoutProgress:
+                                                        performed.sets.map(set => ({
+                                                            set: set.set,
+                                                            weight: set.weight,
+                                                            reps: set.reps,
+                                                            rir: set.rir,
+                                                            completed: set.completed
+                                                        }))
+                                                };
                                             })
-                                        )
-
+                                            : []
                                 };
-
-                            }
-                        );
-
+                            })
+                            : savedRoutine.dayPlans;
 
                     routines[
                         routineIndex
                     ] = {
-
                         ...savedRoutine,
-
+                        dayPlans:
+                            updatedDayPlans,
                         exercises:
                             updatedExercises,
-
                         lastWorkout: {
-
                             date:
                                 new Date()
                                     .toISOString(),
-
+                            selectedDay:
+                                selectedDay || null,
                             completedSets:
                                 completed,
-
                             totalSets:
                                 totalSets,
-
                             percentage:
                                 percentage
-
                         },
-
                         updatedAt:
                             new Date()
                                 .toISOString()
-
                     };
-
-
-                    localStorage.setItem(
-                        routinesKey,
-                        JSON.stringify(
-                            routines
-                        )
-                    );
-
                 }
 
             } catch (error) {
@@ -13491,7 +13755,7 @@ function updateStrongGymCoach(){
                                 "⚠️ ESTANCAMIENTO";
 
                             recommendation =
-                                `Llevás ${stagnantSessions} sesiones sin mejorar la carga. Mantené ${previousWeight} kg y buscá mejorar las repeticiones o la ejecución.`;
+                                `Llevás ${stagnantSessions} sesiones sin mejorar. No aumentes la carga todavía: repetí ${previousWeight} kg y buscá mejorar repeticiones, técnica o RIR.`;
 
                             nextWeight =
                                 previousWeight;
@@ -13504,10 +13768,10 @@ function updateStrongGymCoach(){
                                 "🟡 COMPLETAR";
 
                             recommendation =
-                                "Te faltan series. Completá el volumen antes de aumentar la carga.";
+                                `Mejoraste la carga, pero faltaron series. Repetí ${bestWeight} kg en la próxima sesión y completá todo el volumen antes de volver a subir.`;
 
                             nextWeight =
-                                previousWeight;
+                                bestWeight;
 
                         }else if(
                             rir !== null &&
@@ -13518,7 +13782,7 @@ function updateStrongGymCoach(){
                                 "🔴 REVISAR";
 
                             recommendation =
-                                "Llegaste muy cerca del fallo. Mantené la carga antes de progresar.";
+                                `El esfuerzo fue muy alto. Mantené ${bestWeight} kg en la próxima sesión y buscá terminar las series con mejor RIR antes de progresar.`;
 
                             nextWeight =
                                 bestWeight;
@@ -13531,7 +13795,7 @@ function updateStrongGymCoach(){
                                 "🟢 PROGRESAR";
 
                             recommendation =
-                                "Mejoraste tu carga. Podés avanzar.";
+                                `Excelente. Mejoraste la carga y cumpliste el objetivo. Podés probar ${nextWeight} kg en la próxima sesión.`;
 
                             nextWeight =
                                 bestWeight + 2.5;
@@ -13544,7 +13808,7 @@ function updateStrongGymCoach(){
                                 "🟡 MANTENER";
 
                             recommendation =
-                                "Repetí la carga buscando mejorar la ejecución o las repeticiones.";
+                                `Mantené ${bestWeight} kg y buscá mejorar repeticiones o ejecución antes de aumentar.`;
 
                             nextWeight =
                                 bestWeight;
@@ -13555,7 +13819,7 @@ function updateStrongGymCoach(){
                                 "🟡 MANTENER";
 
                             recommendation =
-                                "La carga bajó respecto a la sesión anterior. Consolidá antes de subir.";
+                                `La carga bajó respecto a la sesión anterior. Consolidá ${previousWeight} kg antes de intentar progresar nuevamente.`;
 
                             nextWeight =
                                 previousWeight;
@@ -17886,4 +18150,3 @@ document.addEventListener(
     );
 
 })();
-
