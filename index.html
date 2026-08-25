@@ -82,60 +82,67 @@
              INICIO
              ================================================= -->
 
-                <!-- =================================================
-             INICIO — STRONG GYM
-             ================================================= -->
-
         <section
             id="homeSection"
             class="app-section active"
         >
 
-            <div class="sg-home-hero">
 
-                <div class="sg-home-hero-overlay"></div>
+            <!-- BIENVENIDA -->
 
-                <div class="sg-home-hero-content">
+            <div class="welcome-card">
 
-                    <span class="sg-eyebrow">
-                        BIENVENIDO
+                <span class="welcome-label">
+                    BIENVENIDO
+                </span>
+
+
+                <h2>
+                    ¿Listo para entrenar?
+                </h2>
+
+
+                <p>
+                    Organizá tu entrenamiento,
+                    registrá tus cargas y seguí
+                    tu progreso.
+                </p>
+
+
+                <button
+                    class="primary-button"
+                    id="startWorkoutButton"
+                >
+
+                    🏋️ Comenzar entrenamiento
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ENTRENAMIENTO DE HOY -->
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        HOY
                     </span>
 
                     <h2>
-                        ¿Listo para<br>
-                        entrenar?
+                        Tu entrenamiento
                     </h2>
 
-                    <p>
-                        Organizá tu entrenamiento,<br>
-                        registrá tus cargas y seguí<br>
-                        tu progreso.
-                    </p>
-
-                    <button
-                        class="primary-button sg-start-button"
-                        id="startWorkoutButton"
-                    >
-                        <span>▶</span>
-                        Comenzar entrenamiento
-                    </button>
-
                 </div>
 
             </div>
 
 
-            <div class="sg-home-section-head">
+            <div class="workout-card">
 
-                <div>
-                    <span>HOY</span>
-                    <h2>Tu entrenamiento</h2>
-                </div>
-
-            </div>
-
-
-            <div class="workout-card sg-today-card">
 
                 <div class="workout-card-header">
 
@@ -151,6 +158,7 @@
 
                     </div>
 
+
                     <span class="workout-time">
                         ⏱ 60 min
                     </span>
@@ -158,14 +166,27 @@
                 </div>
 
 
+
                 <div class="muscle-tags">
 
-                    <span>Pecho</span>
-                    <span>Espalda</span>
-                    <span>Hombros</span>
-                    <span>Brazos</span>
+                    <span>
+                        Pecho
+                    </span>
+
+                    <span>
+                        Espalda
+                    </span>
+
+                    <span>
+                        Hombros
+                    </span>
+
+                    <span>
+                        Brazos
+                    </span>
 
                 </div>
+
 
 
                 <div class="workout-progress">
@@ -182,11 +203,12 @@
 
                     </div>
 
+
                     <div class="progress-bar">
 
                         <div
                             class="progress-value"
-                            style="width:0%;"
+                            style="width: 0%;"
                         ></div>
 
                     </div>
@@ -194,32 +216,46 @@
                 </div>
 
 
+
                 <button
-                    class="secondary-button sg-view-workout"
+                    class="secondary-button"
                     id="viewWorkoutButton"
                 >
-                    Ver entrenamiento
-                    <span>→</span>
+
+                    Ver entrenamiento →
+
                 </button>
+
 
             </div>
 
 
-            <div class="sg-home-section-head sg-quick-head">
+
+            <!-- ACCESOS RÁPIDOS -->
+
+            <div class="section-title">
 
                 <div>
-                    <span>EXPLORAR</span>
-                    <h2>Accesos rápidos</h2>
+
+                    <span>
+                        EXPLORAR
+                    </span>
+
+                    <h2>
+                        Accesos rápidos
+                    </h2>
+
                 </div>
 
             </div>
 
 
-            <div class="quick-grid sg-quick-grid">
+
+            <div class="quick-grid">
 
 
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="routinesSection"
                 >
 
@@ -238,8 +274,9 @@
                 </button>
 
 
+
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="exercisesSection"
                 >
 
@@ -258,8 +295,9 @@
                 </button>
 
 
+
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="progressSection"
                 >
 
@@ -276,10 +314,55 @@
                     </small>
 
                 </button>
+                  <button
+                      class="quick-card"
+                      data-section="historySection"
+                  >
+
+                      <span class="quick-icon">
+                          📊
+                      </span>
+
+                      <strong>
+                          Historial
+                      </strong>
+
+                      <small>
+                          Ver entrenamientos
+                      </small>
+
+                  </button>
+
+
+
+
 
 
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
+                    id="timerButton"
+                >
+
+                    <span class="quick-icon">
+                        ⏱️
+                    </span>
+
+                    <strong>
+                        Descanso
+                    </strong>
+
+                    <small>
+                        Temporizador
+                    </small>
+
+                </button>
+
+
+            </div>
+
+                <button
+                    type="button"
+                    class="quick-card"
                     data-section="cardioSection"
                 >
 
@@ -298,74 +381,11 @@
                 </button>
 
 
-                <button
-                    class="quick-card sg-quick-card sg-secondary-access"
-                    data-section="historySection"
-                >
-
-                    <span class="quick-icon">
-                        📊
-                    </span>
-
-                    <strong>
-                        Historial
-                    </strong>
-
-                    <small>
-                        Ver entrenamientos
-                    </small>
-
-                </button>
-
-
-                <button
-                    class="quick-card sg-quick-card sg-secondary-access"
-                    id="timerButton"
-                >
-
-                    <span class="quick-icon">
-                        ⏱
-                    </span>
-
-                    <strong>
-                        Descanso
-                    </strong>
-
-                    <small>
-                        Temporizador
-                    </small>
-
-                </button>
-
-            </div>
-
-
-            <div class="sg-streak-card">
-
-                <div class="sg-streak-icon">
-                    🔥
-                </div>
-
-                <div>
-
-                    <span>
-                        RACHA ACTUAL
-                    </span>
-
-                    <strong>
-                        3 días
-                    </strong>
-
-                </div>
-
-                <div class="sg-streak-arrow">
-                    →
-                </div>
-
-            </div>
 
 
         </section>
+
+
 
         <!-- =================================================
              PERFIL
