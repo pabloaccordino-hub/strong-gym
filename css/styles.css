@@ -1914,3 +1914,641 @@ textarea:focus-visible {
 /* ============================================================
    FIN
    ============================================================ */
+
+
+/* ============================================================
+   STRONG GYM — HOME REFERENCE UI
+   V1 STRUCTURAL VISUAL LAYER
+   ============================================================ */
+
+#homeSection {
+    background: transparent;
+}
+
+
+/* =========================
+   HERO
+   ========================= */
+
+#homeSection .sg-home-hero {
+
+    position: relative;
+
+    min-height: 310px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    margin-bottom: 30px;
+
+    background-image:
+        url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1a?auto=format&fit=crop&w=1400&q=90");
+
+    background-position: center;
+    background-size: cover;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+}
+
+
+#homeSection .sg-home-hero-overlay {
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3,5,7,.98) 0%,
+            rgba(3,5,7,.92) 38%,
+            rgba(3,5,7,.65) 65%,
+            rgba(3,5,7,.10) 100%
+        );
+}
+
+
+#homeSection .sg-home-hero-content {
+
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    min-height: 310px;
+
+    padding: 30px;
+}
+
+
+#homeSection .sg-eyebrow,
+#homeSection .sg-home-section-head > div > span {
+
+    color: #b8ff00;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+}
+
+
+#homeSection .sg-home-hero h2 {
+
+    margin: 12px 0 12px;
+
+    color: #ffffff;
+
+    font-size: clamp(36px, 8vw, 48px);
+
+    line-height: .98;
+
+    letter-spacing: -1.8px;
+
+    font-weight: 950;
+}
+
+
+#homeSection .sg-home-hero p {
+
+    margin: 0 0 24px;
+
+    color: #a9b1b6;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+
+#homeSection .sg-start-button {
+
+    width: auto !important;
+
+    min-height: 46px;
+
+    padding:
+        0 18px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+
+#homeSection .sg-start-button span {
+
+    margin-right: 6px;
+}
+
+
+/* =========================
+   SECTION HEADERS
+   ========================= */
+
+#homeSection .sg-home-section-head {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin:
+        0 0 12px;
+}
+
+
+#homeSection .sg-home-section-head h2 {
+
+    margin:
+        5px 0 0;
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    line-height: 1.1;
+
+    font-weight: 900;
+
+    letter-spacing: -.4px;
+}
+
+
+#homeSection .sg-quick-head {
+
+    margin-top: 30px;
+}
+
+
+/* =========================
+   TODAY CARD
+   ========================= */
+
+#homeSection .sg-today-card {
+
+    padding: 20px;
+
+    margin: 0;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #11161a,
+            #0a0e11
+        );
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.30);
+}
+
+
+#homeSection .sg-today-card h3 {
+
+    margin-top: 4px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 900;
+}
+
+
+#homeSection .sg-today-card .workout-day {
+
+    color: #b8ff00;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.4px;
+}
+
+
+#homeSection .sg-today-card .workout-time {
+
+    padding:
+        7px 10px;
+
+    border-radius: 8px;
+
+    background: #080b0e;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    color: #d9dee1;
+
+    font-size: 10px;
+}
+
+
+#homeSection .sg-today-card .muscle-tags {
+
+    margin:
+        16px 0 20px;
+}
+
+
+#homeSection .sg-today-card .muscle-tags span {
+
+    background: #080b0e;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    color: #929ca2;
+
+    font-size: 9px;
+}
+
+
+#homeSection .sg-today-card .progress-bar {
+
+    height: 5px;
+
+    overflow: hidden;
+
+    background: #252b30;
+
+    border-radius: 99px;
+}
+
+
+#homeSection .sg-today-card .progress-value {
+
+    background: #b8ff00;
+
+    border-radius: inherit;
+}
+
+
+#homeSection .sg-view-workout {
+
+    width: 100%;
+
+    min-height: 43px;
+
+    margin-top: 18px;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    border:
+        1px solid rgba(184,255,0,.28);
+
+    color: #b8ff00;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+#homeSection .sg-view-workout span {
+
+    margin-left: 5px;
+}
+
+
+/* =========================
+   QUICK ACCESS
+   ========================= */
+
+#homeSection .sg-quick-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+
+    margin: 0;
+}
+
+
+#homeSection .sg-quick-card {
+
+    min-height: 105px;
+
+    padding: 14px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    justify-content: flex-start;
+
+    text-align: left;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #11161a,
+            #0a0e11
+        );
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    color: #ffffff;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease;
+}
+
+
+#homeSection .sg-quick-card:active {
+
+    transform: scale(.98);
+}
+
+
+#homeSection .sg-quick-card:hover {
+
+    border-color:
+        rgba(184,255,0,.25);
+
+    transform:
+        translateY(-2px);
+}
+
+
+#homeSection .sg-quick-card .quick-icon {
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-bottom: auto;
+
+    border-radius: 9px;
+
+    background:
+        rgba(184,255,0,.08);
+
+    color: #b8ff00;
+
+    font-size: 17px;
+}
+
+
+#homeSection .sg-quick-card strong {
+
+    margin-top: 10px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 850;
+}
+
+
+#homeSection .sg-quick-card small {
+
+    margin-top: 3px;
+
+    color: #69747b;
+
+    font-size: 8px;
+}
+
+
+/* =========================
+   STREAK
+   ========================= */
+
+#homeSection .sg-streak-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 12px;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(184,255,0,.08),
+            rgba(184,255,0,.025)
+        );
+
+    border:
+        1px solid rgba(184,255,0,.14);
+}
+
+
+#homeSection .sg-streak-icon {
+
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(184,255,0,.10);
+
+    font-size: 17px;
+}
+
+
+#homeSection .sg-streak-card div:nth-child(2) {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+#homeSection .sg-streak-card span {
+
+    color: #727d84;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+}
+
+
+#homeSection .sg-streak-card strong {
+
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+
+#homeSection .sg-streak-arrow {
+
+    margin-left: auto;
+
+    color: #b8ff00;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    #homeSection .sg-home-hero {
+
+        min-height: 310px;
+
+        border-radius: 18px;
+
+        margin-bottom: 27px;
+    }
+
+
+    #homeSection .sg-home-hero-content {
+
+        min-height: 310px;
+
+        padding: 25px;
+    }
+
+
+    #homeSection .sg-home-hero h2 {
+
+        font-size: 34px;
+
+        letter-spacing: -1.3px;
+    }
+
+
+    #homeSection .sg-home-hero p {
+
+        font-size: 11px;
+    }
+
+
+    #homeSection .sg-start-button {
+
+        font-size: 10px;
+
+        padding:
+            0 15px;
+    }
+
+
+    #homeSection .sg-today-card {
+
+        padding: 18px;
+    }
+
+
+    #homeSection .sg-quick-grid {
+
+        gap: 8px;
+    }
+
+
+    #homeSection .sg-quick-card {
+
+        min-height: 103px;
+
+        padding: 12px;
+    }
+
+
+    #homeSection .sg-quick-card strong {
+
+        font-size: 10px;
+    }
+
+
+    #homeSection .sg-quick-card small {
+
+        font-size: 8px;
+    }
+
+}
+
+
+@media (max-width: 390px) {
+
+    #homeSection .sg-home-hero {
+
+        min-height: 295px;
+    }
+
+
+    #homeSection .sg-home-hero-content {
+
+        min-height: 295px;
+
+        padding: 21px;
+    }
+
+
+    #homeSection .sg-home-hero h2 {
+
+        font-size: 30px;
+    }
+
+
+    #homeSection .sg-home-hero p {
+
+        font-size: 10px;
+    }
+
+
+    #homeSection .sg-quick-card {
+
+        min-height: 98px;
+    }
+
+}
+
+
+/* ============================================================
+   END — HOME REFERENCE UI
+   ============================================================ */
+
