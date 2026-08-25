@@ -11,6 +11,20 @@
 
 const PROFILE_STORAGE_KEY = "strongGymProfile";
 
+/* =========================================================
+   STRONG GYM - HAPTICS NATIVO
+   Vibración compatible con Capacitor Android
+   ========================================================= */
+
+const StrongGymHaptics =
+    window.Capacitor &&
+    window.Capacitor.Plugins &&
+    window.Capacitor.Plugins.Haptics
+        ? window.Capacitor.Plugins.Haptics
+        : null;
+
+
+
 
 let profile = {
 
@@ -575,8 +589,12 @@ navigationButtons.forEach(
             "click",
             () => {
 
+                const targetSection =
+                    button.dataset.section;
+
+
                 if(
-                    button.dataset.section ===
+                    targetSection ===
                     "progressSection"
                 ){
 
@@ -594,8 +612,22 @@ navigationButtons.forEach(
                 }
 
 
+                if(
+                    targetSection ===
+                    "cardioSection"
+                ){
+
+                    showSection(
+                        "cardioSection"
+                    );
+
+                    return;
+
+                }
+
+
                 showSection(
-                    button.dataset.section
+                    targetSection
                 );
 
             }
@@ -644,6 +676,438 @@ quickButtons.forEach(
     }
 );
 
+
+
+
+/* =========================================================
+   STRONG GYM CARDIO
+   ========================================================= */
+
+(function(){
+
+    const section =
+        document.getElementById(
+            "cardioSection"
+        );
+
+    if(!section){
+        return;
+    }
+
+
+    const buttons =
+        section.querySelectorAll(
+            "[data-cardio-type]"
+        );
+
+    const selected =
+        document.getElementById(
+            "cardioSelectedType"
+        );
+
+    const intensity =
+        document.getElementById(
+            "cardioIntensity"
+        );
+
+    const display =
+        document.getElementById(
+            "cardioTimerDisplay"
+        );
+
+    const start =
+        document.getElementById(
+            "cardioStartButton"
+        );
+
+    const pause =
+        document.getElementById(
+            "cardioPauseButton"
+        );
+
+    const finish =
+        document.getElementById(
+            "cardioFinishButton"
+        );
+
+    const history =
+        document.getElementById(
+            "cardioHistory"
+        );
+
+
+    let type =
+        "Caminata";
+
+    let seconds =
+        0;
+
+    let interval =
+        null;
+
+    let running =
+        false;
+
+
+    function formatTime(value){
+
+        const safe =
+            Math.max(
+                0,
+                Number(value) || 0
+            );
+
+        const minutes =
+            Math.floor(
+                safe / 60
+            );
+
+        const remaining =
+            safe % 60;
+
+        return (
+            String(minutes).padStart(2,"0")
+            +
+            ":"
+            +
+            String(remaining).padStart(2,"0")
+        );
+
+    }
+
+
+    function update(){
+
+        if(display){
+
+            display.textContent =
+                formatTime(
+                    seconds
+                );
+
+        }
+
+    }
+
+
+    function stop(){
+
+        if(interval !== null){
+
+            clearInterval(
+                interval
+            );
+
+            interval = null;
+
+        }
+
+    }
+
+
+    function renderHistory(){
+
+        if(!history){
+            return;
+        }
+
+        let sessions = [];
+
+        try{
+
+            sessions =
+                JSON.parse(
+                    localStorage.getItem(
+                        "strongGymCardioHistory"
+                    ) || "[]"
+                );
+
+        }catch(error){
+
+            sessions = [];
+
+        }
+
+
+        if(
+            !Array.isArray(sessions) ||
+            sessions.length === 0
+        ){
+
+            history.innerHTML =
+                "<p>Todavía no hay sesiones registradas.</p>";
+
+            return;
+
+        }
+
+
+        history.innerHTML = "";
+
+        sessions
+            .slice()
+            .reverse()
+            .slice(0,10)
+            .forEach(
+                session => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.style.marginBottom =
+                        "12px";
+
+                    item.innerHTML = `
+                        <strong>
+                            ${session.type}
+                        </strong>
+                        <br>
+                        ⏱ ${formatTime(session.seconds)}
+                        <br>
+                        Intensidad:
+                        ${session.intensity}
+                        <br>
+                        <small>
+                            ${session.date}
+                        </small>
+                    `;
+
+                    history.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+    }
+
+
+    function save(){
+
+        if(seconds <= 0){
+            return;
+        }
+
+        let sessions = [];
+
+        try{
+
+            sessions =
+                JSON.parse(
+                    localStorage.getItem(
+                        "strongGymCardioHistory"
+                    ) || "[]"
+                );
+
+        }catch(error){
+
+            sessions = [];
+
+        }
+
+
+        sessions.push({
+
+            type:type,
+
+            seconds:seconds,
+
+            intensity:
+                intensity
+                    ? intensity.value
+                    : "Moderada",
+
+            date:
+                new Date().toLocaleString()
+
+        });
+
+
+        localStorage.setItem(
+            "strongGymCardioHistory",
+            JSON.stringify(
+                sessions
+            )
+        );
+
+        renderHistory();
+
+    }
+
+
+    function reset(){
+
+        stop();
+
+        seconds = 0;
+
+        running = false;
+
+        update();
+
+        if(start){
+            start.disabled = false;
+        }
+
+        if(pause){
+            pause.disabled = true;
+            pause.textContent = "⏸ Pausar";
+        }
+
+        if(finish){
+            finish.disabled = true;
+        }
+
+    }
+
+
+    function run(){
+
+        stop();
+
+        interval =
+            setInterval(
+                () => {
+
+                    seconds++;
+
+                    update();
+
+                },
+                1000
+            );
+
+    }
+
+
+    buttons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    buttons.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                    type =
+                        button.dataset.cardioType;
+
+                    const emoji =
+                        type === "Caminata"
+                            ? "🚶"
+                            : type === "Carrera"
+                                ? "🏃"
+                                : type === "Bicicleta"
+                                    ? "🚴"
+                                    : "⚡";
+
+                    if(selected){
+
+                        selected.textContent =
+                            `${emoji} ${type}`;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    start?.addEventListener(
+        "click",
+        () => {
+
+            if(running){
+                return;
+            }
+
+            running = true;
+
+            if(start){
+                start.disabled = true;
+            }
+
+            if(pause){
+                pause.disabled = false;
+                pause.textContent = "⏸ Pausar";
+            }
+
+            if(finish){
+                finish.disabled = false;
+            }
+
+            run();
+
+        }
+    );
+
+
+    pause?.addEventListener(
+        "click",
+        () => {
+
+            if(!running){
+
+                running = true;
+
+                pause.textContent =
+                    "⏸ Pausar";
+
+                run();
+
+                return;
+
+            }
+
+            running = false;
+
+            stop();
+
+            pause.textContent =
+                "▶ Continuar";
+
+        }
+    );
+
+
+    finish?.addEventListener(
+        "click",
+        () => {
+
+            if(seconds <= 0){
+                return;
+            }
+
+            running = false;
+
+            stop();
+
+            save();
+
+            reset();
+
+        }
+    );
+
+
+    update();
+
+    renderHistory();
+
+})();
 
 
 /* =========================================================
@@ -1246,8 +1710,10 @@ async function loadExercisesDatabase() {
 
         const response =
             await fetch(
-                "data/exercises.json?v=1428",
-                { cache: "no-store" }
+                "./data/exercises.json?v=1428",
+                {
+                    cache: "no-store"
+                }
             );
 
 
@@ -1260,15 +1726,18 @@ async function loadExercisesDatabase() {
         }
 
 
+        const rawText =
+            await response.text();
+
+
+        const parsed =
+            JSON.parse(
+                rawText
+            );
+
+
         exercisesDatabase =
-            await response.json();
-
-
-        console.log(
-            "STRONG GYM: biblioteca cargada",
-            exercisesDatabase.length,
-            "ejercicios"
-        );
+            parsed;
 
 
         renderExerciseCards(
@@ -1276,35 +1745,16 @@ async function loadExercisesDatabase() {
         );
 
 
-    } catch (error) {
+    } catch(error) {
 
         console.error(
-            "Error cargando exercises.json:",
+            "No se pudo cargar la biblioteca de ejercicios:",
             error
         );
-
-
-        exerciseList.innerHTML = `
-            <div class="empty-state">
-
-                <span>⚠️</span>
-
-                <h3>
-                    No se pudo cargar la biblioteca
-                </h3>
-
-                <p>
-                    Revisá el archivo
-                    data/exercises.json
-                </p>
-
-            </div>
-        `;
 
     }
 
 }
-
 
 
 /* =========================================================
@@ -8063,7 +8513,28 @@ function stopStrongGymRestTimer(){
 
 function closeStrongGymRestTimer(){
 
+    /*
+     * Detener el intervalo.
+     */
+
     stopStrongGymRestTimer();
+
+
+    /*
+     * Eliminar completamente el estado del descanso
+     * de la memoria.
+     */
+
+    strongGymRestTimerEndTime = null;
+
+    strongGymRestTimerSeconds = 0;
+
+    strongGymRestTimerTotal = 0;
+
+
+    /*
+     * Eliminar la ventana visual.
+     */
 
     const timer =
         document.getElementById(
@@ -8073,6 +8544,52 @@ function closeStrongGymRestTimer(){
     if(timer){
 
         timer.remove();
+
+    }
+
+
+    /*
+     * IMPORTANTE:
+     * actualizar inmediatamente la sesión activa.
+     *
+     * Esto elimina del localStorage el restTimer
+     * que pudiera haber quedado guardado anteriormente.
+     */
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                "strongGymActiveWorkout"
+            );
+
+        if(raw){
+
+            const state =
+                JSON.parse(raw);
+
+            if(
+                state &&
+                state.restTimer
+            ){
+
+                delete state.restTimer;
+
+                localStorage.setItem(
+                    "strongGymActiveWorkout",
+                    JSON.stringify(state)
+                );
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo limpiar el temporizador guardado:",
+            error
+        );
 
     }
 
@@ -8292,6 +8809,7 @@ function startStrongGymRestTimer(
 
         strongGymRestTimerSeconds = 0;
 
+
         update();
 
 
@@ -8321,39 +8839,323 @@ function startStrongGymRestTimer(
 
         }
 
-    }
 
+        /*
+         * =====================================================
+         * VIBRACIÓN
+         * =====================================================
+         *
+         * Primero intentamos Haptics nativo de Capacitor.
+         * Si no está disponible, usamos navigator.vibrate().
+         */
+
+        try{
+
+            if(
+                StrongGymHaptics &&
+                typeof StrongGymHaptics.vibrate ===
+                    "function"
+            ){
+
+                StrongGymHaptics.vibrate({
+                    duration: 500
+                });
+
+            }else if(
+                "vibrate" in navigator
+            ){
+
+                navigator.vibrate(
+                    [
+                        300,
+                        150,
+                        300,
+                        150,
+                        500
+                    ]
+                );
+
+            }
+
+        }catch(error){
+
+            console.warn(
+                "STRONG GYM: no se pudo activar la vibración:",
+                error
+            );
+
+            try{
+
+                if(
+                    "vibrate" in navigator
+                ){
+
+                    navigator.vibrate(
+                        [
+                            300,
+                            150,
+                            300
+                        ]
+                    );
+
+                }
+
+            }catch(fallbackError){
+
+                console.warn(
+                    "STRONG GYM: fallo de vibración alternativa:",
+                    fallbackError
+                );
+
+            }
+
+        }
+
+
+        /*
+         * =====================================================
+         * SONIDO
+         * =====================================================
+         *
+         * Mantener Web Audio para navegador/WebView.
+         */
+
+        try{
+
+            const AudioContext =
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+            if(AudioContext){
+
+                const audioContext =
+                    new AudioContext();
+
+
+                const playBeep =
+                    (
+                        frequency,
+                        startTime,
+                        duration
+                    ) => {
+
+                        const oscillator =
+                            audioContext.createOscillator();
+
+                        const gain =
+                            audioContext.createGain();
+
+
+                        oscillator.type =
+                            "sine";
+
+                        oscillator.frequency.value =
+                            frequency;
+
+
+                        gain.gain.setValueAtTime(
+                            0.0001,
+                            startTime
+                        );
+
+                        gain.gain.exponentialRampToValueAtTime(
+                            0.35,
+                            startTime + 0.02
+                        );
+
+                        gain.gain.exponentialRampToValueAtTime(
+                            0.0001,
+                            startTime + duration
+                        );
+
+
+                        oscillator.connect(
+                            gain
+                        );
+
+                        gain.connect(
+                            audioContext.destination
+                        );
+
+
+                        oscillator.start(
+                            startTime
+                        );
+
+                        oscillator.stop(
+                            startTime + duration
+                        );
+
+                    };
+
+
+                const startAudio =
+                    () => {
+
+                        const now =
+                            audioContext.currentTime;
+
+
+                        playBeep(
+                            880,
+                            now,
+                            0.18
+                        );
+
+                        playBeep(
+                            1100,
+                            now + 0.22,
+                            0.18
+                        );
+
+                        playBeep(
+                            1320,
+                            now + 0.44,
+                            0.30
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                try{
+
+                                    audioContext.close();
+
+                                }catch(error){
+
+                                    console.warn(
+                                        "STRONG GYM: no se pudo cerrar AudioContext:",
+                                        error
+                                    );
+
+                                }
+
+                            },
+                            1200
+                        );
+
+                    };
+
+
+                if(
+                    audioContext.state ===
+                    "suspended"
+                ){
+
+                    audioContext.resume()
+                        .then(
+                            startAudio
+                        )
+                        .catch(
+                            () => {
+
+                                console.warn(
+                                    "STRONG GYM: AudioContext no pudo reanudarse."
+                                );
+
+                            }
+                        );
+
+                }else{
+
+                    startAudio();
+
+                }
+
+            }
+
+        }catch(error){
+
+            console.warn(
+                "STRONG GYM: no se pudo reproducir el sonido:",
+                error
+            );
+
+        }
+
+}
+
+
+
+    /*
+     * =====================================================
+     * STRONG GYM - CAMBIAR TIEMPO DEL DESCANSO
+     * =====================================================
+     *
+     * Modifica tanto los segundos visibles como
+     * endTime, que es la referencia utilizada por
+     * el intervalo principal.
+     */
 
     function changeTime(
         amount
     ){
 
-        strongGymRestTimerSeconds =
+        const currentSeconds =
             Math.max(
                 0,
-                strongGymRestTimerSeconds +
-                amount
+                Number(
+                    strongGymRestTimerSeconds
+                ) || 0
             );
 
 
-        strongGymRestTimerTotal =
+        const safeAmount =
+            Number(
+                amount
+            ) || 0;
+
+
+        const newSeconds =
             Math.max(
-                1,
-                strongGymRestTimerSeconds
+                0,
+                currentSeconds +
+                safeAmount
             );
 
 
         /*
-         * Recalcular la hora REAL de finalización
-         * después de +/- 30 segundos.
+         * Actualizar segundos.
          */
+
+        strongGymRestTimerSeconds =
+            newSeconds;
+
+
+        /*
+         * Actualizar total del progreso.
+         */
+
+        strongGymRestTimerTotal =
+            Math.max(
+                1,
+                newSeconds
+            );
+
+
+        /*
+         * IMPORTANTE:
+         *
+         * El intervalo calcula el tiempo restante
+         * utilizando endTime.
+         *
+         * Por eso debemos recalcularlo cada vez
+         * que el usuario pulsa +30 o -30.
+         */
+
         strongGymRestTimerEndTime =
             Date.now() +
             (
-                strongGymRestTimerSeconds *
+                newSeconds *
                 1000
             );
 
+
+        /*
+         * Restaurar apariencia normal si estaba
+         * en estado terminado.
+         */
 
         timer.classList.remove(
             "strong-gym-rest-finished"
@@ -8382,7 +9184,25 @@ function startStrongGymRestTimer(
         }
 
 
+        /*
+         * Mostrar inmediatamente el nuevo tiempo.
+         */
+
         update();
+
+
+        /*
+         * Si se baja hasta cero,
+         * finalizar el descanso.
+         */
+
+        if(
+            newSeconds <= 0
+        ){
+
+            finish();
+
+        }
 
     }
 
@@ -11733,20 +12553,29 @@ return `
     function closeWorkout(){
 
         /*
-         * Guardar la sesión ANTES de cerrar.
+         * Primero cerrar el temporizador.
          *
-         * Esto conserva:
-         * - series
-         * - peso
-         * - repeticiones
-         * - RIR
-         * - descanso activo
-         * - hora real de finalización del descanso
+         * Esto elimina cualquier descanso que el
+         * usuario haya cerrado.
+         */
+
+        closeStrongGymRestTimer();
+
+
+        /*
+         * Después guardar la sesión.
+         *
+         * Se conserva la rutina activa, series,
+         * pesos, repeticiones y RIR, pero no un
+         * temporizador que ya fue cerrado.
          */
 
         saveActiveWorkoutState();
 
-        closeStrongGymRestTimer();
+
+        /*
+         * Finalmente cerrar la ventana.
+         */
 
         modal.remove();
 
@@ -12076,6 +12905,38 @@ return `
             );
 
 
+            /*
+             * =================================================
+             * ENTRENAMIENTO FINALIZADO
+             * =================================================
+             *
+             * El historial ya fue guardado.
+             *
+             * Ahora eliminamos la sesión activa para que,
+             * al volver a abrir STRONG GYM, NO se recupere
+             * una rutina que ya terminó.
+             */
+
+            try{
+
+                localStorage.removeItem(
+                    "strongGymActiveWorkout"
+                );
+
+                console.log(
+                    "STRONG GYM: sesión activa eliminada porque el entrenamiento finalizó."
+                );
+
+            }catch(error){
+
+                console.warn(
+                    "No se pudo eliminar la sesión activa:",
+                    error
+                );
+
+            }
+
+
             /* =================================================
                GUARDAR PROGRESO EN LA RUTINA
                ================================================= */
@@ -12265,7 +13126,45 @@ return `
             );
 
 
+            /*
+             * =================================================
+             * FINALIZACIÓN DEFINITIVA
+             * =================================================
+             *
+             * closeWorkout() puede guardar nuevamente
+             * la sesión activa.
+             *
+             * Por eso eliminamos strongGymActiveWorkout
+             * DESPUÉS de cerrar el entrenamiento.
+             *
+             * De esta forma:
+             *
+             * - salir temporalmente = conserva la sesión
+             * - cambiar de aplicación = conserva la sesión
+             * - finalizar entrenamiento = elimina la sesión
+             */
+
             closeWorkout();
+
+
+            try{
+
+                localStorage.removeItem(
+                    "strongGymActiveWorkout"
+                );
+
+                console.log(
+                    "STRONG GYM: entrenamiento finalizado. Sesión activa eliminada definitivamente."
+                );
+
+            }catch(error){
+
+                console.warn(
+                    "No se pudo eliminar definitivamente la sesión activa:",
+                    error
+                );
+
+            }
 
         }
     );
@@ -17041,43 +17940,14 @@ document.addEventListener(
         updateWelcomeUser();
 
         /*
-         * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
+         * STRONG GYM - INICIO AL ABRIR LA APP
+         *
+         * Cada apertura/reinicio comienza en Inicio.
+         * La rutina activa se manejará independientemente.
          */
 
-        let initialSection =
-            "homeSection";
-
-        try {
-
-            const savedSection =
-                localStorage.getItem(
-                    "strongGymLastSection"
-                );
-
-            if (
-                savedSection &&
-                document.getElementById(
-                    savedSection
-                )
-            ) {
-
-                initialSection =
-                    savedSection;
-
-            }
-
-        } catch(error) {
-
-            console.warn(
-                "No se pudo recuperar la última pantalla:",
-                error
-            );
-
-        }
-
-
         showSection(
-            initialSection
+            "homeSection"
         );
 
         updateTimerDisplay();
@@ -18869,88 +19739,14 @@ document.addEventListener(
 
 /*
  * =========================================================
- * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
+ * RESTAURACIÓN AUTOMÁTICA DE ÚLTIMA PANTALLA DESACTIVADA
  * =========================================================
+ *
+ * STRONG GYM siempre inicia en Inicio.
+ *
+ * La recuperación de una rutina activa se mantiene
+ * mediante restoreActiveWorkout().
  */
-
-window.restoreStrongGymLastSection =
-    function(){
-
-        try{
-
-            const lastSection =
-                localStorage.getItem(
-                    "strongGymLastSection"
-                );
-
-
-            if(
-                !lastSection
-            ){
-
-                return;
-
-            }
-
-
-            const section =
-                document.getElementById(
-                    lastSection
-                );
-
-
-            if(
-                !section
-            ){
-
-                return;
-
-            }
-
-
-            showSection(
-                lastSection
-            );
-
-
-        }catch(error){
-
-            console.warn(
-                "No se pudo restaurar la última pantalla:",
-                error
-            );
-
-        }
-
-    };
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        setTimeout(
-            function(){
-
-                if(
-                    typeof window.restoreStrongGymLastSection
-                    ===
-                    "function"
-                ){
-
-                    window.restoreStrongGymLastSection();
-
-                }
-
-            },
-            500
-        );
-
-    }
-);
-
-
-
 
 /* =========================================================
    RECUPERAR SESIÓN ACTIVA AL ABRIR STRONG GYM

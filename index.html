@@ -360,6 +360,28 @@
 
             </div>
 
+                <button
+                    type="button"
+                    class="quick-card"
+                    data-section="cardioSection"
+                >
+
+                    <span class="quick-icon">
+                        🫀
+                    </span>
+
+                    <strong>
+                        Cardio
+                    </strong>
+
+                    <small>
+                        Sesiones de cardio
+                    </small>
+
+                </button>
+
+
+
 
         </section>
 
@@ -559,7 +581,11 @@
                             🌱
                         </span>
 
-                        <strong>
+                        <span class="quick-icon">
+                        🫀
+                    </span>
+
+                    <strong>
                             Principiante
                         </strong>
 
@@ -1494,6 +1520,21 @@
 
         <button
             class="nav-button"
+            data-section="cardioSection"
+        >
+
+            <span>
+                🫀
+            </span>
+
+            <small>
+                Cardio
+            </small>
+
+        </button>
+
+        <button
+            class="nav-button"
             data-section="coachSection"
         >
 
@@ -1506,6 +1547,8 @@
             </small>
 
         </button>
+
+
 
 
     </nav>
@@ -1607,6 +1650,178 @@
                 <p>
                     Strong Gym analizará tus entrenamientos,
                     progresión y récords.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STRONG GYM CARDIO
+         ===================================================== -->
+
+    <section
+        id="cardioSection"
+        class="app-section"
+    >
+
+        <div class="page-header">
+
+            <span>
+                STRONG GYM CARDIO
+            </span>
+
+            <h2>
+                🫀 Sesión de cardio
+            </h2>
+
+            <p>
+                Registrá tu sesión de cardio.
+            </p>
+
+        </div>
+
+
+        <div class="cardio-type-grid">
+
+            <button
+                type="button"
+                class="cardio-type-button active"
+                data-cardio-type="Caminata"
+            >
+                🚶
+                <strong>Caminata</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="Carrera"
+            >
+                🏃
+                <strong>Carrera</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="Bicicleta"
+            >
+                🚴
+                <strong>Bicicleta</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="HIIT"
+            >
+                ⚡
+                <strong>HIIT</strong>
+            </button>
+
+        </div>
+
+
+        <div class="cardio-session-card">
+
+            <span class="modal-label">
+                TIPO DE CARDIO
+            </span>
+
+            <h3 id="cardioSelectedType">
+                🚶 Caminata
+            </h3>
+
+
+            <div class="cardio-intensity">
+
+                <span>
+                    Intensidad
+                </span>
+
+                <select id="cardioIntensity">
+
+                    <option value="Suave">
+                        Suave
+                    </option>
+
+                    <option
+                        value="Moderada"
+                        selected
+                    >
+                        Moderada
+                    </option>
+
+                    <option value="Alta">
+                        Alta
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="cardioTimerDisplay"
+                class="cardio-timer-display"
+            >
+                00:00
+            </div>
+
+
+            <div class="cardio-controls">
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="cardioStartButton"
+                >
+                    ▶ Iniciar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cardioPauseButton"
+                    disabled
+                >
+                    ⏸ Pausar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cardioFinishButton"
+                    disabled
+                >
+                    ⏹ Finalizar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>
+                📋 Historial de cardio
+            </h3>
+
+            <div id="cardioHistory">
+
+                <p>
+                    Todavía no hay sesiones registradas.
                 </p>
 
             </div>
