@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111827"
+    >
+
+    <meta
+        name="description"
+        content="STRONG GYM - Tu entrenamiento, tus rutinas y tu progreso."
+    >
+
+    <title>STRONG GYM</title>
+
+    <link
+        rel="stylesheet"
+        href="css/styles.css"
+    >
+
+</head>
+
+
+<body>
+
+
+
+
+
+
+    <!-- =====================================================
+         ENCABEZADO
+         ===================================================== -->
+
+    <header class="app-header">
+
+        <div>
+
+            <h1>
+                STRONG GYM
+            </h1>
+
+            <p>
+                Tu entrenamiento. Tu progreso.
+            </p>
+
+        </div>
+
+
+        <button
+            class="profile-button"
+            id="profileButton"
+            aria-label="Abrir perfil"
+        >
+
+            👤
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="app-content">
+
+
+
+        <!-- =================================================
+             INICIO
+             ================================================= -->
+
+        <section
+            id="homeSection"
+            class="app-section active"
+        >
+
+
+            <!-- BIENVENIDA -->
+
+            <div class="welcome-card">
+
+                <span class="welcome-label">
+                    BIENVENIDO
+                </span>
+
+
+                <h2>
+                    ¿Listo para entrenar?
+                </h2>
+
+
+                <p>
+                    Organizá tu entrenamiento,
+                    registrá tus cargas y seguí
+                    tu progreso.
+                </p>
+
+
+                <button
+                    class="primary-button"
+                    id="startWorkoutButton"
+                >
+
+                    🏋️ Comenzar entrenamiento
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ENTRENAMIENTO DE HOY -->
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        HOY
+                    </span>
+
+                    <h2>
+                        Tu entrenamiento
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="workout-card">
+
+
+                <div class="workout-card-header">
+
+                    <div>
+
+                        <span class="workout-day">
+                            DÍA 1
+                        </span>
+
+                        <h3>
+                            Tren superior
+                        </h3>
+
+                    </div>
+
+
+                    <span class="workout-time">
+                        ⏱ 60 min
+                    </span>
+
+                </div>
+
+
+
+                <div class="muscle-tags">
+
+                    <span>
+                        Pecho
+                    </span>
+
+                    <span>
+                        Espalda
+                    </span>
+
+                    <span>
+                        Hombros
+                    </span>
+
+                    <span>
+                        Brazos
+                    </span>
+
+                </div>
+
+
+
+                <div class="workout-progress">
+
+                    <div class="progress-info">
+
+                        <span>
+                            Progreso
+                        </span>
+
+                        <strong>
+                            0 / 6 ejercicios
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-value"
+                            style="width: 0%;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <button
+                    class="secondary-button"
+                    id="viewWorkoutButton"
+                >
+
+                    Ver entrenamiento →
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- ACCESOS RÁPIDOS -->
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        EXPLORAR
+                    </span>
+
+                    <h2>
+                        Accesos rápidos
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="quick-grid">
+
+
+                <button
+                    class="quick-card"
+                    data-section="routinesSection"
+                >
+
+                    <span class="quick-icon">
+                        📋
+                    </span>
+
+                    <strong>
+                        Mis rutinas
+                    </strong>
+
+                    <small>
+                        Crear y organizar
+                    </small>
+
+                </button>
+
+
+
+                <button
+                    class="quick-card"
+                    data-section="exercisesSection"
+                >
+
+                    <span class="quick-icon">
+                        🎥
+                    </span>
+
+                    <strong>
+                        Ejercicios
+                    </strong>
+
+                    <small>
+                        Ver demostraciones
+                    </small>
+
+                </button>
+
+
+
+                <button
+                    class="quick-card"
+                    data-section="progressSection"
+                >
+
+                    <span class="quick-icon">
+                        📈
+                    </span>
+
+                    <strong>
+                        Mi progreso
+                    </strong>
+
+                    <small>
+                        Ver evolución
+                    </small>
+
+                </button>
+                  <button
+                      class="quick-card"
+                      data-section="historySection"
+                  >
+
+                      <span class="quick-icon">
+                          📊
+                      </span>
+
+                      <strong>
+                          Historial
+                      </strong>
+
+                      <small>
+                          Ver entrenamientos
+                      </small>
+
+                  </button>
+
+
+
+
+
+
+                <button
+                    class="quick-card"
+                    id="timerButton"
+                >
+
+                    <span class="quick-icon">
+                        ⏱️
+                    </span>
+
+                    <strong>
+                        Descanso
+                    </strong>
+
+                    <small>
+                        Temporizador
+                    </small>
+
+                </button>
+
+
+            </div>
+
+                <button
+                    type="button"
+                    class="quick-card"
+                    data-section="cardioSection"
+                >
+
+                    <span class="quick-icon">
+                        🫀
+                    </span>
+
+                    <strong>
+                        Cardio
+                    </strong>
+
+                    <small>
+                        Sesiones de cardio
+                    </small>
+
+                </button>
+
+
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PERFIL
+             ================================================= -->
+
+        <section
+            id="profileSection"
+            class="app-section"
+        >
+
+
+            <div class="page-header">
+
+                <span>
+                    MI CUENTA
+                </span>
+
+                <h2>
+                    Mi perfil
+                </h2>
+
+                <p>
+                    Configurá tus datos para personalizar
+                    tus entrenamientos.
+                </p>
+
+            </div>
+
+
+
+            <!-- DATOS PERSONALES -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        DATOS PERSONALES
+                    </span>
+
+                    <h3>
+                        Información básica
+                    </h3>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="profileName">
+                        Nombre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="profileName"
+                        placeholder="Ej.: Juan"
+                    >
+
+                </div>
+
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="profileAge">
+                            Edad
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileAge"
+                            min="12"
+                            max="100"
+                            placeholder="30"
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="profileSex">
+                            Sexo
+                        </label>
+
+                        <select id="profileSex">
+
+                            <option value="">
+                                Seleccionar
+                            </option>
+
+                            <option value="masculino">
+                                Masculino
+                            </option>
+
+                            <option value="femenino">
+                                Femenino
+                            </option>
+
+                            <option value="otro">
+                                Prefiero no indicarlo
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="profileHeight">
+                            Altura (cm)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileHeight"
+                            min="100"
+                            max="250"
+                            placeholder="170"
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="profileWeight">
+                            Peso (kg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileWeight"
+                            min="30"
+                            max="300"
+                            step="0.1"
+                            placeholder="80"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- NIVEL -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        EXPERIENCIA
+                    </span>
+
+                    <h3>
+                        Nivel de entrenamiento
+                    </h3>
+
+                </div>
+
+
+
+                <div class="option-grid">
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="principiante"
+                    >
+
+                        <span>
+                            🌱
+                        </span>
+
+                        <span class="quick-icon">
+                        🫀
+                    </span>
+
+                    <strong>
+                            Principiante
+                        </strong>
+
+                        <small>
+                            Menos de 1 año
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="intermedio"
+                    >
+
+                        <span>
+                            🔥
+                        </span>
+
+                        <strong>
+                            Intermedio
+                        </strong>
+
+                        <small>
+                            1–3 años
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="avanzado"
+                    >
+
+                        <span>
+                            🏆
+                        </span>
+
+                        <strong>
+                            Avanzado
+                        </strong>
+
+                        <small>
+                            Más de 3 años
+                        </small>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- OBJETIVO -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        OBJETIVO
+                    </span>
+
+                    <h3>
+                        ¿Qué querés conseguir?
+                    </h3>
+
+                </div>
+
+
+
+                <div class="option-grid">
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="hipertrofia"
+                    >
+
+                        <span>
+                            💪
+                        </span>
+
+                        <strong>
+                            Masa muscular
+                        </strong>
+
+                        <small>
+                            Hipertrofia
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="fuerza"
+                    >
+
+                        <span>
+                            🏋️
+                        </span>
+
+                        <strong>
+                            Fuerza
+                        </strong>
+
+                        <small>
+                            Aumentar rendimiento
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="tonificacion"
+                    >
+
+                        <span>
+                            ⚡
+                        </span>
+
+                        <strong>
+                            Tonificación
+                        </strong>
+
+                        <small>
+                            Mejor composición corporal
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="perdida-grasa"
+                    >
+
+                        <span>
+                            🔥
+                        </span>
+
+                        <strong>
+                            Pérdida de grasa
+                        </strong>
+
+                        <small>
+                            Déficit energético
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="recomposicion"
+                    >
+
+                        <span>
+                            🔄
+                        </span>
+
+                        <strong>
+                            Recomposición
+                        </strong>
+
+                        <small>
+                            Músculo + grasa
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="resistencia"
+                    >
+
+                        <span>
+                            🏃
+                        </span>
+
+                        <strong>
+                            Resistencia
+                        </strong>
+
+                        <small>
+                            Condición física
+                        </small>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- DISPONIBILIDAD -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        DISPONIBILIDAD
+                    </span>
+
+                    <h3>
+                        ¿Cuánto podés entrenar?
+                    </h3>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="profileDays">
+                        Días por semana
+                    </label>
+
+                    <select id="profileDays">
+
+                        <option value="">
+                            Seleccionar
+                        </option>
+
+                        <option value="2">
+                            2 días
+                        </option>
+
+                        <option value="3">
+                            3 días
+                        </option>
+
+                        <option value="4">
+                            4 días
+                        </option>
+
+                        <option value="5">
+                            5 días
+                        </option>
+
+                        <option value="6">
+                            6 días
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="profileTime">
+                        Tiempo disponible
+                    </label>
+
+                    <select id="profileTime">
+
+                        <option value="">
+                            Seleccionar
+                        </option>
+
+                        <option value="30">
+                            30 minutos
+                        </option>
+
+                        <option value="45">
+                            45 minutos
+                        </option>
+
+                        <option value="60">
+                            60 minutos
+                        </option>
+
+                        <option value="90">
+                            90 minutos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- GUARDAR PERFIL -->
+
+            <button
+                class="primary-button full-width"
+                id="saveProfileButton"
+            >
+
+                💾 Guardar perfil
+
+            </button>
+
+
+
+            <div
+                id="profileSavedMessage"
+                class="profile-saved-message"
+            >
+
+                ✓ Perfil guardado correctamente
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RUTINAS
+             ================================================= -->
+
+        <section
+            id="routinesSection"
+            class="app-section"
+        >
+
+
+            <div class="page-header">
+
+                <span>
+                    ENTRENAMIENTO
+                </span>
+
+                <h2>
+                    Mis rutinas
+                </h2>
+
+                <p>
+                    Creá y organizá tus planes de entrenamiento.
+                </p>
+
+            </div>
+
+
+
+            <button
+                class="primary-button full-width"
+                id="createRoutineButton"
+            >
+
+                ＋ Crear nueva rutina
+
+            </button>
+
+
+
+            <div
+                id="routineList"
+                class="routine-list"
+            >
+
+
+                <div class="empty-state">
+
+                    <span>
+                        📋
+                    </span>
+
+                    <h3>
+                        Todavía no tenés rutinas
+                    </h3>
+
+                    <p>
+                        Creá tu primera rutina para comenzar.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EJERCICIOS
+             ================================================= -->
+
+        <section
+            id="exercisesSection"
+            class="app-section"
+        >
+
+
+            <div class="page-header">
+
+                <span>
+                    BIBLIOTECA
+                </span>
+
+                <h2>
+                    Ejercicios
+                </h2>
+
+                <p>
+                    Explorá ejercicios y aprendé la técnica correcta.
+                </p>
+
+            </div>
+
+
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    type="search"
+                    id="exerciseSearch"
+                    placeholder="Buscar ejercicio..."
+                >
+
+            </div>
+
+
+
+            <div class="filter-scroll">
+
+
+                <button
+                    class="filter-button active"
+                >
+                    Todos
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Pecho
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Espalda
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Hombros
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Brazos
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Piernas
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Glúteos
+                </button>
+
+
+                <button
+                    class="filter-button"
+                >
+                    Abdomen
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                id="exerciseList"
+                class="exercise-list"
+            >
+
+
+                <div class="exercise-card">
+
+
+                    <div class="exercise-image">
+                        🏋️
+                    </div>
+
+
+                    <div class="exercise-info">
+
+                        <span class="exercise-muscle">
+                            PECHO
+                        </span>
+
+                        <h3>
+                            Press banca
+                        </h3>
+
+                        <p>
+                            Pectoral mayor · Tríceps ·
+                            Deltoides anterior
+                        </p>
+
+                        <button class="small-button">
+                            Ver ejercicio →
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="exercise-card">
+
+
+                    <div class="exercise-image">
+                        🏋️
+                    </div>
+
+
+                    <div class="exercise-info">
+
+                        <span class="exercise-muscle">
+                            ESPALDA
+                        </span>
+
+                        <h3>
+                            Jalón al pecho
+                        </h3>
+
+                        <p>
+                            Dorsales · Bíceps · Romboides
+                        </p>
+
+                        <button class="small-button">
+                            Ver ejercicio →
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="exercise-card">
+
+
+                    <div class="exercise-image">
+                        🏋️
+                    </div>
+
+
+                    <div class="exercise-info">
+
+                        <span class="exercise-muscle">
+                            PIERNAS
+                        </span>
+
+                        <h3>
+                            Sentadilla
+                        </h3>
+
+                        <p>
+                            Cuádriceps · Glúteos ·
+                            Isquiotibiales
+                        </p>
+
+                        <button class="small-button">
+                            Ver ejercicio →
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PROGRESO
+             ================================================= -->
+          <!-- =================================================
+               HISTORIAL
+               ================================================= -->
+
+          <section
+              id="historySection"
+              class="app-section"
+          >
+
+              <div class="page-header">
+
+                  <span>
+                      ENTRENAMIENTOS
+                  </span>
+
+                  <h2>
+                      Historial
+                  </h2>
+
+                  <p>
+                      Revisá tus entrenamientos realizados.
+                  </p>
+
+              </div>
+
+
+              <div
+                  id="workoutHistoryList"
+                  class="workout-history-list"
+              >
+
+                  <div class="empty-state">
+
+                      <span>
+                          📊
+                      </span>
+
+                      <h3>
+                          Todavía no hay entrenamientos
+                      </h3>
+
+                      <p>
+                          Cuando finalices un entrenamiento,
+                          aparecerá aquí.
+                      </p>
+
+                  </div>
+
+              </div>
+
+          </section>
+
+
+
+
+        <section
+            id="progressSection"
+            class="app-section"
+        >
+
+
+            <div class="page-header">
+
+                <span>
+                    ESTADÍSTICAS
+                </span>
+
+                <h2>
+                    Mi progreso
+                </h2>
+
+                <p>
+                    Seguimiento de tu evolución.
+                </p>
+
+            </div>
+
+
+
+            <div class="chart-card">
+
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span>
+                            EVOLUCIÓN
+                        </span>
+
+                        <h2>
+                            Entrenamientos
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                  <div
+                      class="progress-chart-container"
+                      id="progressChartContainer"
+                  >
+
+                      <div
+                          class="progress-chart-empty"
+                          id="progressChartEmpty"
+                      >
+
+                          📊
+
+                          <p>
+                              Realizá entrenamientos para
+                              comenzar a ver tu evolución.
+                          </p>
+
+                      </div>
+
+
+                      <canvas
+                          id="workoutProgressChart"
+                          class="workout-progress-chart"
+                          aria-label="Gráfico de evolución de entrenamientos"
+                      ></canvas>
+
+                  </div>
+
+
+            </div>
+
+
+
+          <!-- =================================================
+               EVOLUCIÓN DE FUERZA
+               ================================================= -->
+
+          <div
+              class="strength-progress-panel"
+              id="strengthProgressPanel"
+          >
+
+              <div class="section-title">
+
+                  <div>
+
+                      <span>
+                          FUERZA
+                      </span>
+
+                      <h2>
+                          Evolución por ejercicio
+                      </h2>
+
+                      <p>
+                          Seguimiento de tu mejor peso registrado.
+                      </p>
+
+                  </div>
+
+              </div>
+
+
+              <div
+                  class="strength-progress-controls"
+              >
+
+                  <label
+                      for="strengthExerciseSelect"
+                  >
+                      Ejercicio
+                  </label>
+
+
+                  <select
+                      id="strengthExerciseSelect"
+                  >
+
+                      <option value="">
+                          Seleccioná un ejercicio
+                      </option>
+
+                  </select>
+
+              </div>
+
+
+              <div
+                  class="strength-chart-container"
+                  id="strengthChartContainer"
+              >
+
+                  <div
+                      class="strength-chart-empty"
+                      id="strengthChartEmpty"
+                  >
+
+                      💪
+
+                      <p>
+                          Seleccioná un ejercicio para
+                          ver su evolución.
+                      </p>
+
+                  </div>
+
+
+                  <canvas
+                      id="strengthProgressChart"
+                      class="strength-progress-chart"
+                      aria-label="Evolución de fuerza por ejercicio"
+                  ></canvas>
+
+              </div>
+
+          </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         NAVEGACIÓN INFERIOR
+         ===================================================== -->
+
+    <nav class="bottom-navigation">
+
+
+        <button
+            class="nav-button active"
+            data-section="homeSection"
+        >
+
+            <span>
+                ⌂
+            </span>
+
+            <small>
+                Inicio
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-button"
+            data-section="routinesSection"
+        >
+
+            <span>
+                📋
+            </span>
+
+            <small>
+                Rutinas
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-button"
+            data-section="exercisesSection"
+        >
+
+            <span>
+                🏋️
+            </span>
+
+            <small>
+                Ejercicios
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-button"
+            data-section="progressSection"
+        >
+
+            <span>
+                📈
+            </span>
+
+            <small>
+                Progreso
+            </small>
+
+        </button>
+
+
+
+        <button
+            class="nav-button"
+            data-section="cardioSection"
+        >
+
+            <span>
+                🫀
+            </span>
+
+            <small>
+                Cardio
+            </small>
+
+        </button>
+
+        <button
+            class="nav-button"
+            data-section="coachSection"
+        >
+
+            <span>
+                🧠
+            </span>
+
+            <small>
+                Coach
+            </small>
+
+        </button>
+
+
+
+
+    </nav>
+
+
+
+
+    <section
+        id="coachSection"
+        class="app-section"
+    >
+
+        <div class="page-header">
+
+            <span>
+                STRONG GYM COACH
+            </span>
+
+            <h2>
+                🧠 Tu entrenador
+            </h2>
+
+            <p>
+                Analizá tu evolución y prepará tu próxima sesión.
+            </p>
+
+        </div>
+
+
+
+        <div
+            id="strongGymCoachScore"
+            class="strong-coach-score-card"
+        >
+
+            <span class="strong-coach-score-title">
+                🧠 Rendimiento
+            </span>
+
+            <strong id="strongGymCoachScoreValue">
+                0<span>/100</span>
+            </strong>
+
+            <span id="strongGymCoachScoreLabel">
+                ⚪ Sin datos
+            </span>
+
+            <div
+                id="strongGymCoachScoreDetails"
+                class="strong-coach-score-details"
+            >
+
+                <div>
+                    <span>🎯</span>
+                    <small>Series</small>
+                    <strong id="coachScoreCompletion">
+                        0/100
+                    </strong>
+                </div>
+
+                <div>
+                    <span>📈</span>
+                    <small>Progresión</small>
+                    <strong id="coachScoreProgression">
+                        0/100
+                    </strong>
+                </div>
+
+                <div>
+                    <span>🔥</span>
+                    <small>RIR</small>
+                    <strong id="coachScoreRIR">
+                        0/100
+                    </strong>
+                </div>
+
+                <div>
+                    <span>📅</span>
+                    <small>Consistencia</small>
+                    <strong id="coachScoreConsistency">
+                        0/100
+                    </strong>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div id="strongGymCoachContent">
+
+            <div class="chart-card">
+
+                <h3>
+                    🧠 Preparando tu análisis...
+                </h3>
+
+                <p>
+                    Strong Gym analizará tus entrenamientos,
+                    progresión y récords.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STRONG GYM CARDIO
+         ===================================================== -->
+
+    <section
+        id="cardioSection"
+        class="app-section"
+    >
+
+        <div class="page-header">
+
+            <span>
+                STRONG GYM CARDIO
+            </span>
+
+            <h2>
+                🫀 Sesión de cardio
+            </h2>
+
+            <p>
+                Registrá tu sesión de cardio.
+            </p>
+
+        </div>
+
+
+        <div class="cardio-type-grid">
+
+            <button
+                type="button"
+                class="cardio-type-button active"
+                data-cardio-type="Caminata"
+            >
+                🚶
+                <strong>Caminata</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="Carrera"
+            >
+                🏃
+                <strong>Carrera</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="Bicicleta"
+            >
+                🚴
+                <strong>Bicicleta</strong>
+            </button>
+
+
+            <button
+                type="button"
+                class="cardio-type-button"
+                data-cardio-type="HIIT"
+            >
+                ⚡
+                <strong>HIIT</strong>
+            </button>
+
+        </div>
+
+
+        <div class="cardio-session-card">
+
+            <span class="modal-label">
+                TIPO DE CARDIO
+            </span>
+
+            <h3 id="cardioSelectedType">
+                🚶 Caminata
+            </h3>
+
+
+            <div class="cardio-intensity">
+
+                <span>
+                    Intensidad
+                </span>
+
+                <select id="cardioIntensity">
+
+                    <option value="Suave">
+                        Suave
+                    </option>
+
+                    <option
+                        value="Moderada"
+                        selected
+                    >
+                        Moderada
+                    </option>
+
+                    <option value="Alta">
+                        Alta
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="cardioTimerDisplay"
+                class="cardio-timer-display"
+            >
+                00:00
+            </div>
+
+
+            <div class="cardio-controls">
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="cardioStartButton"
+                >
+                    ▶ Iniciar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cardioPauseButton"
+                    disabled
+                >
+                    ⏸ Pausar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="cardioFinishButton"
+                    disabled
+                >
+                    ⏹ Finalizar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>
+                📋 Historial de cardio
+            </h3>
+
+            <div id="cardioHistory">
+
+                <p>
+                    Todavía no hay sesiones registradas.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MODAL TEMPORIZADOR
+         ===================================================== -->
+
+    <div
+        class="modal-overlay"
+        id="timerModal"
+    >
+
+
+        <div class="modal-card">
+
+
+            <button
+                class="modal-close"
+                id="closeTimer"
+            >
+
+                ×
+
+            </button>
+
+
+
+            <span class="modal-label">
+                DESCANSO
+            </span>
+
+
+
+            <h2 id="timerDisplay">
+                01:30
+            </h2>
+
+
+
+            <div class="timer-controls">
+
+
+                <button
+                    class="timer-option"
+                    data-time="60"
+                >
+
+                    60 s
+
+                </button>
+
+
+
+                <button
+                    class="timer-option"
+                    data-time="90"
+                >
+
+                    90 s
+
+                </button>
+
+
+
+                <button
+                    class="timer-option"
+                    data-time="120"
+                >
+
+                    120 s
+
+                </button>
+
+
+            </div>
+
+
+
+            <button
+                class="primary-button full-width"
+                id="startTimer"
+            >
+
+                ▶ Iniciar
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="js/app.js?v=20260821-2"></script>
+
+
+</body>
+
+</html>

@@ -1325,6 +1325,246 @@ if (saveProfileButton) {
    ENTRENAMIENTO
    ========================================================= */
 
+
+/* =========================================================
+   STRONG GYM 3.0 — HOME CON RUTINA REAL
+   ========================================================= */
+
+function getStrongGymRoutines(){
+
+    try{
+
+        const stored =
+            localStorage.getItem("strongGymRoutines");
+
+        const routines =
+            stored
+                ? JSON.parse(stored)
+                : [];
+
+        return Array.isArray(routines)
+            ? routines
+            : [];
+
+    }catch(error){
+
+        console.error(
+            "STRONG GYM: error leyendo rutinas:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+function getTodayWorkoutRoutine(){
+
+    const routines =
+        getStrongGymRoutines();
+
+    if(!routines.length){
+        return null;
+    }
+
+    /*
+     * Utilizamos la rutina más reciente.
+     * Esto mantiene el Home conectado con
+     * el mismo almacenamiento utilizado por
+     * Mis rutinas.
+     */
+
+    return routines[routines.length - 1];
+
+}
+
+
+function updateTodayWorkout(){
+
+    const routine =
+        getTodayWorkoutRoutine();
+
+    const name =
+        document.getElementById(
+            "todayWorkoutName"
+        );
+
+    const description =
+        document.getElementById(
+            "todayWorkoutDescription"
+        );
+
+    const status =
+        document.getElementById(
+            "todayWorkoutStatus"
+        );
+
+    const exerciseCount =
+        document.getElementById(
+            "todayExerciseCount"
+        );
+
+    const setCount =
+        document.getElementById(
+            "todaySetCount"
+        );
+
+    const duration =
+        document.getElementById(
+            "todayDuration"
+        );
+
+    const focus =
+        document.getElementById(
+            "todayWorkoutFocus"
+        );
+
+    if(!name){
+        return;
+    }
+
+    if(!routine){
+
+        name.textContent =
+            "Sin entrenamiento";
+
+        description.textContent =
+            "Creá una rutina para comenzar.";
+
+        status.textContent =
+            "CONFIGURAR";
+
+        exerciseCount.textContent =
+            "0";
+
+        setCount.textContent =
+            "0";
+
+        duration.textContent =
+            "—";
+
+        focus.textContent =
+            "Sin rutina configurada";
+
+        return;
+
+    }
+
+    const exercises =
+        Array.isArray(routine.exercises)
+            ? routine.exercises
+            : [];
+
+    const totalSets =
+        exercises.reduce(
+            (total, exercise) => {
+
+                const sets =
+                    Number(exercise?.sets);
+
+                return total +
+                    (
+                        Number.isFinite(sets)
+                            ? sets
+                            : 0
+                    );
+
+            },
+            0
+        );
+
+    const muscles = [];
+
+    if(Array.isArray(routine.dayPlans)){
+
+        routine.dayPlans.forEach(
+            plan => {
+
+                if(
+                    Array.isArray(
+                        plan?.muscles
+                    )
+                ){
+
+                    plan.muscles.forEach(
+                        muscle => {
+
+                            if(
+                                muscle &&
+                                !muscles.includes(muscle)
+                            ){
+
+                                muscles.push(muscle);
+
+                            }
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+    name.textContent =
+        routine.name ||
+        "Rutina sin nombre";
+
+    description.textContent =
+        Array.isArray(routine.days) &&
+        routine.days.length
+            ? routine.days.join(" · ")
+            : "Rutina personalizada";
+
+    status.textContent =
+        "LISTO";
+
+    exerciseCount.textContent =
+        String(exercises.length);
+
+    setCount.textContent =
+        String(totalSets);
+
+    duration.textContent =
+        exercises.length
+            ? String(
+                Math.max(
+                    1,
+                    Math.round(
+                        exercises.length * 10
+                    )
+                )
+              )
+            : "—";
+
+    focus.textContent =
+        muscles.length
+            ? muscles.join(" · ")
+            : "Entrenamiento personalizado";
+
+}
+
+
+/* Actualizar Home al cargar */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateTodayWorkout();
+
+    }
+);
+
+
+/* =========================================================
+   BOTÓN DE ENTRENAMIENTO
+   ========================================================= */
+
 const startWorkoutButton =
     document.getElementById(
         "startWorkoutButton"
@@ -1343,8 +1583,28 @@ if (startWorkoutButton) {
         "click",
         () => {
 
-            showSection(
-                "routinesSection"
+            const routine =
+                getTodayWorkoutRoutine();
+
+            if(!routine){
+
+                showSection(
+                    "routinesSection"
+                );
+
+                return;
+
+            }
+
+            const selectedDay =
+                Array.isArray(routine.days) &&
+                routine.days.length
+                    ? routine.days[0]
+                    : null;
+
+            startWorkoutMode(
+                routine,
+                selectedDay
             );
 
         }
@@ -3030,6 +3290,13 @@ function openRoutineCreator() {
             "routine-creator-modal";
 
 
+
+        modal.style.display = "none";
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
         document.body.appendChild(
             modal
         );
@@ -3561,6 +3828,12 @@ function openRoutineCreator() {
                 "active"
             );
 
+            modal.style.display = "none";
+            modal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
         }
 
 
@@ -3715,6 +3988,8 @@ function openRoutineCreator() {
                     )
                 );
 
+
+                closeRoutineCreator();
 
                 openRoutineExerciseSelector(
                     routineName,
@@ -5180,14 +5455,14 @@ function openRoutineExerciseConfigurator(
     );
 
 
-    requestAnimationFrame(
-        () => {
+    modal.style.display = "flex";
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-            modal.classList.add(
-                "active"
-            );
-
-        }
+    modal.classList.add(
+        "active"
     );
 
 }
@@ -5339,6 +5614,15 @@ function openRoutineExerciseSelector(
 
     }
 
+    const previousStyle =
+        document.getElementById(
+            "routineExerciseSelectorStyles"
+        );
+
+    if(previousStyle){
+        previousStyle.remove();
+    }
+
     const style =
         document.createElement(
             "style"
@@ -5360,11 +5644,13 @@ function openRoutineExerciseSelector(
             background:rgba(17,24,39,.60);
             opacity:0;
             visibility:hidden;
+            pointer-events:none;
         }
 
         .routine-exercise-selector.active{
             opacity:1;
             visibility:visible;
+            pointer-events:auto;
         }
 
         .routine-exercise-selector-card{
@@ -6239,14 +6525,8 @@ function openRoutineExerciseSelector(
 
     renderDay();
 
-    requestAnimationFrame(
-        () => {
-
-            selector.classList.add(
-                "active"
-            );
-
-        }
+    selector.classList.add(
+        "active"
     );
 
 }
@@ -6952,34 +7232,6 @@ function showSavedRoutine(
                     : []
             }))
             : [];
-
-    if(normalizedDayPlans.length === 0){
-        const legacyExercises =
-            Array.isArray(routine.exercises)
-                ? routine.exercises.map(exercise => ({ ...exercise }))
-                : [];
-
-        const legacyDays =
-            Array.isArray(routine.days) && routine.days.length
-                ? routine.days
-                : ["Rutina"];
-
-        legacyDays.forEach(day => {
-            const dayExercises =
-                legacyExercises.filter(
-                    exercise =>
-                        !exercise.day ||
-                        String(exercise.day).trim().toLowerCase() ===
-                        String(day).trim().toLowerCase()
-                );
-
-            normalizedDayPlans.push({
-                day,
-                muscles: [],
-                exercises: dayExercises
-            });
-        });
-    }
 
     if(normalizedDayPlans.length === 0){
         normalizedDayPlans.push({
@@ -19767,4 +20019,3 @@ document.addEventListener(
 
     }
 );
-

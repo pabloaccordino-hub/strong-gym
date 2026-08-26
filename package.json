@@ -1,0 +1,12 @@
+{
+  "name": "strong-gym",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Strong Gym - aplicación de entrenamiento",
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/haptics": "^8.0.2"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Strong Gym</string>
+    <string name="title_activity_main">Strong Gym</string>
+    <string name="package_name">com.pabloaccordino.stronggym</string>
+    <string name="custom_url_scheme">com.pabloaccordino.stronggym</string>
+</resources>
