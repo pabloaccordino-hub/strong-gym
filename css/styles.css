@@ -1,79 +1,75 @@
-/* ============================================================
-   STRONG GYM — REDISEÑO VISUAL DEFINITIVO
-   SOLO CSS — NO MODIFICA HTML NI JAVASCRIPT
-   ============================================================ */
+/* =========================================================
+   STRONG GYM
+   ESTILOS PRINCIPALES
+   ========================================================= */
 
 :root {
-    --bg: #071923;
-    --bg-2: #08151d;
-    --card: #102630;
-    --card-2: #152f3b;
-    --card-3: #0d202a;
 
-    --lime: #b8ff00;
-    --lime-soft: rgba(184,255,0,.12);
-    --lime-border: rgba(184,255,0,.35);
+    --bg: #f4f5f7;
 
-    --cardio: #58c8ff;
-    --cardio-soft: rgba(88,200,255,.12);
+    --card: #ffffff;
 
-    --white: #f4f8fa;
-    --text: #e9f1f4;
-    --muted: #91a6af;
-    --muted-2: #6f858f;
+    --dark: #111827;
 
-    --border: #294650;
-    --border-2: #3b5965;
+    --dark-2: #1f2937;
 
-    --danger: #ff5364;
-    --success: #b8ff00;
+    --accent: #f59e0b;
 
-    --radius-sm: 10px;
-    --radius-md: 16px;
-    --radius-lg: 22px;
-    --radius-xl: 28px;
+    --accent-dark: #d97706;
+
+    --text: #111827;
+
+    --muted: #6b7280;
+
+    --border: #e5e7eb;
+
+    --success: #16a34a;
+
+    --danger: #dc2626;
+
+    --blue: #2563eb;
+
+    --radius-small: 10px;
+
+    --radius-medium: 16px;
+
+    --radius-large: 22px;
 
     --shadow:
-        0 18px 50px rgba(0,0,0,.30);
-
-    --shadow-soft:
-        0 8px 25px rgba(0,0,0,.22);
-
-    --nav-height: 82px;
+        0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
-/* ============================================================
+
+/* =========================================================
    RESET
-   ============================================================ */
+   ========================================================= */
 
-*,
-*::before,
-*::after {
+* {
+
     box-sizing: border-box;
+
     margin: 0;
+
     padding: 0;
+
 }
+
 
 html {
+
     scroll-behavior: smooth;
-    background: var(--bg);
+
 }
 
+
 body {
+
     min-height: 100vh;
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(184,255,0,.045),
-            transparent 34%
-        ),
-        linear-gradient(
-            180deg,
-            #0a1b25 0%,
-            #071923 45%,
-            #06151d 100%
-        );
+
+    background: var(--bg);
+
     color: var(--text);
+
     font-family:
         Inter,
         system-ui,
@@ -83,800 +79,958 @@ body {
         Roboto,
         Arial,
         sans-serif;
+
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+
 }
+
 
 button,
 input,
 select,
 textarea {
+
     font: inherit;
+
 }
+
 
 button {
+
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+
 }
+
 
 button:active {
-    transform: scale(.98);
+
+    transform: scale(0.98);
+
 }
 
-/* ============================================================
+
+/* =========================================================
    HEADER
-   ============================================================ */
+   ========================================================= */
 
 .app-header {
+
     position: sticky;
+
     top: 0;
-    z-index: 500;
+
+    z-index: 100;
 
     display: flex;
-    align-items: center;
+
     justify-content: space-between;
 
-    width: 100%;
+    align-items: center;
 
-    padding: 18px 24px 16px;
+    padding:
+        18px
+        18px
+        16px;
 
-    background:
-        rgba(7,25,35,.94);
+    background: var(--dark);
 
-    border-bottom:
-        1px solid rgba(59,89,101,.55);
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    color: white;
 
     box-shadow:
-        0 8px 30px rgba(0,0,0,.22);
+        0 3px 12px rgba(0, 0, 0, 0.15);
+
 }
+
 
 .app-header h1 {
-    color: var(--white);
+
     font-size: 21px;
-    font-weight: 950;
-    letter-spacing: .7px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+
 }
+
 
 .app-header p {
+
     margin-top: 3px;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 600;
+
+    color:
+        rgba(255, 255, 255, 0.65);
+
+    font-size: 12px;
+
 }
 
+
 .profile-button {
+
     width: 44px;
+
     height: 44px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
 
-    border: 1px solid var(--lime);
     border-radius: 50%;
 
     background:
-        rgba(184,255,0,.06);
+        rgba(255, 255, 255, 0.1);
 
-    color: var(--lime);
-    font-size: 19px;
+    color: white;
 
-    box-shadow:
-        0 0 20px rgba(184,255,0,.10);
+    font-size: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
 }
 
-/* ============================================================
+
+/* =========================================================
    CONTENIDO
-   ============================================================ */
+   ========================================================= */
 
 .app-content {
+
     width: 100%;
-    max-width: 1120px;
+
+    max-width: 760px;
 
     margin: 0 auto;
 
     padding:
-        24px 22px
-        calc(var(--nav-height) + 45px);
+        16px
+        16px
+        100px;
+
 }
+
 
 .app-section {
+
     display: none;
+
 }
+
 
 .app-section.active {
+
     display: block;
-    animation: strongFade .28s ease;
+
 }
 
-@keyframes strongFade {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ============================================================
-   HERO / BIENVENIDA
-   ============================================================ */
+/* =========================================================
+   WELCOME
+   ========================================================= */
 
 .welcome-card {
+
     position: relative;
-    isolation: isolate;
-
-    min-height: 330px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
 
     overflow: hidden;
 
-    padding: 42px 42px;
+    padding: 24px;
 
-    border:
-        1px solid var(--border);
+    margin-bottom: 24px;
 
-    border-radius: var(--radius-xl);
+    border-radius:
+        var(--radius-large);
 
     background:
         linear-gradient(
-            90deg,
-            rgba(7,25,35,.98) 0%,
-            rgba(7,25,35,.91) 42%,
-            rgba(7,25,35,.50) 68%,
-            rgba(7,25,35,.18) 100%
-        ),
-        url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1a?auto=format&fit=crop&w=1600&q=85")
-        center / cover no-repeat;
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color: white;
 
     box-shadow: var(--shadow);
 
-    margin-bottom: 32px;
 }
+
 
 .welcome-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
 
-    z-index: -1;
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    right: -70px;
+
+    top: -70px;
+
+    border-radius: 50%;
 
     background:
-        radial-gradient(
-            circle at 12% 90%,
-            rgba(184,255,0,.13),
-            transparent 28%
-        );
+        rgba(245, 158, 11, 0.18);
+
 }
+
 
 .welcome-label {
-    color: var(--lime);
+
+    position: relative;
+
+    z-index: 1;
+
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: var(--accent);
+
     font-size: 11px;
+
     font-weight: 900;
-    letter-spacing: 1.8px;
-    margin-bottom: 10px;
+
+    letter-spacing: 1.2px;
+
 }
+
 
 .welcome-card h2 {
-    max-width: 550px;
 
-    color: var(--white);
+    position: relative;
 
-    font-size: clamp(32px, 5vw, 54px);
-    line-height: .98;
+    z-index: 1;
 
-    font-weight: 950;
-    letter-spacing: -1.5px;
+    font-size: 25px;
 
-    margin-bottom: 15px;
+    margin-bottom: 8px;
+
 }
+
 
 .welcome-card p {
-    max-width: 470px;
 
-    color: #b5c4ca;
+    position: relative;
+
+    z-index: 1;
+
+    max-width: 480px;
+
+    margin-bottom: 20px;
+
+    color:
+        rgba(255, 255, 255, 0.7);
 
     font-size: 14px;
-    line-height: 1.55;
-    font-weight: 500;
 
-    margin-bottom: 25px;
+    line-height: 1.5;
+
 }
 
-/* ============================================================
+
+/* =========================================================
    BOTONES
-   ============================================================ */
+   ========================================================= */
 
 .primary-button {
-    width: auto !important;
-    min-width: 210px;
-    min-height: 50px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
 
-    padding: 13px 24px;
-
-    border:
-        1px solid rgba(184,255,0,.8);
+    padding: 13px 17px;
 
     border-radius: 12px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #c7ff2b 0%,
-            #a9ef00 100%
-        );
+    background: var(--accent);
 
-    color: #07130a;
+    color: #111827;
 
-    font-size: 13px;
     font-weight: 900;
 
-    box-shadow:
-        0 10px 28px rgba(184,255,0,.16);
-
     transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+        background 0.2s,
+        transform 0.1s;
+
 }
+
 
 .primary-button:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 14px 35px rgba(184,255,0,.25);
+
+    background: #fbbf24;
+
 }
 
+
+.primary-button:active {
+
+    transform: scale(0.97);
+
+}
+
+
 .secondary-button {
-    width: auto;
-    min-height: 44px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 11px 18px;
+    width: 100%;
 
     border:
-        1px solid var(--border-2);
+        1px solid var(--border);
+
+    padding: 12px;
 
     border-radius: 11px;
 
-    background: var(--card-3);
+    background: white;
 
-    color: var(--white);
+    color: var(--dark);
 
-    font-size: 12px;
     font-weight: 800;
+
 }
+
 
 .secondary-button:hover {
-    border-color: var(--lime-border);
-    color: var(--lime);
+
+    background: #f9fafb;
+
 }
+
 
 .full-width {
-    width: 100% !important;
+
+    width: 100%;
+
 }
 
-.small-button {
-    min-height: 36px;
-    padding: 8px 13px;
 
-    border:
-        1px solid var(--border);
+.small-button {
+
+    margin-top: 10px;
+
+    padding: 8px 11px;
+
+    border: none;
 
     border-radius: 9px;
 
-    background: var(--card-2);
-    color: var(--white);
+    background: var(--dark);
 
-    font-size: 11px;
+    color: white;
+
+    font-size: 12px;
+
     font-weight: 800;
+
 }
 
-/* ============================================================
-   TITULOS DE SECCION
-   ============================================================ */
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
 
 .section-title {
+
     display: flex;
-    align-items: flex-end;
+
     justify-content: space-between;
 
-    margin: 0 0 14px;
+    align-items: center;
+
+    margin:
+        24px
+        0
+        10px;
+
 }
 
-.section-title > div {
-    display: flex;
-    flex-direction: column;
-}
 
 .section-title span,
 .page-header > span {
-    color: var(--lime);
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--accent-dark);
+
     font-size: 10px;
+
     font-weight: 900;
-    letter-spacing: 1.5px;
+
+    letter-spacing: 1px;
+
 }
+
 
 .section-title h2 {
-    margin-top: 5px;
 
-    color: var(--white);
+    font-size: 18px;
 
-    font-size: 25px;
-    line-height: 1.1;
-
-    font-weight: 900;
-    letter-spacing: -.5px;
 }
+
 
 .page-header {
-    margin-bottom: 20px;
-}
-
-.page-header h2 {
-    color: var(--white);
-
-    font-size: 31px;
-    line-height: 1.05;
-
-    font-weight: 950;
-    letter-spacing: -.8px;
-
-    margin-bottom: 7px;
-}
-
-.page-header p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* ============================================================
-   TARJETA ENTRENAMIENTO
-   ============================================================ */
-
-.workout-card {
-    position: relative;
-
-    padding: 25px;
-
-    margin-bottom: 30px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: var(--radius-lg);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(21,47,59,.96),
-            rgba(13,32,42,.98)
-        );
-
-    box-shadow: var(--shadow-soft);
-}
-
-.workout-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 20px;
 
     margin-bottom: 18px;
+
 }
 
-.workout-day {
-    color: var(--lime);
 
-    font-size: 10px;
-    font-weight: 900;
+.page-header h2 {
 
-    letter-spacing: 1.4px;
+    font-size: 25px;
+
+    margin-bottom: 5px;
+
 }
 
-.workout-card h3 {
-    margin-top: 6px;
 
-    color: var(--white);
+.page-header p {
 
-    font-size: 24px;
-    font-weight: 900;
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
 }
 
-.workout-time {
-    flex: 0 0 auto;
 
-    padding: 8px 12px;
+/* =========================================================
+   TARJETA ENTRENAMIENTO
+   ========================================================= */
 
-    border:
-        1px solid var(--border-2);
+.workout-card {
 
-    border-radius: 20px;
-
-    background: rgba(255,255,255,.025);
-
-    color: var(--white);
-
-    font-size: 11px;
-    font-weight: 800;
-}
-
-.muscle-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-
-    margin-bottom: 21px;
-}
-
-.muscle-tags span {
-    padding: 7px 11px;
+    padding: 17px;
 
     border:
         1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        var(--radius-medium);
 
-    background:
-        rgba(255,255,255,.025);
+    background: var(--card);
 
-    color: #b9c8ce;
+    box-shadow: var(--shadow);
 
-    font-size: 10px;
-    font-weight: 800;
 }
 
-.progress-info {
+
+.workout-card-header {
+
     display: flex;
-    align-items: center;
+
     justify-content: space-between;
 
-    margin-bottom: 9px;
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.workout-day {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--accent-dark);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.workout-card h3 {
+
+    font-size: 20px;
+
+}
+
+
+.workout-time {
+
+    height: fit-content;
+
+    padding: 6px 9px;
+
+    border-radius: 999px;
+
+    background: #f3f4f6;
 
     color: var(--muted);
 
     font-size: 11px;
+
+    font-weight: 800;
+
 }
+
+
+/* =========================================================
+   ETIQUETAS MUSCULARES
+   ========================================================= */
+
+.muscle-tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-bottom: 16px;
+
+}
+
+
+.muscle-tags span {
+
+    padding: 6px 9px;
+
+    border-radius: 999px;
+
+    background: #f3f4f6;
+
+    color: #4b5563;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   PROGRESO
+   ========================================================= */
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
 
 .progress-info strong {
-    color: var(--white);
-    font-size: 11px;
+
+    color: var(--dark);
+
 }
 
+
 .progress-bar {
+
     width: 100%;
+
     height: 8px;
+
+    margin-bottom: 16px;
 
     overflow: hidden;
 
-    border-radius: 99px;
+    border-radius: 999px;
 
-    background:
-        #1c3945;
+    background: #e5e7eb;
+
 }
 
+
 .progress-value {
+
     height: 100%;
 
     border-radius: inherit;
 
-    background:
-        linear-gradient(
-            90deg,
-            #9fe600,
-            var(--lime)
-        );
+    background: var(--accent);
 
-    box-shadow:
-        0 0 14px rgba(184,255,0,.35);
+    transition:
+        width 0.3s ease;
+
 }
 
-.workout-card .secondary-button {
-    width: 100%;
-    margin-top: 18px;
-}
 
-/* ============================================================
-   ACCESOS RAPIDOS
-   ============================================================ */
+/* =========================================================
+   ACCESOS RÁPIDOS
+   ========================================================= */
 
 .quick-grid {
+
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(2, 1fr);
 
-    gap: 12px;
-
-    margin-top: 15px;
-    margin-bottom: 30px;
-}
-
-.quick-card {
-    min-height: 125px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-
-    padding: 18px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--card-2),
-            var(--card)
-        );
-
-    color: var(--white);
-
-    transition:
-        transform .2s ease,
-        border-color .2s ease;
-}
-
-.quick-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--lime-border);
-}
-
-.quick-icon {
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: auto;
-
-    color: var(--lime);
-
-    font-size: 22px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(184,255,0,.08);
-}
-
-.quick-card strong {
-    display: block;
-
-    margin-top: 14px;
-
-    color: var(--white);
-
-    font-size: 13px;
-    font-weight: 900;
-}
-
-.quick-card small {
-    display: block;
-
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-    line-height: 1.35;
-}
-
-/* ============================================================
-   FORMULARIOS / PERFIL
-   ============================================================ */
-
-.profile-form-card {
-    padding: 25px;
-
-    margin-bottom: 18px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: var(--radius-lg);
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--card-2),
-            var(--card)
-        );
-
-    box-shadow: var(--shadow-soft);
-}
-
-.form-section-title {
-    display: flex;
-    align-items: center;
     gap: 10px;
 
-    margin-bottom: 17px;
-
-    color: var(--white);
 }
 
-.form-section-title span {
-    color: var(--lime);
+
+.quick-card {
+
+    min-height: 125px;
+
+    padding: 15px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-medium);
+
+    background: white;
+
+    text-align: left;
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s;
+
 }
 
-.form-section-title h3 {
-    color: var(--white);
-    font-size: 15px;
-    font-weight: 900;
+
+.quick-card:hover {
+
+    box-shadow:
+        0 7px 20px
+        rgba(0, 0, 0, 0.08);
+
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
 
-.form-group:last-child {
-    margin-bottom: 0;
-}
+.quick-icon {
 
-.form-group label {
     display: block;
 
-    margin-bottom: 7px;
+    margin-bottom: 13px;
+
+    font-size: 26px;
+
+}
+
+
+.quick-card strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 14px;
+
+}
+
+
+.quick-card small {
 
     color: var(--muted);
 
     font-size: 11px;
-    font-weight: 800;
+
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea,
-input,
-select,
-textarea {
-    width: 100%;
 
-    min-height: 46px;
+/* =========================================================
+   PERFIL
+   ========================================================= */
 
-    padding: 11px 13px;
+.profile-form-card {
+
+    padding: 18px;
+
+    margin-bottom: 14px;
 
     border:
         1px solid var(--border);
 
-    border-radius: 10px;
+    border-radius:
+        var(--radius-medium);
+
+    background: white;
+
+    box-shadow: var(--shadow);
+
+}
+
+
+.form-section-title {
+
+    margin-bottom: 16px;
+
+}
+
+
+.form-section-title span {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--accent-dark);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.form-section-title h3 {
+
+    font-size: 17px;
+
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    margin-bottom: 14px;
+
+}
+
+
+.form-group:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.form-group label {
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+.form-group input,
+.form-group select {
+
+    width: 100%;
+
+    min-height: 46px;
+
+    padding:
+        11px
+        12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
+    background: #f9fafb;
+
+    color: var(--text);
 
     outline: none;
 
-    background:
-        #0b202a;
-
-    color: var(--white);
-
-    font-size: 13px;
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: var(--muted-2);
-}
 
-.form-group select:focus,
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--lime-border);
+.form-group input:focus,
+.form-group select:focus {
+
+    border-color: var(--accent);
+
+    background: white;
 
     box-shadow:
-        0 0 0 3px rgba(184,255,0,.07);
+        0 0 0 3px
+        rgba(245, 158, 11, 0.12);
+
 }
+
 
 .form-row {
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 12px;
-}
 
-.option-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, 1fr);
 
     gap: 10px;
+
 }
 
-.option-card {
-    min-height: 70px;
 
-    padding: 13px;
+/* =========================================================
+   OPCIONES
+   ========================================================= */
+
+.option-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 9px;
+
+}
+
+
+.option-card {
+
+    min-height: 110px;
+
+    padding: 12px;
 
     border:
         1px solid var(--border);
 
     border-radius: 13px;
 
-    background: var(--card);
+    background: white;
 
-    color: var(--muted);
+    text-align: left;
+
+    transition:
+        border 0.2s,
+        background 0.2s,
+        transform 0.1s;
+
 }
+
 
 .option-card span {
+
     display: block;
-    margin-bottom: 5px;
+
+    margin-bottom: 7px;
+
+    font-size: 24px;
+
 }
+
 
 .option-card strong {
-    color: var(--white);
-    font-size: 12px;
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--dark);
+
+    font-size: 13px;
+
 }
+
 
 .option-card small {
-    display: block;
-    margin-top: 3px;
+
     color: var(--muted);
+
     font-size: 10px;
+
+    line-height: 1.3;
+
 }
 
-.option-card:hover,
-.option-card.selected {
-    border-color: var(--lime-border);
-    background: var(--lime-soft);
+
+.option-card:hover {
+
+    border-color:
+        var(--accent);
+
 }
+
+
+.option-card.selected {
+
+    border-color:
+        var(--accent);
+
+    background:
+        #fffbeb;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(245, 158, 11, 0.12);
+
+}
+
+
+/* =========================================================
+   MENSAJE PERFIL
+   ========================================================= */
 
 .profile-saved-message {
+
     display: none;
 
     margin-top: 12px;
 
     padding: 12px;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
-    background: rgba(184,255,0,.08);
+    background:
+        #dcfce7;
 
-    color: var(--lime);
+    color:
+        #166534;
+
+    text-align: center;
 
     font-size: 12px;
+
     font-weight: 800;
+
 }
+
 
 .profile-saved-message.show {
+
     display: block;
+
 }
 
-/* ============================================================
-   BUSQUEDA / EJERCICIOS
-   ============================================================ */
+
+/* =========================================================
+   BÚSQUEDA
+   ========================================================= */
 
 .search-box {
+
     display: flex;
+
     align-items: center;
 
-    gap: 9px;
+    gap: 8px;
 
-    padding: 0 13px;
-
-    min-height: 48px;
+    padding:
+        12px
+        14px;
 
     margin-bottom: 12px;
 
@@ -885,1670 +1039,3047 @@ textarea:focus {
 
     border-radius: 13px;
 
-    background: var(--card);
+    background: white;
+
 }
+
 
 .search-box span {
-    color: var(--muted);
+
+    font-size: 17px;
+
 }
+
 
 .search-box input {
-    min-height: 44px;
-    padding-left: 0;
+
+    width: 100%;
 
     border: none;
+
+    outline: none;
+
     background: transparent;
 
-    box-shadow: none;
+    color: var(--text);
+
+    font-size: 14px;
+
 }
 
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
 .filter-scroll {
+
     display: flex;
-    gap: 8px;
+
+    gap: 7px;
 
     overflow-x: auto;
 
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+    padding-bottom: 4px;
+
+    margin-bottom: 14px;
 
     scrollbar-width: none;
+
 }
+
 
 .filter-scroll::-webkit-scrollbar {
+
     display: none;
+
 }
+
 
 .filter-button {
-    flex: 0 0 auto;
 
-    padding: 8px 13px;
+    flex-shrink: 0;
+
+    padding:
+        8px
+        12px;
 
     border:
         1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius: 999px;
 
-    background: var(--card);
+    background: white;
 
-    color: var(--muted);
+    color: #4b5563;
 
-    font-size: 10px;
+    font-size: 11px;
+
     font-weight: 800;
+
 }
+
 
 .filter-button.active {
-    border-color: var(--lime);
-    background: var(--lime);
-    color: #08130b;
+
+    border-color:
+        var(--dark);
+
+    background:
+        var(--dark);
+
+    color: white;
+
 }
+
+
+/* =========================================================
+   EJERCICIOS
+   ========================================================= */
 
 .exercise-list {
-    display: grid;
 
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
+    display: flex;
 
-    gap: 12px;
+    flex-direction: column;
+
+    gap: 10px;
+
 }
+
 
 .exercise-card {
+
     display: flex;
-    align-items: center;
-
-    min-height: 105px;
-
-    overflow: hidden;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 15px;
-
-    background: var(--card);
-
-    color: var(--white);
-}
-
-.exercise-image {
-    width: 105px;
-    height: 105px;
-
-    flex: 0 0 105px;
-
-    overflow: hidden;
-
-    background: #0a1b24;
-}
-
-.exercise-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-.exercise-info {
-    min-width: 0;
-    padding: 14px;
-}
-
-.exercise-info h3 {
-    color: var(--white);
-
-    font-size: 13px;
-    font-weight: 900;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.exercise-info p,
-.exercise-muscle {
-    margin-top: 5px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-/* ============================================================
-   ESTADISTICAS / PROGRESO
-   ============================================================ */
-
-.stats-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
 
     gap: 12px;
 
-    margin-bottom: 18px;
-}
-
-.stat-card {
-    min-height: 110px;
-
-    padding: 17px;
+    padding: 12px;
 
     border:
         1px solid var(--border);
 
-    border-radius: 16px;
+    border-radius:
+        var(--radius-medium);
 
-    background: var(--card);
+    background: white;
+
+    box-shadow: var(--shadow);
+
 }
 
-.stat-card span {
-    display: block;
 
-    color: var(--muted);
+.exercise-image {
 
-    font-size: 10px;
-    font-weight: 700;
-}
+    flex-shrink: 0;
 
-.stat-card strong {
-    display: block;
+    width: 82px;
 
-    margin-top: 9px;
-
-    color: var(--white);
-
-    font-size: 26px;
-    font-weight: 950;
-}
-
-.stat-card small {
-    display: block;
-
-    margin-top: 4px;
-
-    color: var(--lime);
-
-    font-size: 10px;
-}
-
-.chart-card {
-    padding: 20px;
-
-    margin-bottom: 15px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 18px;
-
-    background: var(--card);
-}
-
-.chart-placeholder {
-    min-height: 220px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 82px;
 
     border-radius: 12px;
 
     background:
         linear-gradient(
-            180deg,
-            rgba(184,255,0,.025),
-            transparent
+            135deg,
+            #e5e7eb,
+            #f9fafb
         );
 
-    color: var(--muted);
-}
-
-.empty-state {
-    min-height: 190px;
-
     display: flex;
-    flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
-    padding: 30px;
+    font-size: 30px;
 
-    border:
-        1px dashed var(--border-2);
-
-    border-radius: 16px;
-
-    text-align: center;
 }
 
-.empty-state span {
-    color: var(--lime);
-    font-size: 28px;
-    margin-bottom: 10px;
+
+.exercise-info {
+
+    min-width: 0;
+
 }
 
-.empty-state h3 {
-    color: var(--white);
-    font-size: 15px;
+
+.exercise-muscle {
+
+    color: var(--accent-dark);
+
+    font-size: 9px;
+
     font-weight: 900;
+
+    letter-spacing: 1px;
+
 }
 
-.empty-state p {
-    max-width: 400px;
 
-    margin-top: 7px;
+.exercise-info h3 {
+
+    margin:
+        3px
+        0;
+
+    font-size: 16px;
+
+}
+
+
+.exercise-info p {
 
     color: var(--muted);
 
     font-size: 11px;
-    line-height: 1.5;
+
+    line-height: 1.35;
+
 }
 
-/* ============================================================
-   PROGRESO DE FUERZA
-   ============================================================ */
 
-.strength-progress-panel {
-    padding: 18px;
+/* =========================================================
+   ESTADÍSTICAS
+   ========================================================= */
 
-    border:
-        1px solid var(--border);
+.stats-grid {
 
-    border-radius: 18px;
-
-    background: var(--card);
-}
-
-.strength-progress-controls {
-    display: flex;
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.strength-chart-container {
-    min-height: 250px;
-}
-
-.strength-chart-empty {
-    min-height: 220px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: var(--muted);
-}
-
-.strength-chart-empty p {
-    font-size: 12px;
-}
-
-.strength-progress-chart {
-    width: 100%;
-}
-
-/* ============================================================
-   CARDIO
-   ============================================================ */
-
-.cardio-type-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(3,minmax(0,1fr));
+        repeat(2, 1fr);
 
     gap: 10px;
 
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+
 }
 
-.cardio-type-button {
-    min-height: 70px;
+
+.stat-card {
+
+    padding: 15px;
 
     border:
         1px solid var(--border);
 
-    border-radius: 14px;
+    border-radius:
+        var(--radius-medium);
 
-    background: var(--card);
-
-    color: var(--muted);
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.cardio-type-button.active {
-    border-color: var(--cardio);
-
-    background:
-        var(--cardio-soft);
-
-    color: var(--cardio);
-
-    box-shadow:
-        0 0 22px rgba(88,200,255,.08);
-}
-
-.cardio-session-card {
-    padding: 25px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #102b38,
-            #0b202a
-        );
-}
-
-.cardio-session-card h3 {
-    color: var(--white);
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.cardio-intensity {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 15px;
-}
-
-.cardio-intensity span {
-    color: var(--cardio);
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.cardio-timer-display {
-    margin: 25px 0;
-
-    color: var(--white);
-
-    font-size: clamp(42px,8vw,72px);
-    line-height: 1;
-
-    font-weight: 950;
-    letter-spacing: -2px;
-
-    text-align: center;
-}
-
-.cardio-controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-/* ============================================================
-   COACH
-   ============================================================ */
-
-.strong-coach-score-card {
-    padding: 25px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 22px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #102d39,
-            #0b202a
-        );
+    background: white;
 
     box-shadow: var(--shadow);
+
 }
 
-.strong-coach-score-title {
+
+.stat-card span {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 21px;
+
+}
+
+
+.stat-card strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 21px;
+
+}
+
+
+.stat-card small {
+
     color: var(--muted);
-    font-size: 12px;
-    font-weight: 800;
+
+    font-size: 11px;
+
 }
 
-.strong-coach-score-card > strong {
+
+/* =========================================================
+   GRÁFICO
+   ========================================================= */
+
+.chart-card {
+
+    padding: 15px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-medium);
+
+    background: white;
+
+    box-shadow: var(--shadow);
+
+}
+
+
+.chart-placeholder {
+
+    min-height: 210px;
+
     display: flex;
-    align-items: baseline;
-    gap: 6px;
 
-    margin: 12px 0;
+    flex-direction: column;
 
-    color: var(--white);
+    justify-content: center;
 
-    font-size: 58px;
-    font-weight: 950;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #9ca3af;
+
+    text-align: center;
+
 }
 
-.strong-coach-score-card > strong span {
+
+.chart-placeholder p {
+
+    max-width: 230px;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
+
+.empty-state {
+
+    padding:
+        40px
+        20px;
+
+    margin-top: 15px;
+
+    border:
+        1px dashed #d1d5db;
+
+    border-radius:
+        var(--radius-medium);
+
+    background: white;
+
+    text-align: center;
+
+}
+
+
+.empty-state span {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 34px;
+
+}
+
+
+.empty-state h3 {
+
+    margin-bottom: 5px;
+
+    font-size: 16px;
+
+}
+
+
+.empty-state p {
+
     color: var(--muted);
-    font-size: 18px;
+
+    font-size: 12px;
+
 }
 
-.strong-coach-score-details {
+
+/* =========================================================
+   NAVEGACIÓN INFERIOR
+   ========================================================= */
+
+.bottom-navigation {
+
+    position: fixed;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 200;
+
     display: grid;
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(5, 1fr);
 
-    gap: 10px;
+    height: 72px;
 
-    margin-top: 20px;
-}
+    padding:
+        6px
+        8px
+        calc(
+            6px +
+            env(safe-area-inset-bottom)
+        );
 
-.strong-coach-score-details > div {
-    padding: 14px;
-
-    border:
+    border-top:
         1px solid var(--border);
-
-    border-radius: 13px;
 
     background:
-        rgba(255,255,255,.025);
+        rgba(255, 255, 255, 0.97);
+
+    backdrop-filter:
+        blur(10px);
+
+    box-shadow:
+        0 -3px 14px
+        rgba(0, 0, 0, 0.06);
+
 }
 
-.strong-coach-score-details strong {
-    display: block;
 
-    color: var(--lime);
+.nav-button {
 
-    font-size: 13px;
-}
+    border: none;
 
-.strong-coach-score-details small {
-    display: block;
+    background: transparent;
 
-    margin-top: 4px;
+    color: #9ca3af;
 
-    color: var(--muted);
-
-    font-size: 9px;
-}
-
-/* ============================================================
-   HISTORIAL
-   ============================================================ */
-
-.workout-history-list {
     display: flex;
+
     flex-direction: column;
-    gap: 10px;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 3px;
+
+    flex: 1 1 0;
+
+    min-width: 0;
+
+    padding: 6px 2px;
+
+    cursor: pointer;
+
 }
 
-.workout-history-list > * {
-    border:
-        1px solid var(--border);
+.nav-button[data-section="coachSection"] {
 
-    border-radius: 14px;
+    position: relative;
 
-    background: var(--card);
+    color: var(--accent-dark);
+
+    font-weight: 800;
+
 }
 
-/* ============================================================
-   MODALES
-   ============================================================ */
+.nav-button[data-section="coachSection"] span {
+
+    font-size: 21px;
+
+}
+
+.nav-button[data-section="coachSection"] small {
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+}
+
+
+.nav-button span {
+
+    font-size: 19px;
+
+}
+
+
+.nav-button small {
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.nav-button.active {
+
+    color: var(--dark);
+
+}
+
+
+.nav-button.active span {
+
+    color: var(--accent-dark);
+
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
 
 .modal-overlay {
+
     position: fixed;
+
     inset: 0;
 
-    z-index: 10000;
+    z-index: 500;
 
     display: none;
 
-    align-items: center;
+    align-items: flex-end;
+
     justify-content: center;
 
-    padding: 20px;
+    padding: 12px;
 
     background:
-        rgba(2,9,13,.82);
+        rgba(17, 24, 39, 0.55);
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
 }
+
 
 .modal-overlay.active {
+
     display: flex;
+
 }
 
+
 .modal-card {
-    width: min(520px,100%);
 
-    max-height: 90vh;
+    position: relative;
 
-    overflow-y: auto;
+    width: 100%;
 
-    padding: 25px;
+    max-width: 500px;
+
+    padding: 24px;
+
+    border-radius:
+        24px
+        24px
+        18px
+        18px;
+
+    background: white;
+
+    box-shadow:
+        0 -10px 35px
+        rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+
+}
+
+
+.modal-close {
+    z-index: 1000;
+    cursor: pointer;
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 14px;
+
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: var(--dark);
+
+    font-size: 22px;
+
+}
+
+
+.modal-label {
+
+    color: var(--accent-dark);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.modal-card h2 {
+
+    margin:
+        10px
+        0
+        20px;
+
+    font-size: 55px;
+
+    font-variant-numeric:
+        tabular-nums;
+
+}
+
+
+.timer-controls {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.timer-option {
+
+    padding: 10px;
 
     border:
-        1px solid var(--border-2);
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (min-width: 700px) {
+
+    .app-content {
+
+        padding-left: 24px;
+
+        padding-right: 24px;
+
+    }
+
+
+    .quick-grid {
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+    }
+
+
+    .modal-overlay {
+
+        align-items: center;
+
+    }
+
+
+    .modal-card {
+
+        border-radius: 24px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+
+    outline:
+        3px solid
+        rgba(245, 158, 11, 0.4);
+
+    outline-offset: 2px;
+
+}
+/* =========================================================
+   STRONG GYM - PROGRESO CORPORAL
+   ========================================================= */
+
+#bodyProgressModule {
+
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 32px;
+    padding: 24px;
 
     border-radius: 24px;
 
     background:
         linear-gradient(
             145deg,
-            #152f3b,
-            #0c202a
+            rgba(20, 25, 35, 0.98),
+            rgba(10, 14, 22, 0.98)
         );
 
-    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.08);
 
     box-shadow:
-        0 30px 90px rgba(0,0,0,.55);
+        0 18px 45px rgba(0,0,0,0.25);
+
 }
 
-.modal-close {
-    width: 38px;
-    height: 38px;
 
-    float: right;
+#bodyProgressModule .section-title {
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 24px;
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 50%;
-
-    background: var(--card);
-
-    color: var(--white);
 }
 
-.modal-label {
+
+#bodyProgressModule .section-title span {
+
     display: block;
 
-    margin-bottom: 9px;
-
-    color: var(--lime);
-
-    font-size: 10px;
-    font-weight: 900;
-
-    letter-spacing: 1.4px;
-}
-
-.modal-card h2 {
-    color: var(--white);
-
-    font-size: 25px;
-    font-weight: 950;
-
-    margin-bottom: 18px;
-}
-
-/* ============================================================
-   TIMER
-   ============================================================ */
-
-#timerDisplay {
-    color: var(--white);
-
-    font-size: clamp(48px,10vw,82px);
-    font-weight: 950;
-
-    text-align: center;
-}
-
-.timer-controls {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-.timer-option {
-    min-height: 48px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 12px;
-
-    background: var(--card);
-
-    color: var(--white);
+    font-size: 11px;
 
     font-weight: 800;
-}
-
-.timer-option:hover {
-    border-color: var(--lime-border);
-    color: var(--lime);
-}
-
-/* ============================================================
-   NAVEGACION INFERIOR — 6 COLUMNAS
-   ============================================================ */
-
-.bottom-navigation {
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 9000;
-
-    width: 100%;
-    height: var(--nav-height);
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(6,minmax(0,1fr));
-
-    padding:
-        7px 8px
-        calc(7px + env(safe-area-inset-bottom));
-
-    background:
-        rgba(5,20,29,.97);
-
-    border-top:
-        1px solid var(--border);
-
-    box-shadow:
-        0 -15px 40px rgba(0,0,0,.40);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-
-.nav-button {
-    width: 100%;
-    min-width: 0;
-    height: 66px;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 5px;
-
-    padding: 5px 2px;
-
-    border: 0;
-    border-radius: 13px;
-
-    background: transparent;
-
-    color: #7f959f;
-
-    transition:
-        color .18s ease,
-        background .18s ease;
-}
-
-.nav-button span {
-    color: currentColor;
-
-    font-size: 19px;
-    line-height: 1;
-}
-
-.nav-button small {
-    color: currentColor;
-
-    font-size: 9px;
-    line-height: 1;
-
-    font-weight: 800;
-
-    white-space: nowrap;
-}
-
-.nav-button.active {
-    color: var(--lime);
-
-    background:
-        rgba(184,255,0,.075);
-
-    box-shadow:
-        inset 0 2px 0 var(--lime);
-}
-
-.nav-button.active span,
-.nav-button.active small {
-    color: var(--lime);
-}
-
-.nav-button[data-section="coachSection"] {
-    color: #7f959f;
-}
-
-.nav-button[data-section="coachSection"].active {
-    color: var(--lime);
-}
-
-/* ============================================================
-   CANVAS
-   ============================================================ */
-
-canvas {
-    max-width: 100%;
-}
-
-/* ============================================================
-   RESPONSIVE — DESKTOP
-   ============================================================ */
-
-@media (min-width: 900px) {
-
-    .app-header {
-        padding-left: max(28px, calc((100vw - 1120px) / 2));
-        padding-right: max(28px, calc((100vw - 1120px) / 2));
-    }
-
-    .app-content {
-        padding-top: 32px;
-    }
-
-    .welcome-card {
-        min-height: 380px;
-        padding: 55px;
-    }
-
-    .workout-card {
-        padding: 30px;
-    }
-
-    .exercise-list {
-        grid-template-columns:
-            repeat(3,minmax(0,1fr));
-    }
-}
-
-/* ============================================================
-   RESPONSIVE — TABLET
-   ============================================================ */
-
-@media (max-width: 899px) {
-
-    .stats-grid {
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-    }
-
-    .quick-grid {
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-    }
-}
-
-/* ============================================================
-   RESPONSIVE — MOBILE
-   ============================================================ */
-
-@media (max-width: 700px) {
-
-    :root {
-        --nav-height: 76px;
-    }
-
-    .app-header {
-        padding:
-            14px 15px;
-    }
-
-    .app-header h1 {
-        font-size: 18px;
-    }
-
-    .app-header p {
-        display: none;
-    }
-
-    .profile-button {
-        width: 40px;
-        height: 40px;
-    }
-
-    .app-content {
-        padding:
-            16px 12px
-            calc(var(--nav-height) + 28px);
-    }
-
-    .welcome-card {
-        min-height: 390px;
-
-        padding: 25px;
-
-        border-radius: 21px;
-
-        background-position:
-            70% center;
-
-        background:
-            linear-gradient(
-                90deg,
-                rgba(7,25,35,.98) 0%,
-                rgba(7,25,35,.88) 50%,
-                rgba(7,25,35,.30) 100%
-            ),
-            url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1a?auto=format&fit=crop&w=1200&q=85")
-            center / cover no-repeat;
-    }
-
-    .welcome-card h2 {
-        max-width: 280px;
-        font-size: 34px;
-    }
-
-    .welcome-card p {
-        max-width: 260px;
-        font-size: 12px;
-    }
-
-    .primary-button {
-        min-width: 0;
-        width: auto !important;
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-    .section-title h2 {
-        font-size: 21px;
-    }
-
-    .workout-card {
-        padding: 18px;
-        border-radius: 17px;
-    }
-
-    .workout-card h3 {
-        font-size: 20px;
-    }
-
-    .quick-grid {
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        gap: 9px;
-    }
-
-    .quick-card {
-        min-height: 115px;
-        padding: 14px;
-    }
-
-    .stats-grid {
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        gap: 9px;
-    }
-
-    .exercise-list {
-        grid-template-columns: 1fr;
-    }
-
-    .exercise-image {
-        width: 92px;
-        height: 92px;
-        flex-basis: 92px;
-    }
-
-    .cardio-type-grid {
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-    }
-
-    .bottom-navigation {
-        height: 76px;
-        min-height: 76px;
-
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-
-    .nav-button {
-        height: 64px;
-        padding-left: 1px;
-        padding-right: 1px;
-    }
-
-    .nav-button span {
-        font-size: 18px;
-    }
-
-    .nav-button small {
-        font-size: 8px;
-    }
-
-    .strong-coach-score-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ============================================================
-   MOBILE PEQUEÑO
-   ============================================================ */
-
-@media (max-width: 390px) {
-
-    .app-content {
-        padding-left: 9px;
-        padding-right: 9px;
-    }
-
-    .welcome-card {
-        min-height: 365px;
-        padding: 21px;
-    }
-
-    .welcome-card h2 {
-        font-size: 30px;
-    }
-
-    .welcome-card p {
-        font-size: 11px;
-    }
-
-    .quick-card {
-        min-height: 105px;
-        padding: 12px;
-    }
-
-    .quick-card strong {
-        font-size: 11px;
-    }
-
-    .quick-card small {
-        font-size: 9px;
-    }
-
-    .nav-button span {
-        font-size: 16px;
-    }
-
-    .nav-button small {
-        font-size: 7px;
-    }
-}
-
-/* ============================================================
-   ACCESIBILIDAD
-   ============================================================ */
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-    outline:
-        2px solid var(--lime);
-
-    outline-offset: 2px;
-}
-
-/* ============================================================
-   EVITAR ELEMENTOS OCULTOS POR EL MENU
-   ============================================================ */
-
-.app-content {
-    padding-bottom:
-        calc(var(--nav-height) + 45px);
-}
-
-/* ============================================================
-   FIN
-   ============================================================ */
-
-
-/* ============================================================
-   STRONG GYM — HOME REFERENCE UI
-   V1 STRUCTURAL VISUAL LAYER
-   ============================================================ */
-
-#homeSection {
-    background: transparent;
-}
-
-
-/* =========================
-   HERO
-   ========================= */
-
-#homeSection .sg-home-hero {
-
-    position: relative;
-
-    min-height: 310px;
-
-    overflow: hidden;
-
-    border-radius: 20px;
-
-    margin-bottom: 30px;
-
-    background-image:
-        url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1a?auto=format&fit=crop&w=1400&q=90");
-
-    background-position: center;
-    background-size: cover;
-
-    border: 1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.45);
-}
-
-
-#homeSection .sg-home-hero-overlay {
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(3,5,7,.98) 0%,
-            rgba(3,5,7,.92) 38%,
-            rgba(3,5,7,.65) 65%,
-            rgba(3,5,7,.10) 100%
-        );
-}
-
-
-#homeSection .sg-home-hero-content {
-
-    position: relative;
-    z-index: 2;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    min-height: 310px;
-
-    padding: 30px;
-}
-
-
-#homeSection .sg-eyebrow,
-#homeSection .sg-home-section-head > div > span {
-
-    color: #b8ff00;
-
-    font-size: 9px;
-
-    font-weight: 900;
 
     letter-spacing: 1.8px;
 
-    text-transform: uppercase;
+    opacity: 0.65;
+
 }
 
 
-#homeSection .sg-home-hero h2 {
+#bodyProgressModule .section-title h2 {
 
-    margin: 12px 0 12px;
+    margin: 5px 0;
 
-    color: #ffffff;
-
-    font-size: clamp(36px, 8vw, 48px);
-
-    line-height: .98;
-
-    letter-spacing: -1.8px;
-
-    font-weight: 950;
 }
 
 
-#homeSection .sg-home-hero p {
-
-    margin: 0 0 24px;
-
-    color: #a9b1b6;
-
-    font-size: 12px;
-
-    line-height: 1.55;
-}
-
-
-#homeSection .sg-start-button {
-
-    width: auto !important;
-
-    min-height: 46px;
-
-    padding:
-        0 18px;
-
-    border-radius: 10px;
-
-    font-size: 11px;
-
-    font-weight: 900;
-}
-
-
-#homeSection .sg-start-button span {
-
-    margin-right: 6px;
-}
-
-
-/* =========================
-   SECTION HEADERS
-   ========================= */
-
-#homeSection .sg-home-section-head {
-
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: space-between;
-
-    margin:
-        0 0 12px;
-}
-
-
-#homeSection .sg-home-section-head h2 {
-
-    margin:
-        5px 0 0;
-
-    color: #ffffff;
-
-    font-size: 21px;
-
-    line-height: 1.1;
-
-    font-weight: 900;
-
-    letter-spacing: -.4px;
-}
-
-
-#homeSection .sg-quick-head {
-
-    margin-top: 30px;
-}
-
-
-/* =========================
-   TODAY CARD
-   ========================= */
-
-#homeSection .sg-today-card {
-
-    padding: 20px;
+#bodyProgressModule .section-title p {
 
     margin: 0;
 
-    border-radius: 16px;
+    opacity: 0.65;
 
-    background:
-        linear-gradient(
-            145deg,
-            #11161a,
-            #0a0e11
-        );
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.30);
 }
 
 
-#homeSection .sg-today-card h3 {
+/* =========================================================
+   TARJETAS RESUMEN
+   ========================================================= */
 
-    margin-top: 4px;
-
-    color: #ffffff;
-
-    font-size: 20px;
-
-    font-weight: 900;
-}
-
-
-#homeSection .sg-today-card .workout-day {
-
-    color: #b8ff00;
-
-    font-size: 9px;
-
-    font-weight: 900;
-
-    letter-spacing: 1.4px;
-}
-
-
-#homeSection .sg-today-card .workout-time {
-
-    padding:
-        7px 10px;
-
-    border-radius: 8px;
-
-    background: #080b0e;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    color: #d9dee1;
-
-    font-size: 10px;
-}
-
-
-#homeSection .sg-today-card .muscle-tags {
-
-    margin:
-        16px 0 20px;
-}
-
-
-#homeSection .sg-today-card .muscle-tags span {
-
-    background: #080b0e;
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
-    color: #929ca2;
-
-    font-size: 9px;
-}
-
-
-#homeSection .sg-today-card .progress-bar {
-
-    height: 5px;
-
-    overflow: hidden;
-
-    background: #252b30;
-
-    border-radius: 99px;
-}
-
-
-#homeSection .sg-today-card .progress-value {
-
-    background: #b8ff00;
-
-    border-radius: inherit;
-}
-
-
-#homeSection .sg-view-workout {
-
-    width: 100%;
-
-    min-height: 43px;
-
-    margin-top: 18px;
-
-    border-radius: 9px;
-
-    background: transparent;
-
-    border:
-        1px solid rgba(184,255,0,.28);
-
-    color: #b8ff00;
-
-    font-size: 10px;
-
-    font-weight: 900;
-}
-
-
-#homeSection .sg-view-workout span {
-
-    margin-left: 5px;
-}
-
-
-/* =========================
-   QUICK ACCESS
-   ========================= */
-
-#homeSection .sg-quick-grid {
+#bodyProgressModule .progress-summary-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 9px;
-
-    margin: 0;
-}
-
-
-#homeSection .sg-quick-card {
-
-    min-height: 105px;
-
-    padding: 14px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    justify-content: flex-start;
-
-    text-align: left;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #11161a,
-            #0a0e11
+        repeat(
+            4,
+            minmax(0, 1fr)
         );
 
+    gap: 14px;
+
+    margin-bottom: 18px;
+
+}
+
+
+#bodyProgressModule .progress-stat-card {
+
+    min-width: 0;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.045);
+
     border:
-        1px solid rgba(255,255,255,.07);
+        1px solid rgba(255,255,255,0.07);
 
-    color: #ffffff;
-
-    transition:
-        transform .18s ease,
-        border-color .18s ease;
 }
 
 
-#homeSection .sg-quick-card:active {
+#bodyProgressModule .progress-stat-card span {
 
-    transform: scale(.98);
+    display: block;
+
+    font-size: 13px;
+
+    opacity: 0.7;
+
+    margin-bottom: 8px;
+
 }
 
 
-#homeSection .sg-quick-card:hover {
+#bodyProgressModule .progress-stat-card strong {
 
-    border-color:
-        rgba(184,255,0,.25);
+    font-size: 28px;
 
-    transform:
-        translateY(-2px);
+    line-height: 1.1;
+
 }
 
 
-#homeSection .sg-quick-card .quick-icon {
+#bodyProgressModule .progress-stat-card small {
 
-    width: 34px;
-    height: 34px;
+    opacity: 0.55;
+
+    margin-left: 4px;
+
+}
+
+
+/* =========================================================
+   PANELES
+   ========================================================= */
+
+#bodyProgressModule .progress-panel {
+
+    margin-top: 18px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    border:
+        1px solid rgba(255,255,255,0.07);
+
+}
+
+
+#bodyProgressModule .progress-panel h3 {
+
+    margin-top: 0;
+
+    margin-bottom: 6px;
+
+}
+
+
+#bodyProgressModule .progress-panel-header p {
+
+    margin-top: 0;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+#bodyProgressModule .progress-form-grid {
 
     display: grid;
 
-    place-items: center;
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
 
-    margin-bottom: auto;
+    gap: 14px;
 
-    border-radius: 9px;
+}
+
+
+#bodyProgressModule .form-group {
+
+    min-width: 0;
+
+}
+
+
+#bodyProgressModule .form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    opacity: 0.75;
+
+}
+
+
+#bodyProgressModule input,
+#bodyProgressModule textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(255,255,255,0.10);
 
     background:
-        rgba(184,255,0,.08);
+        rgba(0,0,0,0.18);
 
-    color: #b8ff00;
+    padding: 12px 14px;
 
-    font-size: 17px;
+    font: inherit;
+
 }
 
 
-#homeSection .sg-quick-card strong {
+#bodyProgressModule textarea {
 
-    margin-top: 10px;
+    resize: vertical;
 
-    color: #ffffff;
+    margin-top: 6px;
 
-    font-size: 11px;
-
-    font-weight: 850;
 }
 
 
-#homeSection .sg-quick-card small {
+#bodyProgressModule .primary-button {
 
-    margin-top: 3px;
+    margin-top: 18px;
 
-    color: #69747b;
+    width: 100%;
 
-    font-size: 8px;
+    min-height: 48px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
 }
 
 
-/* =========================
-   STREAK
-   ========================= */
+/* =========================================================
+   EVOLUCIÓN
+   ========================================================= */
 
-#homeSection .sg-streak-card {
+#bodyProgressModule .progress-change-grid {
 
-    display: flex;
+    display: grid;
 
-    align-items: center;
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
 
     gap: 12px;
 
-    margin-top: 12px;
-
-    padding: 14px 16px;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(184,255,0,.08),
-            rgba(184,255,0,.025)
-        );
-
-    border:
-        1px solid rgba(184,255,0,.14);
 }
 
 
-#homeSection .sg-streak-icon {
+#bodyProgressModule .progress-change-card {
 
-    width: 36px;
-    height: 36px;
+    padding: 15px;
 
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 10px;
+    border-radius: 15px;
 
     background:
-        rgba(184,255,0,.10);
+        rgba(255,255,255,0.04);
 
-    font-size: 17px;
 }
 
 
-#homeSection .sg-streak-card div:nth-child(2) {
+#bodyProgressModule .progress-change-card span {
+
+    display: block;
+
+    font-size: 12px;
+
+    opacity: 0.65;
+
+    margin-bottom: 7px;
+
+}
+
+
+#bodyProgressModule .progress-change-card strong {
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================================
+   HISTORIAL
+   ========================================================= */
+
+#bodyProgressModule .body-progress-history {
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 3px;
+    gap: 10px;
+
 }
 
 
-#homeSection .sg-streak-card span {
+#bodyProgressModule .progress-history-card {
 
-    color: #727d84;
+    padding: 16px;
 
-    font-size: 8px;
+    border-radius: 15px;
 
-    font-weight: 900;
+    background:
+        rgba(255,255,255,0.035);
 
-    letter-spacing: 1.2px;
+    border:
+        1px solid rgba(255,255,255,0.06);
+
 }
 
 
-#homeSection .sg-streak-card strong {
+#bodyProgressModule .progress-history-card > div:first-child {
 
-    color: #ffffff;
+    display: flex;
 
-    font-size: 13px;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
 }
 
 
-#homeSection .sg-streak-arrow {
+#bodyProgressModule .progress-history-measures {
 
-    margin-left: auto;
+    display: grid;
 
-    color: #b8ff00;
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
 
-    font-size: 17px;
+    gap: 8px;
+
+    font-size: 12px;
+
+    opacity: 0.7;
+
 }
 
 
-/* =========================
-   MOBILE
-   ========================= */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
-    #homeSection .sg-home-hero {
+    #bodyProgressModule .progress-summary-grid {
 
-        min-height: 310px;
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+
+    #bodyProgressModule .progress-form-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+
+    #bodyProgressModule .progress-change-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    #bodyProgressModule {
+
+        padding: 16px;
 
         border-radius: 18px;
 
-        margin-bottom: 27px;
     }
 
 
-    #homeSection .sg-home-hero-content {
+    #bodyProgressModule .progress-summary-grid,
+    #bodyProgressModule .progress-form-grid,
+    #bodyProgressModule .progress-change-grid {
 
-        min-height: 310px;
+        grid-template-columns:
+            1fr;
 
-        padding: 25px;
     }
 
 
-    #homeSection .sg-home-hero h2 {
+    #bodyProgressModule .progress-history-measures {
 
-        font-size: 34px;
+        grid-template-columns:
+            1fr 1fr;
 
-        letter-spacing: -1.3px;
+    }
+
+}
+
+
+/* =========================================================
+   FIN PROGRESO CORPORAL
+   ========================================================= */
+
+
+/* =========================================================
+   STRONG GYM - MEJORA GLOBAL DE LEGIBILIDAD
+   ========================================================= */
+
+/*
+ * =========================================================
+ * TIPOGRAFÍA GENERAL
+ * =========================================================
+ */
+
+body,
+button,
+input,
+select,
+textarea {
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    text-rendering:
+        optimizeLegibility;
+
+}
+
+
+/*
+ * =========================================================
+ * TEXTO GENERAL
+ * =========================================================
+ */
+
+.app-section {
+
+    color:
+        #171717;
+
+    font-size:
+        16px;
+
+}
+
+
+.app-section p {
+
+    color:
+        rgba(23,23,23,0.78);
+
+    font-size:
+        15px;
+
+    line-height:
+        1.55;
+
+}
+
+
+.app-section small {
+
+    color:
+        rgba(23,23,23,0.72);
+
+}
+
+
+/*
+ * =========================================================
+ * ENCABEZADOS
+ * =========================================================
+ */
+
+.page-header span {
+
+    color:
+        rgba(23,23,23,0.72);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.6px;
+
+}
+
+
+.page-header h1,
+.page-header h2 {
+
+    color:
+        #111111;
+
+    font-weight:
+        850;
+
+    line-height:
+        1.15;
+
+}
+
+
+.page-header p {
+
+    color:
+        rgba(23,23,23,0.76);
+
+    font-size:
+        15px;
+
+}
+
+
+/*
+ * =========================================================
+ * TÍTULOS DE SECCIONES
+ * =========================================================
+ */
+
+.section-title span {
+
+    color:
+        rgba(23,23,23,0.70);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.4px;
+
+}
+
+
+.section-title h2,
+.section-title h3 {
+
+    color:
+        #111111;
+
+    font-weight:
+        800;
+
+}
+
+
+.section-title p {
+
+    color:
+        rgba(23,23,23,0.74);
+
+}
+
+
+/*
+ * =========================================================
+ * TARJETAS GENERALES
+ * =========================================================
+ */
+
+.card,
+.chart-card,
+.strength-progress-panel,
+.progress-panel,
+.exercise-card,
+.routine-card,
+.quick-card {
+
+    color:
+        #171717;
+
+}
+
+
+.card p,
+.chart-card p,
+.strength-progress-panel p,
+.progress-panel p,
+.exercise-card p,
+.routine-card p,
+.quick-card p {
+
+    color:
+        rgba(23,23,23,0.74);
+
+}
+
+
+/*
+ * =========================================================
+ * VALORES Y DATOS
+ * =========================================================
+ */
+
+.stat-value,
+.metric-value,
+.progress-value,
+.exercise-value,
+.record-value {
+
+    color:
+        #111111;
+
+    font-weight:
+        850;
+
+}
+
+
+/*
+ * =========================================================
+ * FORMULARIOS
+ * =========================================================
+ */
+
+label {
+
+    color:
+        #171717;
+
+    font-weight:
+        700;
+
+    font-size:
+        14px;
+
+}
+
+
+input,
+select,
+textarea {
+
+    color:
+        #171717;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+}
+
+
+input::placeholder,
+textarea::placeholder {
+
+    color:
+        rgba(23,23,23,0.48);
+
+    opacity:
+        1;
+
+}
+
+
+select option {
+
+    color:
+        #111111;
+
+    background:
+        #ffffff;
+
+}
+
+
+/*
+ * =========================================================
+ * NAVEGACIÓN INFERIOR
+ * =========================================================
+ */
+
+.bottom-navigation {
+
+    color:
+        #171717;
+
+}
+
+
+.bottom-navigation .nav-button {
+
+    color:
+        rgba(23,23,23,0.78);
+
+}
+
+
+.bottom-navigation .nav-button span {
+
+    color:
+        currentColor;
+
+}
+
+
+.bottom-navigation .nav-button small {
+
+    color:
+        currentColor;
+
+    font-size:
+        13px;
+
+    font-weight:
+        750;
+
+}
+
+
+.bottom-navigation .nav-button.active {
+
+    color:
+        #111111;
+
+}
+
+
+/*
+ * =========================================================
+ * GRÁFICOS
+ * =========================================================
+ */
+
+.progress-chart-empty,
+.strength-chart-empty {
+
+    color:
+        rgba(23,23,23,0.78);
+
+}
+
+
+.progress-chart-empty p,
+.strength-chart-empty p {
+
+    color:
+        rgba(23,23,23,0.70);
+
+    font-size:
+        14px;
+
+}
+
+
+/*
+ * =========================================================
+ * TABLAS
+ * =========================================================
+ */
+
+table {
+
+    color:
+        #171717;
+
+}
+
+
+th {
+
+    color:
+        #111111;
+
+    font-weight:
+        800;
+
+}
+
+
+td {
+
+    color:
+        rgba(23,23,23,0.80);
+
+}
+
+
+/*
+ * =========================================================
+ * PROGRESO CORPORAL
+ *
+ * Este módulo tiene fondo oscuro.
+ * Por eso conserva texto claro.
+ * =========================================================
+ */
+
+#bodyProgressModule {
+
+    color:
+        #ffffff;
+
+}
+
+
+#bodyProgressModule .section-title h2 {
+
+    color:
+        #ffffff;
+
+    font-size:
+        24px;
+
+    font-weight:
+        850;
+
+}
+
+
+#bodyProgressModule .section-title p {
+
+    color:
+        rgba(255,255,255,0.84);
+
+    font-size:
+        15px;
+
+}
+
+
+#bodyProgressModule .progress-stat-card {
+
+    color:
+        #ffffff;
+
+}
+
+
+#bodyProgressModule .progress-stat-card span {
+
+    color:
+        rgba(255,255,255,0.82);
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+}
+
+
+#bodyProgressModule .progress-stat-card strong {
+
+    color:
+        #ffffff;
+
+    font-size:
+        30px;
+
+    font-weight:
+        850;
+
+}
+
+
+#bodyProgressModule .progress-stat-card small {
+
+    color:
+        rgba(255,255,255,0.76);
+
+    font-size:
+        13px;
+
+}
+
+
+#bodyProgressModule .progress-panel {
+
+    color:
+        #ffffff;
+
+}
+
+
+#bodyProgressModule .progress-panel h3 {
+
+    color:
+        #ffffff;
+
+    font-size:
+        19px;
+
+    font-weight:
+        800;
+
+}
+
+
+#bodyProgressModule .progress-panel-header p {
+
+    color:
+        rgba(255,255,255,0.80);
+
+    font-size:
+        14px;
+
+}
+
+
+#bodyProgressModule .form-group label {
+
+    color:
+        rgba(255,255,255,0.92);
+
+    font-size:
+        14px;
+
+    font-weight:
+        750;
+
+}
+
+
+#bodyProgressModule input,
+#bodyProgressModule textarea,
+#bodyProgressModule select {
+
+    color:
+        #ffffff;
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+}
+
+
+#bodyProgressModule input::placeholder,
+#bodyProgressModule textarea::placeholder {
+
+    color:
+        rgba(255,255,255,0.58);
+
+}
+
+
+#bodyProgressModule .primary-button {
+
+    color:
+        #111111;
+
+    font-size:
+        16px;
+
+    font-weight:
+        850;
+
+}
+
+
+#bodyProgressModule .progress-change-card {
+
+    color:
+        #ffffff;
+
+}
+
+
+#bodyProgressModule .progress-change-card span {
+
+    color:
+        rgba(255,255,255,0.80);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+}
+
+
+#bodyProgressModule .progress-change-card strong {
+
+    color:
+        #ffffff;
+
+    font-size:
+        21px;
+
+    font-weight:
+        850;
+
+}
+
+
+#bodyProgressModule .progress-history-card {
+
+    color:
+        #ffffff;
+
+}
+
+
+#bodyProgressModule .progress-history-card strong {
+
+    color:
+        #ffffff;
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+}
+
+
+#bodyProgressModule .progress-history-card span {
+
+    color:
+        rgba(255,255,255,0.80);
+
+    font-size:
+        13px;
+
+}
+
+
+#bodyProgressModule .progress-history-measures {
+
+    color:
+        rgba(255,255,255,0.80);
+
+}
+
+
+/*
+ * =========================================================
+ * RESPONSIVE
+ * =========================================================
+ */
+
+@media (max-width: 600px) {
+
+    .app-section {
+
+        font-size:
+            16px;
+
     }
 
 
-    #homeSection .sg-home-hero p {
+    .app-section p {
 
-        font-size: 11px;
+        font-size:
+            14px;
+
     }
 
 
-    #homeSection .sg-start-button {
+    .page-header h1,
+    .page-header h2 {
 
-        font-size: 10px;
+        font-size:
+            24px;
+
+    }
+
+
+    .bottom-navigation .nav-button small {
+
+        font-size:
+            12px;
+
+    }
+
+
+    #bodyProgressModule .section-title h2 {
+
+        font-size:
+            21px;
+
+    }
+
+
+    #bodyProgressModule .progress-stat-card strong {
+
+        font-size:
+            27px;
+
+    }
+
+
+    #bodyProgressModule .progress-panel h3 {
+
+        font-size:
+            18px;
+
+    }
+
+
+    #bodyProgressModule input,
+    #bodyProgressModule textarea,
+    #bodyProgressModule select {
+
+        font-size:
+            16px;
+
+    }
+
+}
+
+
+/* =========================================================
+   FIN MEJORA GLOBAL DE LEGIBILIDAD
+   ========================================================= */
+
+
+
+/* STRONG_GYM_CARDIO_MODULE_V1 */
+
+.cardio-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.cardio-stat-card,
+.cardio-panel {
+    border-radius: 20px;
+}
+
+.cardio-stat-card {
+    padding: 18px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.cardio-stat-card span {
+    display: block;
+    color: rgba(255,255,255,0.78);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cardio-stat-card strong {
+    display: block;
+    margin-top: 7px;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 850;
+}
+
+.cardio-stat-card small {
+    display: block;
+    margin-top: 5px;
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+}
+
+.cardio-panel {
+    margin-top: 18px;
+    padding: 22px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.cardio-panel-header span {
+    color: rgba(255,255,255,0.72);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.cardio-panel-header h3 {
+    margin: 6px 0 4px;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 850;
+}
+
+.cardio-panel-header p {
+    margin: 0 0 18px;
+    color: rgba(255,255,255,0.72);
+    font-size: 14px;
+}
+
+.cardio-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.cardio-form-wide {
+    grid-column: 1 / -1;
+}
+
+.cardio-history {
+    display: grid;
+    gap: 12px;
+}
+
+.cardio-history-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.cardio-history-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+}
+
+.cardio-history-title {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.cardio-history-date {
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+}
+
+.cardio-history-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.cardio-history-meta span {
+    padding: 6px 9px;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.82);
+    font-size: 12px;
+}
+
+.cardio-history-notes {
+    margin-top: 10px;
+    color: rgba(255,255,255,0.68);
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+    .cardio-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cardio-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cardio-form-wide {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 430px) {
+    .cardio-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+    }
+
+    .cardio-stat-card {
+        padding: 14px;
+    }
+
+    .cardio-stat-card strong {
+        font-size: 21px;
+    }
+
+    .cardio-panel {
+        padding: 16px;
+    }
+}
+
+/* FIN STRONG_GYM_CARDIO_MODULE_V1 */
+/* ============================================================
+   STRONG GYM - MENU 6 BOTONES - FIX FINAL
+   Objetivo: mostrar SIEMPRE los 6 destinos completos.
+   No modifica la logica JavaScript ni index.html.
+   ============================================================ */
+
+.bottom-navigation{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+
+    display:grid !important;
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr)) !important;
+
+    align-items:stretch !important;
+    justify-content:stretch !important;
+
+    gap:0 !important;
+    padding:
+        6px
+        6px
+        calc(6px + env(safe-area-inset-bottom))
+        6px !important;
+
+    box-sizing:border-box !important;
+    overflow:visible !important;
+}
+
+.bottom-navigation > .nav-button{
+    display:flex !important;
+    flex:initial !important;
+
+    width:auto !important;
+    min-width:0 !important;
+    max-width:none !important;
+
+    margin:0 !important;
+    padding:5px 2px !important;
+
+    box-sizing:border-box !important;
+
+    align-items:center !important;
+    justify-content:center !important;
+    text-align:center !important;
+
+    overflow:visible !important;
+    visibility:visible !important;
+    opacity:1 !important;
+}
+
+.bottom-navigation > .nav-button span{
+    display:flex !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    align-items:center !important;
+    justify-content:center !important;
+
+    overflow:visible !important;
+}
+
+.bottom-navigation > .nav-button small{
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    overflow:visible !important;
+    white-space:nowrap !important;
+
+    text-align:center !important;
+
+    font-size:clamp(7px, 1.05vw, 11px) !important;
+    line-height:1.15 !important;
+}
+
+.bottom-navigation > .nav-button[data-section="homeSection"],
+.bottom-navigation > .nav-button[data-section="routinesSection"],
+.bottom-navigation > .nav-button[data-section="exercisesSection"],
+.bottom-navigation > .nav-button[data-section="progressSection"],
+.bottom-navigation > .nav-button[data-section="cardioSection"],
+.bottom-navigation > .nav-button[data-section="coachSection"]{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+}
+
+/* En pantallas pequenas el menu sigue usando las 6 columnas. */
+@media(max-width:700px){
+
+    .bottom-navigation{
+        width:100% !important;
+        grid-template-columns:
+            repeat(6, minmax(0, 1fr)) !important;
 
         padding:
-            0 15px;
+            5px
+            3px
+            calc(5px + env(safe-area-inset-bottom))
+            3px !important;
     }
 
+    .bottom-navigation > .nav-button{
+        min-height:58px !important;
+        padding:4px 1px !important;
+    }
 
-    #homeSection .sg-today-card {
+    .bottom-navigation > .nav-button span{
+        font-size:18px !important;
+        line-height:1 !important;
+    }
 
+    .bottom-navigation > .nav-button small{
+        font-size:clamp(7px, 2.2vw, 9px) !important;
+    }
+}
+
+/* Pantallas muy pequenas: evitar que Coach salga del viewport. */
+@media(max-width:380px){
+
+    .bottom-navigation{
+        grid-template-columns:
+            repeat(6, minmax(0, 1fr)) !important;
+
+        padding-left:2px !important;
+        padding-right:2px !important;
+    }
+
+    .bottom-navigation > .nav-button{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+
+    .bottom-navigation > .nav-button small{
+        font-size:7px !important;
+    }
+}
+
+/* ============================================================
+   FIN STRONG GYM - MENU 6 BOTONES - FIX FINAL
+   ============================================================ */
+
+/* STRONG-GYM-MENU-ICONOS-V4-START */
+
+/* Presentacion exclusiva de los iconos SVG del menu inferior */
+.bottom-navigation .nav-button .sg-nav-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    margin: 0 auto 4px;
+    line-height: 0;
+}
+
+.bottom-navigation .nav-button .sg-nav-icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.bottom-navigation .nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    text-align: center;
+}
+
+.bottom-navigation .nav-button small {
+    display: block;
+    line-height: 1.1;
+}
+
+/* STRONG-GYM-MENU-ICONOS-V4-END */
+
+/* STRONG-GYM-CARDIO-DEFINITIVO-V1-START */
+
+/* Icono exclusivo de Cardio en Accesos rapidos */
+.sg-quick-cardio-icon {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    margin-bottom: 8px;
+}
+
+.sg-quick-cardio-icon svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Legibilidad del subtitulo de Cardio */
+#cardioSection .page-header p,
+#cardioSection .section-title p,
+#cardioSection .cardio-header p {
+    color: rgba(255,255,255,0.88);
+    opacity: 1;
+    visibility: visible;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Si el encabezado de Cardio usa otra estructura, este selector
+   garantiza contraste para el texto inmediatamente bajo el titulo. */
+#cardioSection p {
+    opacity: 1;
+}
+
+/* STRONG-GYM-CARDIO-DEFINITIVO-V1-END */
+
+/* STRONG-GYM-CARDIO-CONTRASTE-V2-START */
+
+/* ==========================================================
+   1. CARDIO - ICONO DE ACCESO RAPIDO
+   ========================================================== */
+.sg-quick-cardio-icon {
+    color: #e94f5d !important;
+}
+
+.sg-quick-cardio-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+    display: block !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 2 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================================
+   2. CARDIO - ENCABEZADO Y TEXTO INFORMATIVO
+   ========================================================== */
+#cardioSection p,
+#cardioSection small,
+#cardioSection label,
+#cardioSection .label,
+#cardioSection .form-label,
+#cardioSection .field-label {
+    color: #2b2020 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Subtitulo inmediatamente debajo del titulo */
+#cardioSection p {
+    text-shadow: none !important;
+}
+
+/* ==========================================================
+   3. CARDIO - CAMPOS DEL FORMULARIO
+   ========================================================== */
+#cardioSection input,
+#cardioSection select,
+#cardioSection textarea {
+    color: #2b2020 !important;
+    -webkit-text-fill-color: #2b2020 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: rgba(255,255,255,0.62) !important;
+    border-color: rgba(43,32,32,0.22) !important;
+}
+
+#cardioSection input::placeholder,
+#cardioSection textarea::placeholder {
+    color: #5b4b4b !important;
+    opacity: 1 !important;
+}
+
+#cardioSection option {
+    color: #2b2020 !important;
+    background: #ffffff !important;
+}
+
+/* Valores y datos que puedan estar dentro de spans */
+#cardioSection .cardio-form span,
+#cardioSection .cardio-form strong,
+#cardioSection .cardio-form b,
+#cardioSection .cardio-form div {
+    opacity: 1;
+}
+
+/* STRONG-GYM-CARDIO-CONTRASTE-V2-END */
+
+/* STRONG-GYM-CARDIO-NEGRO-V3-START */
+
+/* ==========================================================
+   CARDIO: CONTRASTE DEFINITIVO
+   Se aplica SOLO dentro de #cardioSection.
+   ========================================================== */
+
+/* Color base de todo el contenido de Cardio */
+#cardioSection {
+    color: #111111 !important;
+}
+
+/* Todo elemento textual de Cardio hereda negro.
+   Esto corrige especialmente estadisticas/resumenes que
+   estaban siendo pintados de blanco o con baja opacidad. */
+#cardioSection h1,
+#cardioSection h2,
+#cardioSection h3,
+#cardioSection h4,
+#cardioSection h5,
+#cardioSection h6,
+#cardioSection p,
+#cardioSection span,
+#cardioSection strong,
+#cardioSection b,
+#cardioSection small,
+#cardioSection label,
+#cardioSection legend,
+#cardioSection li,
+#cardioSection dt,
+#cardioSection dd {
+    color: #111111 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-shadow: none !important;
+}
+
+/* Contenedores de estadisticas/resumen: el texto interno
+   tambien queda negro aunque una regla anterior haya
+   puesto color blanco al contenedor. */
+#cardioSection [class*="stat"],
+#cardioSection [class*="summary"],
+#cardioSection [class*="metric"],
+#cardioSection [class*="stats"],
+#cardioSection [class*="total"],
+#cardioSection [class*="accum"],
+#cardioSection [class*="estimated"] {
+    color: #111111 !important;
+    opacity: 1 !important;
+}
+
+/* Campos */
+#cardioSection input,
+#cardioSection select,
+#cardioSection textarea {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: rgba(255,255,255,0.72) !important;
+    border-color: rgba(17,17,17,0.28) !important;
+}
+
+#cardioSection input::placeholder,
+#cardioSection textarea::placeholder {
+    color: #333333 !important;
+    opacity: 1 !important;
+}
+
+#cardioSection option {
+    color: #111111 !important;
+    background: #ffffff !important;
+}
+
+/* Icono Cardio de Accesos rapidos */
+.sg-quick-cardio-icon {
+    color: #e94f5d !important;
+    opacity: 1 !important;
+}
+
+.sg-quick-cardio-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+    display: block !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 2 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    opacity: 1 !important;
+}
+
+/* STRONG-GYM-CARDIO-NEGRO-V3-END */
+
+/* STRONG-GYM-CARDIO-DESCRIPCION-NEGRA-DELETE-V1-START */
+
+/* ==========================================================
+   CARDIO: TODO EL TEXTO EN NEGRO
+   ========================================================== */
+#cardioSection {
+    color: #111111 !important;
+}
+
+#cardioSection h1,
+#cardioSection h2,
+#cardioSection h3,
+#cardioSection h4,
+#cardioSection h5,
+#cardioSection h6,
+#cardioSection p,
+#cardioSection span,
+#cardioSection strong,
+#cardioSection b,
+#cardioSection small,
+#cardioSection label,
+#cardioSection legend,
+#cardioSection li,
+#cardioSection dt,
+#cardioSection dd {
+    color: #111111 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-shadow: none !important;
+}
+
+/* ==========================================================
+   OBSERVACIONES / DESCRIPCION
+   ========================================================== */
+#cardioSection textarea,
+#cardioSection textarea.form-control {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: rgba(255,255,255,0.72) !important;
+    border-color: rgba(17,17,17,0.32) !important;
+}
+
+#cardioSection textarea::placeholder {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================================
+   CAMPOS DE CARDIO
+   ========================================================== */
+#cardioSection input,
+#cardioSection select {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: rgba(255,255,255,0.72) !important;
+    border-color: rgba(17,17,17,0.28) !important;
+}
+
+#cardioSection input::placeholder {
+    color: #111111 !important;
+    -webkit-text-fill-color: #111111 !important;
+    opacity: 1 !important;
+}
+
+#cardioSection option {
+    color: #111111 !important;
+    background: #ffffff !important;
+}
+
+/* ==========================================================
+   HISTORIAL: SESIONES GUARDADAS
+   ========================================================== */
+#strongGymCardioHistoryManager {
+    margin: 28px 0 100px;
+    color: #111111 !important;
+}
+
+.strong-gym-cardio-history-title {
+    color: #111111 !important;
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.strong-gym-cardio-history-list {
+    display: grid;
+    gap: 10px;
+}
+
+.strong-gym-cardio-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(17,17,17,0.18);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.62);
+    color: #111111 !important;
+}
+
+.strong-gym-cardio-history-data {
+    color: #111111 !important;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+.strong-gym-cardio-delete {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 10px;
+    padding: 9px 13px;
+    background: #111111 !important;
+    color: #ffffff !important;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.strong-gym-cardio-delete:hover {
+    opacity: 0.88;
+}
+
+.strong-gym-cardio-delete:focus-visible {
+    outline: 3px solid rgba(17,17,17,0.28);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .strong-gym-cardio-history-item {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .strong-gym-cardio-delete {
+        width: 100%;
+    }
+}
+
+/* STRONG-GYM-CARDIO-DESCRIPCION-NEGRA-DELETE-V1-END */
+
+/* STRONG-GYM-CARDIO-HISTORY-DETAIL-STYLES-V3-START */
+
+/* Texto de actividad y resumen siempre negro */
+#cardioSection .strong-gym-cardio-history-data,
+#cardioSection .strong-gym-cardio-history-data * {
+    color: #000 !important;
+    -webkit-text-fill-color: #000 !important;
+    opacity: 1 !important;
+}
+
+#cardioSection .strong-gym-cardio-history-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#cardioSection .strong-gym-cardio-detail-button,
+#cardioSection .strong-gym-cardio-delete {
+    flex: 0 0 auto;
+    border-radius: 10px;
+    padding: 9px 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#cardioSection .strong-gym-cardio-detail-button {
+    border: 1px solid rgba(17,17,17,.28);
+    background: rgba(255,255,255,.85);
+    color: #000 !important;
+}
+
+#cardioSection .strong-gym-cardio-delete {
+    border: 0;
+    background: #111 !important;
+    color: #fff !important;
+}
+
+#strongGymCardioDetailModal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+}
+
+#strongGymCardioDetailModal[hidden] {
+    display: none !important;
+}
+
+.strong-gym-cardio-detail-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+}
+
+.strong-gym-cardio-detail-card {
+    position: relative;
+    width: min(560px, calc(100vw - 28px));
+    max-height: min(760px, calc(100vh - 28px));
+    overflow: auto;
+    margin: 14px auto;
+    padding: 22px;
+    border-radius: 20px;
+    background: #fff;
+    color: #000 !important;
+    box-shadow: 0 18px 60px rgba(0,0,0,.30);
+}
+
+.strong-gym-cardio-detail-card * {
+    color: #000 !important;
+    -webkit-text-fill-color: #000 !important;
+    opacity: 1 !important;
+}
+
+.strong-gym-cardio-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.strong-gym-cardio-detail-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .14em;
+}
+
+.strong-gym-cardio-detail-header h3 {
+    margin: 4px 0 0;
+    font-size: 24px;
+}
+
+.strong-gym-cardio-detail-close {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(0,0,0,.20);
+    border-radius: 50%;
+    background: #fff;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.strong-gym-cardio-detail-grid {
+    display: grid;
+    gap: 9px;
+}
+
+.strong-gym-cardio-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+.strong-gym-cardio-detail-row span {
+    font-weight: 650;
+}
+
+.strong-gym-cardio-detail-row strong {
+    text-align: right;
+}
+
+.strong-gym-cardio-detail-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.strong-gym-cardio-detail-delete,
+.strong-gym-cardio-detail-secondary {
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.strong-gym-cardio-detail-delete {
+    border: 0;
+    background: #111 !important;
+    color: #fff !important;
+}
+
+.strong-gym-cardio-detail-delete * {
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+.strong-gym-cardio-detail-secondary {
+    border: 1px solid rgba(0,0,0,.22);
+    background: #fff;
+}
+
+.strong-gym-cardio-detail-open {
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    #cardioSection .strong-gym-cardio-history-actions {
+        width: 100%;
+    }
+
+    #cardioSection .strong-gym-cardio-history-actions button {
+        flex: 1 1 120px;
+    }
+
+    .strong-gym-cardio-detail-card {
+        margin: 8px auto;
+        max-height: calc(100vh - 16px);
         padding: 18px;
     }
 
-
-    #homeSection .sg-quick-grid {
-
-        gap: 8px;
+    .strong-gym-cardio-detail-actions {
+        flex-direction: column;
     }
 
-
-    #homeSection .sg-quick-card {
-
-        min-height: 103px;
-
-        padding: 12px;
+    .strong-gym-cardio-detail-actions button {
+        width: 100%;
     }
-
-
-    #homeSection .sg-quick-card strong {
-
-        font-size: 10px;
-    }
-
-
-    #homeSection .sg-quick-card small {
-
-        font-size: 8px;
-    }
-
 }
 
+/* STRONG-GYM-CARDIO-HISTORY-DETAIL-STYLES-V3-END */
 
-@media (max-width: 390px) {
-
-    #homeSection .sg-home-hero {
-
-        min-height: 295px;
-    }
-
-
-    #homeSection .sg-home-hero-content {
-
-        min-height: 295px;
-
-        padding: 21px;
-    }
-
-
-    #homeSection .sg-home-hero h2 {
-
-        font-size: 30px;
-    }
-
-
-    #homeSection .sg-home-hero p {
-
-        font-size: 10px;
-    }
-
-
-    #homeSection .sg-quick-card {
-
-        min-height: 98px;
-    }
-
-}
-
+/* STRONG-GYM-CARDIO-VISUAL-FIX-V4-START */
 
 /* ============================================================
-   END — HOME REFERENCE UI
+   1. HISTORIAL: texto SIEMPRE NEGRO
    ============================================================ */
 
+#cardioSection #cardioHistory,
+#cardioSection #cardioHistory *,
+#cardioSection #strongGymCardioHistoryManager,
+#cardioSection #strongGymCardioHistoryManager *,
+#cardioSection .strong-gym-cardio-history-data,
+#cardioSection .strong-gym-cardio-history-data * {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+/* La fila de actividad guardada también debe ser claramente visible. */
+#cardioSection #strongGymCardioHistoryManager .strong-gym-cardio-history-data {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    font-weight: 900 !important;
+}
+
+/* ============================================================
+   2. BOTON NEGRO: texto BLANCO
+   ============================================================ */
+
+/*
+   El problema anterior era una regla global del modal:
+   .strong-gym-cardio-detail-card * { color:#000 !important; }
+
+   Esta regla tiene mayor especificidad y la anula solamente
+   para el boton negro de eliminar.
+*/
+
+#strongGymCardioDetailModal
+.strong-gym-cardio-detail-card
+button.strong-gym-cardio-detail-delete {
+    background: #111111 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 900 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+#strongGymCardioDetailModal
+.strong-gym-cardio-detail-card
+button.strong-gym-cardio-detail-delete:hover {
+    background: #000000 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+#strongGymCardioDetailModal
+.strong-gym-cardio-detail-card
+button.strong-gym-cardio-detail-secondary {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    font-weight: 900 !important;
+}
+
+/* El boton de detalle tambien debe ser legible. */
+#cardioSection
+#strongGymCardioHistoryManager
+button.strong-gym-cardio-detail-button {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    font-weight: 900 !important;
+}
+
+/* Eliminar de la lista: negro con texto blanco. */
+#cardioSection
+#strongGymCardioHistoryManager
+button.strong-gym-cardio-delete {
+    background: #111111 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 900 !important;
+}
+
+/* ============================================================
+   3. SEGURIDAD VISUAL DEL TITULO DEL DETALLE
+   ============================================================ */
+
+#strongGymCardioDetailModal
+.strong-gym-cardio-detail-card
+.strong-gym-cardio-detail-header h3,
+#strongGymCardioDetailModal
+.strong-gym-cardio-detail-card
+.strong-gym-cardio-detail-label {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+/* STRONG-GYM-CARDIO-VISUAL-FIX-V4-END */
+
+/* STRONG GYM - INICIO V7 VISUAL */
+#homeSection #viewWorkoutButton {
+    color: var(--accent-dark);
+}
+#homeSection #viewWorkoutButton:hover {
+    color: #ffffff;
+}
+
+/* =========================================================
+   STRONG GYM - BRANDING V1
+   Logo de app + identidad discreta
+   ========================================================= */
+
+.strong-gym-full-logo {
+    position: absolute;
+    z-index: 1;
+    top: 18px;
+    right: 20px;
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    border-radius: 22px;
+    opacity: 0.98;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+}
+
+.strong-gym-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.strong-gym-brand-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+.strong-gym-brand-copy {
+    min-width: 0;
+}
+
+.app-header .strong-gym-brand-copy h1 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.05;
+    letter-spacing: 0.8px;
+}
+
+.app-header .strong-gym-brand-copy p {
+    margin-top: 3px;
+}
+
+.strong-gym-byline {
+    position: absolute;
+    right: 22px;
+    bottom: 16px;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.35px;
+}
+
+@media (max-width: 420px) {
+    .strong-gym-full-logo {
+        width: 92px;
+        height: 92px;
+        top: 14px;
+        right: 14px;
+        border-radius: 17px;
+        opacity: 0.92;
+    }
+
+    .strong-gym-brand-icon {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+        border-radius: 11px;
+    }
+
+    .app-header .strong-gym-brand-copy h1 {
+        font-size: 18px;
+    }
+
+    .strong-gym-byline {
+        right: 18px;
+        bottom: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .strong-gym-full-logo {
+        width: 76px;
+        height: 76px;
+        opacity: 0.78;
+    }
+}
+
+/* STRONG-GYM-BRANDING-V1-END */
+
+/* STRONG_GYM_NUTRITION_INTEGRATION_V21 */
+.sg-nutrition-quick-card { position: relative; }
+.sg-nutrition-quick-card .quick-icon { font-size: 28px; }
+.sg-nutrition-header { margin-bottom: 16px; }
+.sg-section-kicker { display:block; font-size:11px; font-weight:800; letter-spacing:.14em; opacity:.72; }
+.sg-nutrition-notice { border:1px solid rgba(255,255,255,.18); border-radius:18px; padding:16px; margin:0 0 16px; background:rgba(0,0,0,.08); }
+.sg-nutrition-notice strong { display:block; margin-bottom:6px; }
+.sg-nutrition-notice p { margin:0 0 12px; line-height:1.5; font-size:13px; }
+.sg-check { display:flex; align-items:center; gap:9px; font-size:13px; cursor:pointer; }
+.sg-check input { width:18px; height:18px; }
+.sg-nutrition-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.sg-nutrition-card { border:1px solid rgba(0,0,0,.08); border-radius:18px; padding:16px; background:rgba(255,255,255,.16); }
+.sg-nutrition-wide { grid-column:1 / -1; }
+.sg-nutrition-card-title { font-weight:800; margin-bottom:12px; }
+.sg-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.sg-nutrition-card label, .sg-inline-label { display:flex; flex-direction:column; gap:6px; font-size:12px; font-weight:700; }
+.sg-nutrition-card input, .sg-nutrition-card select, .sg-nutrition-card textarea { width:100%; box-sizing:border-box; border:1px solid rgba(0,0,0,.12); border-radius:12px; padding:11px 12px; font:inherit; background:rgba(255,255,255,.72); }
+.sg-full-input { margin-bottom:12px; }
+.sg-mode-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.sg-mode { display:flex; gap:10px; align-items:flex-start; border:1px solid rgba(0,0,0,.09); border-radius:14px; padding:12px; cursor:pointer; }
+.sg-mode input { margin-top:3px; }
+.sg-mode span { display:flex; flex-direction:column; gap:3px; }
+.sg-mode small { opacity:.7; font-weight:500; }
+.sg-nutrition-generate { margin-top:16px; min-height:52px; }
+.sg-nutrition-result { margin-top:16px; border-radius:18px; padding:18px; background:rgba(255,255,255,.2); border:1px solid rgba(0,0,0,.09); }
+.sg-nutrition-result h3 { margin:0 0 10px; }
+.sg-recipe { padding:12px 0; border-top:1px solid rgba(0,0,0,.08); }
+.sg-recipe:first-of-type { border-top:0; }
+.sg-recipe strong { display:block; margin-bottom:4px; }
+@media (max-width:700px) {
+  .sg-nutrition-grid, .sg-form-grid, .sg-mode-row { grid-template-columns:1fr; }
+  .sg-nutrition-wide { grid-column:auto; }
+}
+
+/* STRONG_GYM_NUTRITION_V26 */
+#nutritionSection .sg-nutrition-v26-actions{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 4px;
+}
+#nutritionSection #sgNutritionProfileStatus{font-size:12px;opacity:.8;}
+#nutritionSection .sg-nutrition-disclaimer{font-size:12px;opacity:.72;margin-top:14px;}
+/* Keep Nutrition content scoped to its own section. */
+.app-section #nutritionSection{display:block;}
+
+/* STRONG_GYM_NUTRITION_V28_SECTION_ISOLATION */
+.app-content > .app-section:not(.active) {
+    display: none !important;
+}
+.app-content > .app-section.active {
+    display: block !important;
+}

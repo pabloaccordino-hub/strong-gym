@@ -22,11 +22,80 @@
 
     <title>STRONG GYM</title>
 
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/branding/strong-gym-icon.png">
+    <link rel="apple-touch-icon" href="assets/branding/strong-gym-icon.png">
+
     <link
         rel="stylesheet"
         href="css/styles.css"
     >
+    <link rel="stylesheet" href="css/nutrition.css">
 
+<style>
+/* =========================================================
+   STRONG GYM - FOTO DE PERFIL
+   ========================================================= */
+
+.profile-photo-editor {
+    margin-top: 18px;
+}
+
+.profile-photo-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.profile-photo-preview,
+.welcome-profile-avatar {
+    width: 76px;
+    height: 76px;
+    min-width: 76px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5e7eb;
+    border: 3px solid #d1d5db;
+    font-size: 30px;
+}
+
+.profile-photo-preview img,
+.welcome-profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-photo-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.profile-photo-actions input[type="file"] {
+    max-width: 100%;
+}
+
+.profile-photo-actions small {
+    color: #6b7280;
+}
+
+.welcome-profile-avatar {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    margin-bottom: 12px;
+    font-size: 25px;
+}
+
+/* =========================================================
+   FIN FOTO DE PERFIL
+   ========================================================= */
+</style>
 </head>
 
 
@@ -43,15 +112,18 @@
 
     <header class="app-header">
 
-        <div>
+        <div class="strong-gym-brand">
 
-            <h1>
-                STRONG GYM
-            </h1>
+            <img
+                src="assets/branding/strong-gym-icon.png"
+                alt="STRONG GYM"
+                class="strong-gym-brand-icon"
+            >
 
-            <p>
-                Tu entrenamiento. Tu progreso.
-            </p>
+            <div class="strong-gym-brand-copy">
+                <h1>STRONG GYM</h1>
+                <p>Tu entrenamiento. Tu progreso.</p>
+            </div>
 
         </div>
 
@@ -82,60 +154,83 @@
              INICIO
              ================================================= -->
 
-                <!-- =================================================
-             INICIO — STRONG GYM
-             ================================================= -->
-
         <section
             id="homeSection"
             class="app-section active"
         >
 
-            <div class="sg-home-hero">
 
-                <div class="sg-home-hero-overlay"></div>
+            <!-- BIENVENIDA -->
 
-                <div class="sg-home-hero-content">
+            <div class="welcome-card">
 
-                    <span class="sg-eyebrow">
-                        BIENVENIDO
+                <div
+                    id="welcomeProfileAvatar"
+                    class="welcome-profile-avatar"
+                    aria-label="Foto de perfil"
+                >
+                    <span>👤</span>
+                </div>
+
+                <span class="welcome-label">
+                    BIENVENIDO
+                </span>
+
+
+                <h2>
+                    ¿Listo para entrenar?
+                </h2>
+
+
+                <p>
+                    Organizá tu entrenamiento,
+                    registrá tus cargas y seguí
+                    tu progreso.
+                </p>
+
+
+                <button
+                    class="primary-button"
+                    id="startWorkoutButton"
+                >
+
+                    🏋️ Comenzar entrenamiento
+
+                </button>
+
+                <img
+                    src="assets/branding/strong-gym-logo.png"
+                    alt="STRONG GYM"
+                    class="strong-gym-full-logo"
+                >
+
+                <span class="strong-gym-byline">By Pablo Accordino</span>
+
+            </div>
+
+
+
+            <!-- ENTRENAMIENTO DE HOY -->
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        HOY
                     </span>
 
                     <h2>
-                        ¿Listo para<br>
-                        entrenar?
+                        Tu entrenamiento
                     </h2>
 
-                    <p>
-                        Organizá tu entrenamiento,<br>
-                        registrá tus cargas y seguí<br>
-                        tu progreso.
-                    </p>
-
-                    <button
-                        class="primary-button sg-start-button"
-                        id="startWorkoutButton"
-                    >
-                        <span>▶</span>
-                        Comenzar entrenamiento
-                    </button>
-
                 </div>
 
             </div>
 
 
-            <div class="sg-home-section-head">
+            <div class="workout-card">
 
-                <div>
-                    <span>HOY</span>
-                    <h2>Tu entrenamiento</h2>
-                </div>
-
-            </div>
-
-
-            <div class="workout-card sg-today-card">
 
                 <div class="workout-card-header">
 
@@ -151,6 +246,7 @@
 
                     </div>
 
+
                     <span class="workout-time">
                         ⏱ 60 min
                     </span>
@@ -158,14 +254,27 @@
                 </div>
 
 
+
                 <div class="muscle-tags">
 
-                    <span>Pecho</span>
-                    <span>Espalda</span>
-                    <span>Hombros</span>
-                    <span>Brazos</span>
+                    <span>
+                        Pecho
+                    </span>
+
+                    <span>
+                        Espalda
+                    </span>
+
+                    <span>
+                        Hombros
+                    </span>
+
+                    <span>
+                        Brazos
+                    </span>
 
                 </div>
+
 
 
                 <div class="workout-progress">
@@ -182,11 +291,12 @@
 
                     </div>
 
+
                     <div class="progress-bar">
 
                         <div
                             class="progress-value"
-                            style="width:0%;"
+                            style="width: 0%;"
                         ></div>
 
                     </div>
@@ -194,32 +304,50 @@
                 </div>
 
 
+
                 <button
-                    class="secondary-button sg-view-workout"
+                    class="secondary-button"
                     id="viewWorkoutButton"
-                >
-                    Ver entrenamiento
-                    <span>→</span>
-                </button>
+                >Ver entrenamiento</button>
+
 
             </div>
 
 
-            <div class="sg-home-section-head sg-quick-head">
+
+            <!-- ACCESOS RÁPIDOS -->
+
+            <div class="section-title">
 
                 <div>
-                    <span>EXPLORAR</span>
-                    <h2>Accesos rápidos</h2>
+
+                    <span>
+                        EXPLORAR
+                    </span>
+
+                    <h2>
+                        Accesos rápidos
+                    </h2>
+
                 </div>
 
             </div>
 
 
-            <div class="quick-grid sg-quick-grid">
+
+            <div class="quick-grid">
+        <button
+            class="quick-card"
+            data-section="cardioSection"
+        >
+            <span class="sg-quick-cardio-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20S4 15.5 4 9.5C4 6.5 7.5 5 10 7.5L12 9l2-1.5C16.5 5 20 6.5 20 9.5 20 15.5 12 20 12 20Z"></path><path d="M5 12h3l1.5-3 3 6 1.5-3H19"></path></svg></span>
+            <strong>Cardio</strong>
+            <small>Registrar sesión</small>
+        </button>
 
 
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="routinesSection"
                 >
 
@@ -238,8 +366,9 @@
                 </button>
 
 
+
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="exercisesSection"
                 >
 
@@ -258,8 +387,9 @@
                 </button>
 
 
+
                 <button
-                    class="quick-card sg-quick-card"
+                    class="quick-card"
                     data-section="progressSection"
                 >
 
@@ -276,55 +406,37 @@
                     </small>
 
                 </button>
+                  <button
+                      class="quick-card"
+                      data-section="historySection"
+                  >
+
+                      <span class="quick-icon">
+                          📊
+                      </span>
+
+                      <strong>
+                          Historial
+                      </strong>
+
+                      <small>
+                          Ver entrenamientos
+                      </small>
+
+                  </button>
+
+
+
+
 
 
                 <button
-                    class="quick-card sg-quick-card"
-                    data-section="cardioSection"
-                >
-
-                    <span class="quick-icon">
-                        🫀
-                    </span>
-
-                    <strong>
-                        Cardio
-                    </strong>
-
-                    <small>
-                        Sesiones de cardio
-                    </small>
-
-                </button>
-
-
-                <button
-                    class="quick-card sg-quick-card sg-secondary-access"
-                    data-section="historySection"
-                >
-
-                    <span class="quick-icon">
-                        📊
-                    </span>
-
-                    <strong>
-                        Historial
-                    </strong>
-
-                    <small>
-                        Ver entrenamientos
-                    </small>
-
-                </button>
-
-
-                <button
-                    class="quick-card sg-quick-card sg-secondary-access"
+                    class="quick-card"
                     id="timerButton"
                 >
 
                     <span class="quick-icon">
-                        ⏱
+                        ⏱️
                     </span>
 
                     <strong>
@@ -337,416 +449,104 @@
 
                 </button>
 
-            </div>
 
+            
 
-            <div class="sg-streak-card">
-
-                <div class="sg-streak-icon">
-                    🔥
-                </div>
-
-                <div>
-
-                    <span>
-                        RACHA ACTUAL
-                    </span>
-
-                    <strong>
-                        3 días
-                    </strong>
-
-                </div>
-
-                <div class="sg-streak-arrow">
-                    →
-                </div>
-
-            </div>
+<!-- STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
+<button class="quick-card sg-nutrition-quick-card" data-section="nutritionSection" type="button">
+    <span class="quick-icon" aria-hidden="true">&#127807;</span>
+    <strong>Nutrición</strong>
+    <small>Planes y recetas</small>
+</button>
+<!-- FIN STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
+</div>
 
 
         </section>
+
+
 
         <!-- =================================================
              PERFIL
              ================================================= -->
 
-        <section
-            id="profileSection"
-            class="app-section"
-        >
+        <!-- STRONG GYM - NUTRICION V1.1 -->
+<section id="nutritionSection" class="app-section">`r`n    <!-- STRONG_GYM_NUTRITION_V26 -->
+    <!-- STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
+    <div class="page-header sg-nutrition-header">
+        <span class="sg-section-kicker">NUTRICIÓN</span>
+        <h2>Tu alimentación, más simple.</h2>
+        <p>Generá propuestas orientativas, recetas y opciones económicas a partir de tus datos y de los alimentos que tenés disponibles.</p>
+    </div>
 
+    <div class="sg-nutrition-notice">
+        <strong>Orientación, no reemplazo profesional</strong>
+        <p>Las propuestas son un análisis parcial y orientativo. No constituyen diagnóstico, tratamiento ni indicación nutricional. Para una pauta personalizada, consultá a un profesional de nutrición.</p>
+        <label class="sg-check">
+            <input type="checkbox" id="sgNutritionConsent">
+            <span>Entiendo y acepto estas condiciones.</span>
+        </label>
+    </div>
 
-            <div class="page-header">
-
-                <span>
-                    MI CUENTA
-                </span>
-
-                <h2>
-                    Mi perfil
-                </h2>
-
-                <p>
-                    Configurá tus datos para personalizar
-                    tus entrenamientos.
-                </p>
-
+    <div class="sg-nutrition-grid">
+        <div class="sg-nutrition-card">
+            <div class="sg-nutrition-card-title">Perfil</div>
+            <div class="sg-form-grid">
+                <label>Edad<input id="sgNutAge" type="number" min="12" max="100" placeholder="Ej. 39"></label>
+                <label>Altura (cm)<input id="sgNutHeight" type="number" min="100" max="250" placeholder="Ej. 170"></label>
+                <label>Peso (kg)<input id="sgNutWeight" type="number" min="30" max="300" step="0.1" placeholder="Ej. 80"></label>
+                <label>Actividad
+                    <select id="sgNutActivity">
+                        <option value="">Seleccionar</option>
+                        <option value="baja">Baja</option>
+                        <option value="moderada">Moderada</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </label>
             </div>
+        </div>
 
+        <div class="sg-nutrition-card">
+            <div class="sg-nutrition-card-title">Objetivo</div>
+            <select id="sgNutGoal" class="sg-full-input">
+                <option value="">Seleccionar objetivo</option>
+                <option value="mantenimiento">Mantenimiento</option>
+                <option value="perdida">Pérdida progresiva de peso</option>
+                <option value="musculo">Ganar masa muscular</option>
+                <option value="rendimiento">Mejorar rendimiento</option>
+            </select>
+            <label class="sg-inline-label">Preferencias / alimentos a evitar
+                <input id="sgNutAvoid" type="text" placeholder="Ej. pescado, mariscos...">
+            </label>
+        </div>
 
-
-            <!-- DATOS PERSONALES -->
-
-            <div class="profile-form-card">
-
-                <div class="form-section-title">
-
-                    <span>
-                        DATOS PERSONALES
-                    </span>
-
-                    <h3>
-                        Información básica
-                    </h3>
-
-                </div>
-
-
-
-                <div class="form-group">
-
-                    <label for="profileName">
-                        Nombre
-                    </label>
-
-                    <input
-                        type="text"
-                        id="profileName"
-                        placeholder="Ej.: Juan"
-                    >
-
-                </div>
-
-
-
-                <div class="form-row">
-
-
-                    <div class="form-group">
-
-                        <label for="profileAge">
-                            Edad
-                        </label>
-
-                        <input
-                            type="number"
-                            id="profileAge"
-                            min="12"
-                            max="100"
-                            placeholder="30"
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label for="profileSex">
-                            Sexo
-                        </label>
-
-                        <select id="profileSex">
-
-                            <option value="">
-                                Seleccionar
-                            </option>
-
-                            <option value="masculino">
-                                Masculino
-                            </option>
-
-                            <option value="femenino">
-                                Femenino
-                            </option>
-
-                            <option value="otro">
-                                Prefiero no indicarlo
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="form-row">
-
-
-                    <div class="form-group">
-
-                        <label for="profileHeight">
-                            Altura (cm)
-                        </label>
-
-                        <input
-                            type="number"
-                            id="profileHeight"
-                            min="100"
-                            max="250"
-                            placeholder="170"
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <label for="profileWeight">
-                            Peso (kg)
-                        </label>
-
-                        <input
-                            type="number"
-                            id="profileWeight"
-                            min="30"
-                            max="300"
-                            step="0.1"
-                            placeholder="80"
-                        >
-
-                    </div>
-
-
-                </div>
-
-
+        <div class="sg-nutrition-card sg-nutrition-wide">
+            <div class="sg-nutrition-card-title">🏠 ¿Qué tenés en casa?</div>
+            <textarea id="sgNutHome" rows="4" placeholder="Ej. pollo, arroz, huevos, papa, tomate, cebolla, lentejas..."></textarea>
+            <div class="sg-mode-row">
+                <label class="sg-mode">
+                    <input type="radio" name="sgNutMode" value="casa" checked>
+                    <span><strong>Tengo en casa</strong><small>Usar primero lo disponible.</small></span>
+                </label>
+                <label class="sg-mode">
+                    <input type="radio" name="sgNutMode" value="economico">
+                    <span><strong>Modo económico</strong><small>Priorizar alimentos accesibles.</small></span>
+                </label>
             </div>
-
-
-
-            <!-- NIVEL -->
-
-            <div class="profile-form-card">
-
-                <div class="form-section-title">
-
-                    <span>
-                        EXPERIENCIA
-                    </span>
-
-                    <h3>
-                        Nivel de entrenamiento
-                    </h3>
-
-                </div>
-
-
-
-                <div class="option-grid">
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-level="principiante"
-                    >
-
-                        <span>
-                            🌱
-                        </span>
-
-                        <span class="quick-icon">
-                        🫀
-                    </span>
-
-                    <strong>
-                            Principiante
-                        </strong>
-
-                        <small>
-                            Menos de 1 año
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-level="intermedio"
-                    >
-
-                        <span>
-                            🔥
-                        </span>
-
-                        <strong>
-                            Intermedio
-                        </strong>
-
-                        <small>
-                            1–3 años
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-level="avanzado"
-                    >
-
-                        <span>
-                            🏆
-                        </span>
-
-                        <strong>
-                            Avanzado
-                        </strong>
-
-                        <small>
-                            Más de 3 años
-                        </small>
-
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- OBJETIVO -->
-
-            <div class="profile-form-card">
-
-                <div class="form-section-title">
-
-                    <span>
-                        OBJETIVO
-                    </span>
-
-                    <h3>
-                        ¿Qué querés conseguir?
-                    </h3>
-
-                </div>
-
-
-
-                <div class="option-grid">
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-goal="hipertrofia"
-                    >
-
-                        <span>
-                            💪
-                        </span>
-
-                        <strong>
-                            Masa muscular
-                        </strong>
-
-                        <small>
-                            Hipertrofia
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-goal="fuerza"
-                    >
-
-                        <span>
-                            🏋️
-                        </span>
-
-                        <strong>
-                            Fuerza
-                        </strong>
-
-                        <small>
-                            Aumentar rendimiento
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-goal="tonificacion"
-                    >
-
-                        <span>
-                            ⚡
-                        </span>
-
-                        <strong>
-                            Tonificación
-                        </strong>
-
-                        <small>
-                            Mejor composición corporal
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-goal="perdida-grasa"
-                    >
-
-                        <span>
-                            🔥
-                        </span>
-
-                        <strong>
-                            Pérdida de grasa
-                        </strong>
-
-                        <small>
-                            Déficit energético
-                        </small>
-
-                    </button>
-
-
-
-                    <button
-                        type="button"
-                        class="option-card"
-                        data-profile-goal="recomposicion"
-                    >
-
-                        <span>
-                            🔄
-                        </span>
-
-                        <strong>
+        </div>
+    </div>
+
+    <button id="sgNutritionGenerate" class="primary-button full-width sg-nutrition-generate" type="button">
+        ✨ Generar propuesta
+    </button>
+
+    <div id="sgNutritionResult" class="sg-nutrition-result" hidden></div>
+    <!-- FIN STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
+<div class="sg-nutrition-v26-actions">
+  <button id="sgNutritionLoadProfile" type="button" class="secondary-button">Cargar mi perfil</button>
+  <span id="sgNutritionProfileStatus" aria-live="polite"></span>
+</div>
+</section>              <strong>
                             Recomposición
                         </strong>
 
@@ -810,7 +610,8 @@
                         Días por semana
                     </label>
 
-                    <select id="profileDays">
+                    <select <section id="profileSection" class="app-section">
+id="profileDays">
 
                         <option value="">
                             Seleccionar
@@ -906,7 +707,9 @@
 
 
 
-        <!-- =================================================
+        
+</section>
+<!-- =================================================
              RUTINAS
              ================================================= -->
 
@@ -938,8 +741,7 @@
                 class="primary-button full-width"
                 id="createRoutineButton"
             >
-
-                ＋ Crear nueva rutina
+                Crear nueva rutina
 
             </button>
 
@@ -1112,7 +914,7 @@
                         </p>
 
                         <button class="small-button">
-                            Ver ejercicio →
+                            Ver ejercicio 
                         </button>
 
                     </div>
@@ -1145,7 +947,7 @@
                         </p>
 
                         <button class="small-button">
-                            Ver ejercicio →
+                            Ver ejercicio 
                         </button>
 
                     </div>
@@ -1179,7 +981,7 @@
                         </p>
 
                         <button class="small-button">
-                            Ver ejercicio →
+                            Ver ejercicio 
                         </button>
 
                     </div>
@@ -1414,12 +1216,483 @@
               </div>
 
           </div>
+    
+    <!-- =====================================================
+         STRONG GYM - PROGRESO CORPORAL
+         ===================================================== -->
+
+    <div
+        id="bodyProgressModule"
+        class="body-progress-module"
+    >
+
+        <div class="section-title">
+
+            <div>
+
+                <span>
+                    PROGRESO CORPORAL
+                </span>
+
+                <h2>
+                    📏 Seguimiento corporal
+                </h2>
+
+                <p>
+                    Registrá tu peso y medidas para seguir tu evolución.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="bodyProgressSummary"
+            class="progress-summary-grid"
+        >
+
+            <div class="progress-stat-card">
+
+                <span>
+                    ⚖️ Peso
+                </span>
+
+                <strong id="progressCurrentWeight">
+                    —
+                </strong>
+
+                <small>
+                    kg
+                </small>
+
+            </div>
+
+
+            <div class="progress-stat-card">
+
+                <span>
+                    📏 Cintura
+                </span>
+
+                <strong id="progressCurrentWaist">
+                    —
+                </strong>
+
+                <small>
+                    cm
+                </small>
+
+            </div>
+
+
+            <div class="progress-stat-card">
+
+                <span>
+                    📐 Abdomen
+                </span>
+
+                <strong id="progressCurrentAbdomen">
+                    —
+                </strong>
+
+                <small>
+                    cm
+                </small>
+
+            </div>
+
+
+            <div class="progress-stat-card">
+
+                <span>
+                    🧮 IMC
+                </span>
+
+                <strong id="progressCurrentBMI">
+                    —
+                </strong>
+
+                <small>
+                    estimado
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-panel">
+
+            <div class="progress-panel-header">
+
+                <div>
+
+                    <h3>
+                        Nueva medición
+                    </h3>
+
+                    <p>
+                        Registrá tus medidas actuales.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-form-grid">
+
+                <div class="form-group">
+
+                    <label for="progressDate">
+                        Fecha
+                    </label>
+
+                    <input
+                        type="date"
+                        id="progressDate"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressWeight">
+                        Peso (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressWeight"
+                        min="20"
+                        max="300"
+                        step="0.1"
+                        placeholder="83"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressWaist">
+                        Cintura (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressWaist"
+                        min="30"
+                        max="250"
+                        step="0.1"
+                        placeholder="98"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressAbdomen">
+                        Abdomen (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressAbdomen"
+                        min="30"
+                        max="250"
+                        step="0.1"
+                        placeholder="103"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressChest">
+                        Pecho (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressChest"
+                        min="30"
+                        max="250"
+                        step="0.1"
+                        placeholder="106"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressHip">
+                        Cadera (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressHip"
+                        min="30"
+                        max="250"
+                        step="0.1"
+                        placeholder="100"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressArm">
+                        Brazo (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressArm"
+                        min="10"
+                        max="100"
+                        step="0.1"
+                        placeholder="37"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="progressThigh">
+                        Muslo (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="progressThigh"
+                        min="20"
+                        max="150"
+                        step="0.1"
+                        placeholder="58"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="progressNotes">
+                    Observaciones
+                </label>
+
+                <textarea
+                    id="progressNotes"
+                    rows="3"
+                    placeholder="Ej.: Me siento con más energía..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="saveBodyMeasurement"
+                class="primary-button"
+            >
+                💾 Guardar medición
+            </button>
+
+        </div>
+
+
+        <div
+            id="bodyProgressChanges"
+            class="progress-panel"
+        >
+
+            <h3>
+                📈 Evolución corporal
+            </h3>
+
+            <div
+                id="bodyProgressChangeContent"
+            >
+
+                <p>
+                    Registrá al menos dos mediciones para comparar tu evolución.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-panel">
+
+            <div class="progress-panel-header">
+
+                <div>
+
+                    <h3>
+                        📋 Historial corporal
+                    </h3>
+
+                    <p>
+                        Tus mediciones anteriores.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="bodyProgressHistory"
+                class="body-progress-history"
+            >
+
+                <p>
+                    Todavía no hay mediciones registradas.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+         FIN PROGRESO CORPORAL
+         ===================================================== -->
+
 
 
         </section>
 
 
-    </main>
+    
+
+<!-- STRONG_GYM_CARDIO_MODULE_V1 -->
+<section id="cardioSection" class="app-section">
+
+    <div class="page-header">
+        <span>CARDIO</span>
+        <h2>Entrenamiento cardiovascular</h2>
+        <p>Registrá tus sesiones y seguí tu evolución.</p>
+    </div>
+
+    <div class="cardio-stats-grid">
+        <div class="cardio-stat-card">
+            <span>Sesiones</span>
+            <strong id="cardioTotalSessions">0</strong>
+            <small>Total registradas</small>
+        </div>
+        <div class="cardio-stat-card">
+            <span>Tiempo</span>
+            <strong id="cardioTotalMinutes">0 min</strong>
+            <small>Tiempo acumulado</small>
+        </div>
+        <div class="cardio-stat-card">
+            <span>Distancia</span>
+            <strong id="cardioTotalDistance">0 km</strong>
+            <small>Cuando corresponda</small>
+        </div>
+        <div class="cardio-stat-card">
+            <span>Calorías</span>
+            <strong id="cardioTotalCalories">0 kcal</strong>
+            <small>Estimadas</small>
+        </div>
+    </div>
+
+    <div class="cardio-panel">
+        <div class="cardio-panel-header">
+            <span>REGISTRAR</span>
+            <h3>Nueva sesión de cardio</h3>
+            <p>Completá los datos de tu entrenamiento.</p>
+        </div>
+
+        <div class="cardio-form-grid">
+
+            <div class="form-group">
+                <label for="cardioDate">Fecha</label>
+                <input id="cardioDate" type="date">
+            </div>
+
+            <div class="form-group">
+                <label for="cardioActivity">Actividad</label>
+                <select id="cardioActivity">
+                    <option value="walking">Caminata</option>
+                    <option value="running">Correr</option>
+                    <option value="treadmill">Cinta</option>
+                    <option value="cycling">Bicicleta</option>
+                    <option value="elliptical">Elíptico</option>
+                    <option value="rowing">Remo</option>
+                    <option value="stair">Escaladora</option>
+                    <option value="other">Otra</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cardioDuration">Duración (min)</label>
+                <input id="cardioDuration" type="number" min="1" step="1" placeholder="30">
+            </div>
+
+            <div class="form-group">
+                <label for="cardioDistance">Distancia (km)</label>
+                <input id="cardioDistance" type="number" min="0" step="0.01" placeholder="5">
+            </div>
+
+            <div class="form-group">
+                <label for="cardioHeartRate">Frecuencia cardíaca (lpm)</label>
+                <input id="cardioHeartRate" type="number" min="0" step="1" placeholder="Opcional">
+            </div>
+
+            <div class="form-group">
+                <label for="cardioPace">Ritmo / velocidad</label>
+                <input id="cardioPace" type="text" placeholder="Ej.: 6:10 min/km o 10 km/h">
+            </div>
+
+            <div class="form-group cardio-form-wide">
+                <label for="cardioNotes">Observaciones</label>
+                <textarea id="cardioNotes" rows="3" placeholder="Cómo te sentiste, intensidad, etc."></textarea>
+            </div>
+
+        </div>
+
+        <button id="saveCardioButton" class="primary-button full-width" type="button">
+            Guardar sesión
+        </button>
+
+        <div id="cardioSavedMessage" class="profile-saved-message">
+            Sesión de cardio guardada correctamente
+        </div>
+    </div>
+
+    <div class="cardio-panel">
+        <div class="cardio-panel-header">
+            <span>EVOLUCIÓN</span>
+            <h3>Resumen de cardio</h3>
+            <p>Tu actividad acumulada y tus últimas sesiones.</p>
+        </div>
+
+        <div id="cardioHistory" class="cardio-history">
+            <div class="empty-state">
+                <h3>Todavía no hay sesiones de cardio</h3>
+                <p>Registrá tu primera sesión para comenzar a ver tu evolución.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- FIN STRONG_GYM_CARDIO_MODULE_V1 -->
+
+</main>
 
 
 
@@ -1429,109 +1702,69 @@
 
     <nav class="bottom-navigation">
 
+    <button class="nav-button" data-section="homeSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 10.5 12 3l9 7.5"></path>
+                <path d="M5.5 9.5V21h13V9.5"></path>
+                <path d="M9.5 21v-6h5v6"></path>
+            </svg>
+        </span>
+        <small>Inicio</small>
+    </button>
 
-        <button
-            class="nav-button active"
-            data-section="homeSection"
-        >
+    <button class="nav-button" data-section="routinesSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                <path d="M9 7h6M9 11h6M9 15h4"></path>
+            </svg>
+        </span>
+        <small>Rutinas</small>
+    </button>
 
-            <span>
-                ⌂
-            </span>
+    <button class="nav-button" data-section="exercisesSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 9v6M7 7v10M17 7v10M20 9v6"></path>
+                <path d="M7 12h10M2.5 10.5v3M21.5 10.5v3"></path>
+            </svg>
+        </span>
+        <small>Ejercicios</small>
+    </button>
 
-            <small>
-                Inicio
-            </small>
+    <button class="nav-button" data-section="progressSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19V5M4 19h16"></path>
+                <path d="m7 15 4-4 3 2 5-7"></path>
+            </svg>
+        </span>
+        <small>Progreso</small>
+    </button>
 
-        </button>
+    <button class="nav-button" data-section="cardioSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 20S4 15.5 4 9.5C4 6.5 7.5 5 10 7.5L12 9l2-1.5C16.5 5 20 6.5 20 9.5 20 15.5 12 20 12 20Z"></path>
+                <path d="M5 12h3l1.5-3 3 6 1.5-3H19"></path>
+            </svg>
+        </span>
+        <small>Cardio</small>
+    </button>
 
+    <button class="nav-button" data-section="coachSection" type="button">
+        <span class="sg-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3.5"></circle>
+                <path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"></path>
+                <path d="M8 5.5 9.5 3M16 5.5 14.5 3"></path>
+            </svg>
+        </span>
+        <small>Coach</small>
+    </button>
 
-
-        <button
-            class="nav-button"
-            data-section="routinesSection"
-        >
-
-            <span>
-                📋
-            </span>
-
-            <small>
-                Rutinas
-            </small>
-
-        </button>
-
-
-
-        <button
-            class="nav-button"
-            data-section="exercisesSection"
-        >
-
-            <span>
-                🏋️
-            </span>
-
-            <small>
-                Ejercicios
-            </small>
-
-        </button>
-
-
-
-        <button
-            class="nav-button"
-            data-section="progressSection"
-        >
-
-            <span>
-                📈
-            </span>
-
-            <small>
-                Progreso
-            </small>
-
-        </button>
-
-
-
-        <button
-            class="nav-button"
-            data-section="cardioSection"
-        >
-
-            <span>
-                🫀
-            </span>
-
-            <small>
-                Cardio
-            </small>
-
-        </button>
-
-        <button
-            class="nav-button"
-            data-section="coachSection"
-        >
-
-            <span>
-                🧠
-            </span>
-
-            <small>
-                Coach
-            </small>
-
-        </button>
-
-
-
-
-    </nav>
+</nav>
 
 
 
@@ -1639,178 +1872,6 @@
     </section>
 
 
-
-    <!-- =====================================================
-         STRONG GYM CARDIO
-         ===================================================== -->
-
-    <section
-        id="cardioSection"
-        class="app-section"
-    >
-
-        <div class="page-header">
-
-            <span>
-                STRONG GYM CARDIO
-            </span>
-
-            <h2>
-                🫀 Sesión de cardio
-            </h2>
-
-            <p>
-                Registrá tu sesión de cardio.
-            </p>
-
-        </div>
-
-
-        <div class="cardio-type-grid">
-
-            <button
-                type="button"
-                class="cardio-type-button active"
-                data-cardio-type="Caminata"
-            >
-                🚶
-                <strong>Caminata</strong>
-            </button>
-
-
-            <button
-                type="button"
-                class="cardio-type-button"
-                data-cardio-type="Carrera"
-            >
-                🏃
-                <strong>Carrera</strong>
-            </button>
-
-
-            <button
-                type="button"
-                class="cardio-type-button"
-                data-cardio-type="Bicicleta"
-            >
-                🚴
-                <strong>Bicicleta</strong>
-            </button>
-
-
-            <button
-                type="button"
-                class="cardio-type-button"
-                data-cardio-type="HIIT"
-            >
-                ⚡
-                <strong>HIIT</strong>
-            </button>
-
-        </div>
-
-
-        <div class="cardio-session-card">
-
-            <span class="modal-label">
-                TIPO DE CARDIO
-            </span>
-
-            <h3 id="cardioSelectedType">
-                🚶 Caminata
-            </h3>
-
-
-            <div class="cardio-intensity">
-
-                <span>
-                    Intensidad
-                </span>
-
-                <select id="cardioIntensity">
-
-                    <option value="Suave">
-                        Suave
-                    </option>
-
-                    <option
-                        value="Moderada"
-                        selected
-                    >
-                        Moderada
-                    </option>
-
-                    <option value="Alta">
-                        Alta
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div
-                id="cardioTimerDisplay"
-                class="cardio-timer-display"
-            >
-                00:00
-            </div>
-
-
-            <div class="cardio-controls">
-
-                <button
-                    type="button"
-                    class="primary-button"
-                    id="cardioStartButton"
-                >
-                    ▶ Iniciar
-                </button>
-
-
-                <button
-                    type="button"
-                    class="secondary-button"
-                    id="cardioPauseButton"
-                    disabled
-                >
-                    ⏸ Pausar
-                </button>
-
-
-                <button
-                    type="button"
-                    class="secondary-button"
-                    id="cardioFinishButton"
-                    disabled
-                >
-                    ⏹ Finalizar
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div class="chart-card">
-
-            <h3>
-                📋 Historial de cardio
-            </h3>
-
-            <div id="cardioHistory">
-
-                <p>
-                    Todavía no hay sesiones registradas.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
     <!-- =====================================================
          MODAL TEMPORIZADOR
          ===================================================== -->
@@ -1907,9 +1968,45 @@
          JAVASCRIPT
          ===================================================== -->
 
-    <script src="js/app.js?v=20260821-2"></script>
+    <script src="js/nutrition-data.js"></script>
+<script src="js/nutrition-recipes.js"></script>
+<script src="js/nutrition.js"></script>
+<script src="js/app.js?v=20260821-2"></script>
 
 
+
+<!-- =========================================================
+     STRONG GYM - MI PROGRESO
+     ========================================================= -->
+
+
+
+<!-- =========================================================
+     FIN MI PROGRESO
+     ========================================================= -->
+
+
+<!-- STRONG GYM - INICIO V7 BUTTON TEXT -->
+<script>
+(function () {
+    function cleanViewWorkoutButton() {
+        var button = document.getElementById('viewWorkoutButton');
+        if (!button) return;
+        var text = (button.textContent || '').replace(/[^\S\r\n]+$/g, '').trim();
+        if (/^Ver entrenamiento/.test(text)) {
+            button.textContent = 'Ver entrenamiento';
+        }
+    }
+    document.addEventListener('DOMContentLoaded', cleanViewWorkoutButton);
+})();
+</script>
 </body>
 
 </html>
+
+
+
+
+
+
+

@@ -11,24 +11,12 @@
 
 const PROFILE_STORAGE_KEY = "strongGymProfile";
 
-/* =========================================================
-   STRONG GYM - HAPTICS NATIVO
-   Vibración compatible con Capacitor Android
-   ========================================================= */
-
-const StrongGymHaptics =
-    window.Capacitor &&
-    window.Capacitor.Plugins &&
-    window.Capacitor.Plugins.Haptics
-        ? window.Capacitor.Plugins.Haptics
-        : null;
-
-
-
 
 let profile = {
 
     name: "",
+
+    photo: "",
 
     age: "",
 
@@ -141,6 +129,846 @@ function saveProfile() {
 
 /* =========================================================
    OBTENER DATOS DEL FORMULARIO
+   ========================================================= */
+
+ 
+/* =========================================================
+   STRONG GYM - FOTO DE PERFIL
+   ========================================================= */
+
+function updateProfilePhotoPreview() {
+
+    const preview =
+        document.getElementById(
+            "profilePhotoPreview"
+        );
+
+    if (!preview) {
+        return;
+    }
+
+    if (profile.photo) {
+
+        preview.innerHTML =
+            '<img src="' + profile.photo + '" alt="Foto de perfil">';
+
+    } else {
+
+        preview.innerHTML =
+            "👤";
+
+    }
+
+}
+
+
+function updateWelcomeProfilePhoto() {
+
+    const avatar =
+        document.getElementById(
+            "welcomeProfileAvatar"
+        );
+
+    if (!avatar) {
+        return;
+    }
+
+    if (profile.photo) {
+
+        avatar.innerHTML =
+            '<img src="' + profile.photo + '" alt="Foto de perfil">';
+
+    } else {
+
+        avatar.innerHTML =
+            "👤";
+
+    }
+
+}
+
+
+function handleProfilePhoto(file) {
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+
+        alert(
+            "Seleccioná una imagen válida."
+        );
+
+        return;
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            profile.photo =
+                event.target.result;
+
+            updateProfilePhotoPreview();
+
+            updateWelcomeProfilePhoto();
+
+            try {
+
+                localStorage.setItem(
+                    PROFILE_STORAGE_KEY,
+                    JSON.stringify(profile)
+                );
+
+            } catch(error) {
+
+                console.error(
+                    "No se pudo guardar la foto:",
+                    error
+                );
+
+                alert(
+                    "No se pudo guardar la foto."
+                );
+
+            }
+
+        };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+document.addEventListener(
+    "change",
+    function(event) {
+
+        if (
+            event.target &&
+            event.target.id === "profilePhoto"
+        ) {
+
+            handleProfilePhoto(
+                event.target.files[0]
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   FIN FOTO DE PERFIL
+   ========================================================= */
+
+/* =========================================================
+   STRONG GYM - SISTEMA DE PROGRESO CORPORAL
+   ========================================================= */
+
+const STRONG_GYM_BODY_PROGRESS_KEY = "strongGymBodyProgress";
+
+function getBodyProgress() {
+    try {
+        const raw = localStorage.getItem(STRONG_GYM_BODY_PROGRESS_KEY);
+        if (!raw) return [];
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error("STRONG GYM: error leyendo progreso corporal:", error);
+        return [];
+    }
+}
+
+function saveBodyProgress(progress) {
+    try {
+        localStorage.setItem(
+            STRONG_GYM_BODY_PROGRESS_KEY,
+            JSON.stringify(progress)
+        );
+        return true;
+    } catch (error) {
+        console.error("STRONG GYM: error guardando progreso corporal:", error);
+        return false;
+    }
+}
+
+function createBodyMeasurement(data = {}) {
+
+    const measurement = {
+        id: Date.now(),
+        date: data.date || new Date().toISOString(),
+        weight: Number(data.weight) || 0,
+        waist: Number(data.waist) || 0,
+        abdomen: Number(data.abdomen) || 0,
+        chest: Number(data.chest) || 0,
+        hip: Number(data.hip) || 0,
+        arm: Number(data.arm) || 0,
+        thigh: Number(data.thigh) || 0,
+        notes: data.notes || ""
+    };
+
+    const progress = getBodyProgress();
+
+    progress.unshift(measurement);
+
+    saveBodyProgress(progress);
+
+    return measurement;
+}
+
+function getLatestBodyMeasurement() {
+
+    const progress = getBodyProgress();
+
+    return progress.length
+        ? progress[0]
+        : null;
+}
+
+function getPreviousBodyMeasurement() {
+
+    const progress = getBodyProgress();
+
+    return progress.length >= 2
+        ? progress[1]
+        : null;
+}
+
+function calculateBMI(weight, height) {
+
+    const w = Number(weight);
+    const h = Number(height) / 100;
+
+    if (!w || !h) {
+        return 0;
+    }
+
+    return Number(
+        (w / (h * h)).toFixed(1)
+    );
+}
+
+function calculateBodyChanges(current, previous) {
+
+    if (!current || !previous) {
+        return null;
+    }
+
+    return {
+
+        weight:
+            Number(
+                (
+                    Number(current.weight || 0) -
+                    Number(previous.weight || 0)
+                ).toFixed(1)
+            ),
+
+        waist:
+            Number(
+                (
+                    Number(current.waist || 0) -
+                    Number(previous.waist || 0)
+                ).toFixed(1)
+            ),
+
+        abdomen:
+            Number(
+                (
+                    Number(current.abdomen || 0) -
+                    Number(previous.abdomen || 0)
+                ).toFixed(1)
+            ),
+
+        chest:
+            Number(
+                (
+                    Number(current.chest || 0) -
+                    Number(previous.chest || 0)
+                ).toFixed(1)
+            ),
+
+        hip:
+            Number(
+                (
+                    Number(current.hip || 0) -
+                    Number(previous.hip || 0)
+                ).toFixed(1)
+            ),
+
+        arm:
+            Number(
+                (
+                    Number(current.arm || 0) -
+                    Number(previous.arm || 0)
+                ).toFixed(1)
+            ),
+
+        thigh:
+            Number(
+                (
+                    Number(current.thigh || 0) -
+                    Number(previous.thigh || 0)
+                ).toFixed(1)
+            )
+    };
+}
+
+/* =========================================================
+   FIN SISTEMA DE PROGRESO CORPORAL
+   ========================================================= */
+
+
+/* =========================================================
+   STRONG GYM - MI PROGRESO FUNCIONAL
+   ========================================================= */
+
+function initializeBodyProgress() {
+
+    const dateInput =
+        document.getElementById(
+            "progressDate"
+        );
+
+    const weightInput =
+        document.getElementById(
+            "progressWeight"
+        );
+
+    if (dateInput && !dateInput.value) {
+
+        dateInput.value =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+    }
+
+    if (
+        weightInput &&
+        !weightInput.value &&
+        profile &&
+        profile.weight
+    ) {
+
+        weightInput.value =
+            profile.weight;
+
+    }
+
+    renderBodyProgress();
+
+}
+
+
+function renderBodyProgress() {
+
+    const progress =
+        getBodyProgress();
+
+    const current =
+        progress.length
+            ? progress[0]
+            : null;
+
+    const previous =
+        progress.length >= 2
+            ? progress[1]
+            : null;
+
+
+    const weight =
+        document.getElementById(
+            "progressCurrentWeight"
+        );
+
+    const waist =
+        document.getElementById(
+            "progressCurrentWaist"
+        );
+
+    const abdomen =
+        document.getElementById(
+            "progressCurrentAbdomen"
+        );
+
+    const bmi =
+        document.getElementById(
+            "progressCurrentBMI"
+        );
+
+
+    if (weight) {
+
+        weight.textContent =
+            current && current.weight
+                ? current.weight
+                : "—";
+
+    }
+
+
+    if (waist) {
+
+        waist.textContent =
+            current && current.waist
+                ? current.waist
+                : "—";
+
+    }
+
+
+    if (abdomen) {
+
+        abdomen.textContent =
+            current && current.abdomen
+                ? current.abdomen
+                : "—";
+
+    }
+
+
+    if (bmi) {
+
+        const bmiValue =
+            current &&
+            current.weight &&
+            profile &&
+            profile.height
+                ? calculateBMI(
+                    current.weight,
+                    profile.height
+                )
+                : 0;
+
+        bmi.textContent =
+            bmiValue
+                ? bmiValue
+                : "—";
+
+    }
+
+
+    renderBodyProgressChanges(
+        current,
+        previous
+    );
+
+    renderBodyProgressHistory(
+        progress
+    );
+
+}
+
+
+function renderBodyProgressChanges(
+    current,
+    previous
+) {
+
+    const container =
+        document.getElementById(
+            "bodyProgressChangeContent"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    if (!current || !previous) {
+
+        container.innerHTML =
+            "<p>Registrá al menos dos mediciones para comparar tu evolución.</p>";
+
+        return;
+    }
+
+    const changes =
+        calculateBodyChanges(
+            current,
+            previous
+        );
+
+    if (!changes) {
+        return;
+    }
+
+    const formatChange =
+        value => {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "—";
+            }
+
+            if (value > 0) {
+                return "+" + value;
+            }
+
+            return String(value);
+        };
+
+
+    container.innerHTML =
+        '<div class="progress-change-grid">' +
+
+            '<div class="progress-change-card">' +
+                '<span>⚖️ Peso</span>' +
+                '<strong>' + formatChange(changes.weight) + ' kg</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>📏 Cintura</span>' +
+                '<strong>' + formatChange(changes.waist) + ' cm</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>📐 Abdomen</span>' +
+                '<strong>' + formatChange(changes.abdomen) + ' cm</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>🫁 Pecho</span>' +
+                '<strong>' + formatChange(changes.chest) + ' cm</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>📏 Cadera</span>' +
+                '<strong>' + formatChange(changes.hip) + ' cm</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>💪 Brazo</span>' +
+                '<strong>' + formatChange(changes.arm) + ' cm</strong>' +
+            '</div>' +
+
+            '<div class="progress-change-card">' +
+                '<span>🦵 Muslo</span>' +
+                '<strong>' + formatChange(changes.thigh) + ' cm</strong>' +
+            '</div>' +
+
+        '</div>';
+}
+
+function renderBodyProgressHistory(
+    progress
+) {
+
+    const container =
+        document.getElementById(
+            "bodyProgressHistory"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    if (!progress.length) {
+
+        container.innerHTML =
+            "<p>Todavía no hay mediciones registradas.</p>";
+
+        return;
+    }
+
+
+    container.innerHTML =
+        progress
+            .map(
+                measurement => {
+
+                    const date =
+                        measurement.date
+                            ? new Date(
+                                measurement.date
+                            ).toLocaleDateString(
+                                "es-AR"
+                            )
+                            : "—";
+
+
+                    return (
+                        '<div class="progress-history-card">' +
+
+                            '<div>' +
+
+                                '<strong>' +
+                                    date +
+                                '</strong>' +
+
+                                '<span>' +
+                                    '⚖️ ' +
+                                    (measurement.weight || "—") +
+                                    ' kg' +
+                                '</span>' +
+
+                            '</div>' +
+
+                            '<div class="progress-history-measures">' +
+
+                                '<span>Cintura: ' +
+                                    (measurement.waist || "—") +
+                                    ' cm</span>' +
+
+                                '<span>Abdomen: ' +
+                                    (measurement.abdomen || "—") +
+                                    ' cm</span>' +
+
+                                '<span>Pecho: ' +
+                                    (measurement.chest || "—") +
+                                    ' cm</span>' +
+
+                                '<span>Cadera: ' +
+                                    (measurement.hip || "—") +
+                                    ' cm</span>' +
+
+                                '<span>Brazo: ' +
+                                    (measurement.arm || "—") +
+                                    ' cm</span>' +
+
+                                '<span>Muslo: ' +
+                                    (measurement.thigh || "—") +
+                                    ' cm</span>' +
+
+                            '</div>' +
+
+                        '</div>'
+                    );
+
+                }
+            )
+            .join("");
+}
+
+function saveCurrentBodyMeasurement() {
+
+    const date =
+        document.getElementById(
+            "progressDate"
+        );
+
+    const weight =
+        document.getElementById(
+            "progressWeight"
+        );
+
+    const waist =
+        document.getElementById(
+            "progressWaist"
+        );
+
+    const abdomen =
+        document.getElementById(
+            "progressAbdomen"
+        );
+
+    const chest =
+        document.getElementById(
+            "progressChest"
+        );
+
+    const hip =
+        document.getElementById(
+            "progressHip"
+        );
+
+    const arm =
+        document.getElementById(
+            "progressArm"
+        );
+
+    const thigh =
+        document.getElementById(
+            "progressThigh"
+        );
+
+    const notes =
+        document.getElementById(
+            "progressNotes"
+        );
+
+
+    if (
+        !weight ||
+        !weight.value
+    ) {
+
+        alert(
+            "Ingresá tu peso para guardar la medición."
+        );
+
+        return;
+
+    }
+
+
+    const measurement =
+        createBodyMeasurement({
+
+            date:
+                date &&
+                date.value
+                    ? new Date(
+                        date.value +
+                        "T00:00:00"
+                    ).toISOString()
+                    : new Date().toISOString(),
+
+            weight:
+                weight.value,
+
+            waist:
+                waist
+                    ? waist.value
+                    : 0,
+
+            abdomen:
+                abdomen
+                    ? abdomen.value
+                    : 0,
+
+            chest:
+                chest
+                    ? chest.value
+                    : 0,
+
+            hip:
+                hip
+                    ? hip.value
+                    : 0,
+
+            arm:
+                arm
+                    ? arm.value
+                    : 0,
+
+            thigh:
+                thigh
+                    ? thigh.value
+                    : 0,
+
+            notes:
+                notes
+                    ? notes.value.trim()
+                    : ""
+
+        });
+
+
+    /*
+     * Actualizar peso actual del perfil.
+     */
+
+    if (
+        profile &&
+        measurement.weight
+    ) {
+
+        profile.weight =
+            String(
+                measurement.weight
+            );
+
+        try {
+
+            localStorage.setItem(
+                PROFILE_STORAGE_KEY,
+                JSON.stringify(profile)
+            );
+
+        }
+        catch(error) {
+
+            console.error(
+                "No se pudo actualizar el peso del perfil:",
+                error
+            );
+
+        }
+
+    }
+
+
+    renderBodyProgress();
+
+
+    alert(
+        "✅ Medición guardada correctamente."
+    );
+
+
+    if (weight) {
+        weight.value = "";
+    }
+
+    if (waist) {
+        waist.value = "";
+    }
+
+    if (abdomen) {
+        abdomen.value = "";
+    }
+
+    if (chest) {
+        chest.value = "";
+    }
+
+    if (hip) {
+        hip.value = "";
+    }
+
+    if (arm) {
+        arm.value = "";
+    }
+
+    if (thigh) {
+        thigh.value = "";
+    }
+
+    if (notes) {
+        notes.value = "";
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target &&
+            event.target.id ===
+            "saveBodyMeasurement"
+        ) {
+
+            saveCurrentBodyMeasurement();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initializeBodyProgress();
+
+    }
+);
+
+
+/* =========================================================
+   FIN MI PROGRESO FUNCIONAL
    ========================================================= */
 
 function readProfileForm() {
@@ -589,21 +1417,52 @@ navigationButtons.forEach(
             "click",
             () => {
 
-                const targetSection =
-                    button.dataset.section;
-
-
                 if(
-                    targetSection ===
+                    button.dataset.section ===
                     "progressSection"
                 ){
 
-                    if(
-                        typeof window.openStrongGymProgress ===
-                        "function"
-                    ){
+                    showSection(
+                        "progressSection"
+                    );
 
-                        window.openStrongGymProgress();
+                    try {
+
+                        if(
+                            typeof updateProgressStatistics ===
+                            "function"
+                        ){
+
+                            updateProgressStatistics();
+
+                        }
+
+                    } catch(error) {
+
+                        console.warn(
+                            "No se pudieron actualizar las estadísticas:",
+                            error
+                        );
+
+                    }
+
+                    try {
+
+                        if(
+                            typeof initializeBodyProgress ===
+                            "function"
+                        ){
+
+                            initializeBodyProgress();
+
+                        }
+
+                    } catch(error) {
+
+                        console.warn(
+                            "No se pudo actualizar el progreso corporal:",
+                            error
+                        );
 
                     }
 
@@ -612,22 +1471,8 @@ navigationButtons.forEach(
                 }
 
 
-                if(
-                    targetSection ===
-                    "cardioSection"
-                ){
-
-                    showSection(
-                        "cardioSection"
-                    );
-
-                    return;
-
-                }
-
-
                 showSection(
-                    targetSection
+                    button.dataset.section
                 );
 
             }
@@ -652,12 +1497,47 @@ quickButtons.forEach(
                     "progressSection"
                 ){
 
-                    if(
-                        typeof window.openStrongGymProgress ===
-                        "function"
-                    ){
+                    showSection(
+                        "progressSection"
+                    );
 
-                        window.openStrongGymProgress();
+                    try {
+
+                        if(
+                            typeof updateProgressStatistics ===
+                            "function"
+                        ){
+
+                            updateProgressStatistics();
+
+                        }
+
+                    } catch(error) {
+
+                        console.warn(
+                            "No se pudieron actualizar las estadísticas:",
+                            error
+                        );
+
+                    }
+
+                    try {
+
+                        if(
+                            typeof initializeBodyProgress ===
+                            "function"
+                        ){
+
+                            initializeBodyProgress();
+
+                        }
+
+                    } catch(error) {
+
+                        console.warn(
+                            "No se pudo actualizar el progreso corporal:",
+                            error
+                        );
 
                     }
 
@@ -676,438 +1556,6 @@ quickButtons.forEach(
     }
 );
 
-
-
-
-/* =========================================================
-   STRONG GYM CARDIO
-   ========================================================= */
-
-(function(){
-
-    const section =
-        document.getElementById(
-            "cardioSection"
-        );
-
-    if(!section){
-        return;
-    }
-
-
-    const buttons =
-        section.querySelectorAll(
-            "[data-cardio-type]"
-        );
-
-    const selected =
-        document.getElementById(
-            "cardioSelectedType"
-        );
-
-    const intensity =
-        document.getElementById(
-            "cardioIntensity"
-        );
-
-    const display =
-        document.getElementById(
-            "cardioTimerDisplay"
-        );
-
-    const start =
-        document.getElementById(
-            "cardioStartButton"
-        );
-
-    const pause =
-        document.getElementById(
-            "cardioPauseButton"
-        );
-
-    const finish =
-        document.getElementById(
-            "cardioFinishButton"
-        );
-
-    const history =
-        document.getElementById(
-            "cardioHistory"
-        );
-
-
-    let type =
-        "Caminata";
-
-    let seconds =
-        0;
-
-    let interval =
-        null;
-
-    let running =
-        false;
-
-
-    function formatTime(value){
-
-        const safe =
-            Math.max(
-                0,
-                Number(value) || 0
-            );
-
-        const minutes =
-            Math.floor(
-                safe / 60
-            );
-
-        const remaining =
-            safe % 60;
-
-        return (
-            String(minutes).padStart(2,"0")
-            +
-            ":"
-            +
-            String(remaining).padStart(2,"0")
-        );
-
-    }
-
-
-    function update(){
-
-        if(display){
-
-            display.textContent =
-                formatTime(
-                    seconds
-                );
-
-        }
-
-    }
-
-
-    function stop(){
-
-        if(interval !== null){
-
-            clearInterval(
-                interval
-            );
-
-            interval = null;
-
-        }
-
-    }
-
-
-    function renderHistory(){
-
-        if(!history){
-            return;
-        }
-
-        let sessions = [];
-
-        try{
-
-            sessions =
-                JSON.parse(
-                    localStorage.getItem(
-                        "strongGymCardioHistory"
-                    ) || "[]"
-                );
-
-        }catch(error){
-
-            sessions = [];
-
-        }
-
-
-        if(
-            !Array.isArray(sessions) ||
-            sessions.length === 0
-        ){
-
-            history.innerHTML =
-                "<p>Todavía no hay sesiones registradas.</p>";
-
-            return;
-
-        }
-
-
-        history.innerHTML = "";
-
-        sessions
-            .slice()
-            .reverse()
-            .slice(0,10)
-            .forEach(
-                session => {
-
-                    const item =
-                        document.createElement(
-                            "div"
-                        );
-
-                    item.style.marginBottom =
-                        "12px";
-
-                    item.innerHTML = `
-                        <strong>
-                            ${session.type}
-                        </strong>
-                        <br>
-                        ⏱ ${formatTime(session.seconds)}
-                        <br>
-                        Intensidad:
-                        ${session.intensity}
-                        <br>
-                        <small>
-                            ${session.date}
-                        </small>
-                    `;
-
-                    history.appendChild(
-                        item
-                    );
-
-                }
-            );
-
-    }
-
-
-    function save(){
-
-        if(seconds <= 0){
-            return;
-        }
-
-        let sessions = [];
-
-        try{
-
-            sessions =
-                JSON.parse(
-                    localStorage.getItem(
-                        "strongGymCardioHistory"
-                    ) || "[]"
-                );
-
-        }catch(error){
-
-            sessions = [];
-
-        }
-
-
-        sessions.push({
-
-            type:type,
-
-            seconds:seconds,
-
-            intensity:
-                intensity
-                    ? intensity.value
-                    : "Moderada",
-
-            date:
-                new Date().toLocaleString()
-
-        });
-
-
-        localStorage.setItem(
-            "strongGymCardioHistory",
-            JSON.stringify(
-                sessions
-            )
-        );
-
-        renderHistory();
-
-    }
-
-
-    function reset(){
-
-        stop();
-
-        seconds = 0;
-
-        running = false;
-
-        update();
-
-        if(start){
-            start.disabled = false;
-        }
-
-        if(pause){
-            pause.disabled = true;
-            pause.textContent = "⏸ Pausar";
-        }
-
-        if(finish){
-            finish.disabled = true;
-        }
-
-    }
-
-
-    function run(){
-
-        stop();
-
-        interval =
-            setInterval(
-                () => {
-
-                    seconds++;
-
-                    update();
-
-                },
-                1000
-            );
-
-    }
-
-
-    buttons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    buttons.forEach(
-                        item =>
-                            item.classList.remove(
-                                "active"
-                            )
-                    );
-
-                    button.classList.add(
-                        "active"
-                    );
-
-                    type =
-                        button.dataset.cardioType;
-
-                    const emoji =
-                        type === "Caminata"
-                            ? "🚶"
-                            : type === "Carrera"
-                                ? "🏃"
-                                : type === "Bicicleta"
-                                    ? "🚴"
-                                    : "⚡";
-
-                    if(selected){
-
-                        selected.textContent =
-                            `${emoji} ${type}`;
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    start?.addEventListener(
-        "click",
-        () => {
-
-            if(running){
-                return;
-            }
-
-            running = true;
-
-            if(start){
-                start.disabled = true;
-            }
-
-            if(pause){
-                pause.disabled = false;
-                pause.textContent = "⏸ Pausar";
-            }
-
-            if(finish){
-                finish.disabled = false;
-            }
-
-            run();
-
-        }
-    );
-
-
-    pause?.addEventListener(
-        "click",
-        () => {
-
-            if(!running){
-
-                running = true;
-
-                pause.textContent =
-                    "⏸ Pausar";
-
-                run();
-
-                return;
-
-            }
-
-            running = false;
-
-            stop();
-
-            pause.textContent =
-                "▶ Continuar";
-
-        }
-    );
-
-
-    finish?.addEventListener(
-        "click",
-        () => {
-
-            if(seconds <= 0){
-                return;
-            }
-
-            running = false;
-
-            stop();
-
-            save();
-
-            reset();
-
-        }
-    );
-
-
-    update();
-
-    renderHistory();
-
-})();
 
 
 /* =========================================================
@@ -1131,6 +1579,8 @@ if (profileButton) {
             );
 
             populateProfileForm();
+
+            updateProfilePhotoPreview();
 
         }
     );
@@ -1710,10 +2160,8 @@ async function loadExercisesDatabase() {
 
         const response =
             await fetch(
-                "./data/exercises.json?v=1428",
-                {
-                    cache: "no-store"
-                }
+                "data/exercises.json?v=1428",
+                { cache: "no-store" }
             );
 
 
@@ -1726,18 +2174,15 @@ async function loadExercisesDatabase() {
         }
 
 
-        const rawText =
-            await response.text();
-
-
-        const parsed =
-            JSON.parse(
-                rawText
-            );
-
-
         exercisesDatabase =
-            parsed;
+            await response.json();
+
+
+        console.log(
+            "STRONG GYM: biblioteca cargada",
+            exercisesDatabase.length,
+            "ejercicios"
+        );
 
 
         renderExerciseCards(
@@ -1745,16 +2190,35 @@ async function loadExercisesDatabase() {
         );
 
 
-    } catch(error) {
+    } catch (error) {
 
         console.error(
-            "No se pudo cargar la biblioteca de ejercicios:",
+            "Error cargando exercises.json:",
             error
         );
+
+
+        exerciseList.innerHTML = `
+            <div class="empty-state">
+
+                <span>⚠️</span>
+
+                <h3>
+                    No se pudo cargar la biblioteca
+                </h3>
+
+                <p>
+                    Revisá el archivo
+                    data/exercises.json
+                </p>
+
+            </div>
+        `;
 
     }
 
 }
+
 
 
 /* =========================================================
@@ -1961,7 +2425,7 @@ function renderExerciseCards(
                             exercise.id
                         )}"
                     >
-                        Ver ejercicio →
+                        Ver ejercicio 
                     </button>
 
                 </div>
@@ -3521,7 +3985,7 @@ function openRoutineCreator() {
                         class="routine-creator-button primary"
                         id="routineCreatorContinue"
                     >
-                        Continuar →
+                        Continuar 
                     </button>
 
                 </div>
@@ -3736,7 +4200,7 @@ function openRoutineCreator() {
    CONFIGURADOR DE SERIES / REPETICIONES / PESO / DESCANSO
    ========================================================= */
 
-function openRoutineExerciseConfigurator(
+window.openRoutineExerciseConfigurator = function(
     routineName,
     selectedDays,
     selectedExercises,
@@ -4610,6 +5074,7 @@ function openRoutineExerciseConfigurator(
 
                     closeConfigurator();
 
+
                 /*
                  * =================================================
                  * CIERRE DEFINITIVO DE LA CREACIÓN DE RUTINA
@@ -5012,11 +5477,29 @@ function openRoutineExerciseConfigurator(
                         : [];
 
 
+                const editingDraft =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "strongGymRoutineDraft"
+                        ) || "null"
+                    );
+
+                const editingRoutineId =
+                    editingDraft &&
+                    editingDraft.editingRoutineId
+                        ? String(
+                            editingDraft.editingRoutineId
+                        )
+                        : null;
+
                 const newRoutine = {
 
                     id:
-                        "routine-" +
-                        Date.now(),
+                        editingRoutineId ||
+                        (
+                            "routine-" +
+                            Date.now()
+                        ),
 
                     name:
                         routineName,
@@ -5038,17 +5521,48 @@ function openRoutineExerciseConfigurator(
                         configuredExercises,
 
                     createdAt:
-                        new Date().toISOString(),
+                        editingDraft &&
+                        editingDraft.createdAt
+                            ? editingDraft.createdAt
+                            : new Date().toISOString(),
 
                     updatedAt:
                         new Date().toISOString()
 
                 };
 
+                const existingIndex =
+                    editingRoutineId
+                        ? existingRoutines.findIndex(
+                            item =>
+                                String(
+                                    item.id
+                                ) ===
+                                editingRoutineId
+                        )
+                        : -1;
 
-                existingRoutines.push(
-                    newRoutine
-                );
+                if(existingIndex >= 0){
+
+                    existingRoutines[
+                        existingIndex
+                    ] = {
+
+                        ...existingRoutines[
+                            existingIndex
+                        ],
+
+                        ...newRoutine
+
+                    };
+
+                }else{
+
+                    existingRoutines.push(
+                        newRoutine
+                    );
+
+                }
 
 
                 localStorage.setItem(
@@ -5072,6 +5586,40 @@ function openRoutineExerciseConfigurator(
                     )
                 );
 
+                /*
+                 * Limpiar el modo de edición después de guardar.
+                 */
+                try{
+
+                    const savedDraft =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "strongGymRoutineDraft"
+                            ) || "null"
+                        );
+
+                    if(savedDraft){
+
+                        delete savedDraft.editingRoutineId;
+
+                        localStorage.setItem(
+                            "strongGymRoutineDraft",
+                            JSON.stringify(
+                                savedDraft
+                            )
+                        );
+
+                    }
+
+                }catch(error){
+
+                    console.warn(
+                        "No se pudo limpiar el modo de edición:",
+                        error
+                    );
+
+                }
+
 
                 /*
                  * Actualizar inmediatamente
@@ -5084,6 +5632,7 @@ function openRoutineExerciseConfigurator(
                 ) {
 
                     loadSavedRoutines();
+                   
 
                 }
 
@@ -5094,6 +5643,8 @@ function openRoutineExerciseConfigurator(
 
 
                 closeConfigurator();
+                
+                localStorage.removeItem("strongGymRoutineDraft");
 
 
                 /*
@@ -5193,7 +5744,20 @@ function openRoutineExerciseConfigurator(
 }
 
 
-function openRoutineExerciseSelector(
+    requestAnimationFrame(
+        () => {
+
+            modal.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+window.openRoutineExerciseSelector = function(
     routineName,
     selectedDays
 ){
@@ -5617,7 +6181,7 @@ function openRoutineExerciseSelector(
                     class="routine-exercise-next"
                     id="routineExerciseNext"
                 >
-                    Siguiente →
+                    Siguiente 
                 </button>
 
             </div>
@@ -6251,20 +6815,6 @@ function openRoutineExerciseSelector(
 
 }
 
-
-    requestAnimationFrame(
-        () => {
-
-            modal.classList.add(
-                "active"
-            );
-
-        }
-    );
-
-}
-
-
 if (createRoutineButton) {
 
     createRoutineButton.addEventListener(
@@ -6286,9 +6836,33 @@ if (createRoutineButton) {
    STRONG GYM - RECUPERAR ENTRENAMIENTO ACTIVO
    ========================================================= */
 
+/* =========================================================
+   STRONG GYM - RECUPERAR ENTRENAMIENTO ACTIVO
+   ========================================================= */
+
 function restoreActiveWorkout(){
 
     try{
+
+        /*
+         * Si el entrenamiento fue finalizado,
+         * NO debemos restaurarlo al recargar.
+         */
+
+        if(
+            localStorage.getItem(
+                "strongGymWorkoutFinalized"
+            ) === "true"
+        ){
+
+            localStorage.removeItem(
+                "strongGymActiveWorkout"
+            );
+
+            return false;
+
+        }
+
 
         const raw =
             localStorage.getItem(
@@ -6343,19 +6917,138 @@ function restoreActiveWorkout(){
             700
         );
 
-
         return true;
 
     }catch(error){
 
         console.error(
-            "STRONG GYM: no se pudo leer el entrenamiento activo:",
+            "STRONG GYM: error leyendo entrenamiento activo:",
             error
         );
 
         return false;
 
     }
+
+}
+
+
+
+function openExistingRoutineEditor(routine){
+
+    if(!routine){
+        return;
+    }
+
+    const days =
+        Array.isArray(routine.days)
+            ? [...routine.days]
+            : [];
+
+    let dayPlans =
+        Array.isArray(routine.dayPlans)
+            ? JSON.parse(
+                JSON.stringify(
+                    routine.dayPlans
+                )
+            )
+            : [];
+
+    if(dayPlans.length === 0){
+
+        dayPlans =
+            days.map(
+                day => ({
+                    day: day,
+                    muscles: [],
+                    exercises: []
+                })
+            );
+
+    }
+
+    while(dayPlans.length < days.length){
+
+        const index =
+            dayPlans.length;
+
+        dayPlans.push({
+
+            day:
+                days[index],
+
+            muscles: [],
+
+            exercises: []
+
+        });
+
+    }
+
+    dayPlans =
+        dayPlans.map(
+            (plan,index) => ({
+
+                day:
+                    days[index] ||
+                    plan.day ||
+                    `Día ${index + 1}`,
+
+                muscles:
+                    Array.isArray(plan.muscles)
+                        ? [...plan.muscles]
+                        : [],
+
+                exercises:
+                    Array.isArray(plan.exercises)
+                        ? JSON.parse(
+                            JSON.stringify(
+                                plan.exercises
+                            )
+                        )
+                        : []
+
+            })
+        );
+
+    const draft = {
+
+        name:
+            routine.name ||
+            "Rutina",
+
+        days:
+            days,
+
+        currentDayIndex:
+            0,
+
+        dayPlans:
+            dayPlans,
+
+        createdAt:
+            routine.createdAt ||
+            new Date().toISOString(),
+
+        updatedAt:
+            new Date().toISOString(),
+
+        editingRoutineId:
+            routine.id
+
+    };
+
+    localStorage.setItem(
+        "strongGymRoutineDraft",
+        JSON.stringify(
+            draft
+        )
+    );
+
+    openRoutineExerciseSelector(
+        draft.name,
+        draft.days
+    );
 
 }
 
@@ -6554,6 +7247,19 @@ function loadSavedRoutines(){
                         >
 
                             ▶ Abrir rutina
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="routine-edit-button"
+                            data-routine-id="${escapeExerciseHTML(
+                                routine.id
+                            )}"
+                        >
+
+                            ✏️ Editar
 
                         </button>
 
@@ -6794,6 +7500,15 @@ function loadSavedRoutines(){
 
             }
 
+
+            .routine-edit-button{
+
+                background:#111827;
+
+                color:#ffffff;
+
+            }
+
         `;
 
 
@@ -6845,6 +7560,107 @@ function loadSavedRoutines(){
 
             }
         );
+
+
+    /*
+     * Editar rutina.
+     *
+     * Se usa delegación de eventos para que el botón
+     * siga funcionando aunque la lista sea reconstruida.
+     */
+    if(!routineList.dataset.editHandlerAttached){
+
+        routineList.addEventListener(
+            "click",
+            event => {
+
+                const button =
+                    event.target.closest(
+                        ".routine-edit-button"
+                    );
+
+                if(!button){
+                    return;
+                }
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                let currentRoutines = [];
+
+                try{
+
+                    currentRoutines =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "strongGymRoutines"
+                            ) || "[]"
+                        );
+
+                }catch(error){
+
+                    console.error(
+                        "STRONG GYM: error leyendo rutinas para editar:",
+                        error
+                    );
+
+                    return;
+
+                }
+
+                const routine =
+                    currentRoutines.find(
+                        item =>
+                            String(
+                                item.id
+                            ) ===
+                            String(
+                                button.dataset.routineId
+                            )
+                    );
+
+                if(!routine){
+
+                    console.error(
+                        "STRONG GYM: no se encontró la rutina para editar.",
+                        button.dataset.routineId,
+                        currentRoutines
+                    );
+
+                    alert(
+                        "No se encontró la rutina seleccionada."
+                    );
+
+                    return;
+
+                }
+
+                try{
+
+                    openExistingRoutineEditor(
+                        routine
+                    );
+
+                }catch(error){
+
+                    console.error(
+                        "STRONG GYM: error abriendo editor de rutina:",
+                        error
+                    );
+
+                    alert(
+                        "No se pudo abrir el editor de esta rutina. Revisá la consola (F12)."
+                    );
+
+                }
+
+            }
+        );
+
+        routineList.dataset.editHandlerAttached =
+            "true";
+
+    }
 
 
     /*
@@ -8039,7 +8855,7 @@ function showWorkoutCompletionSummary(
 
                                 ${item.previous}
                                 kg
-                                →
+                                
                                 ${item.current}
                                 kg
 
@@ -8513,28 +9329,7 @@ function stopStrongGymRestTimer(){
 
 function closeStrongGymRestTimer(){
 
-    /*
-     * Detener el intervalo.
-     */
-
     stopStrongGymRestTimer();
-
-
-    /*
-     * Eliminar completamente el estado del descanso
-     * de la memoria.
-     */
-
-    strongGymRestTimerEndTime = null;
-
-    strongGymRestTimerSeconds = 0;
-
-    strongGymRestTimerTotal = 0;
-
-
-    /*
-     * Eliminar la ventana visual.
-     */
 
     const timer =
         document.getElementById(
@@ -8544,52 +9339,6 @@ function closeStrongGymRestTimer(){
     if(timer){
 
         timer.remove();
-
-    }
-
-
-    /*
-     * IMPORTANTE:
-     * actualizar inmediatamente la sesión activa.
-     *
-     * Esto elimina del localStorage el restTimer
-     * que pudiera haber quedado guardado anteriormente.
-     */
-
-    try{
-
-        const raw =
-            localStorage.getItem(
-                "strongGymActiveWorkout"
-            );
-
-        if(raw){
-
-            const state =
-                JSON.parse(raw);
-
-            if(
-                state &&
-                state.restTimer
-            ){
-
-                delete state.restTimer;
-
-                localStorage.setItem(
-                    "strongGymActiveWorkout",
-                    JSON.stringify(state)
-                );
-
-            }
-
-        }
-
-    }catch(error){
-
-        console.warn(
-            "No se pudo limpiar el temporizador guardado:",
-            error
-        );
 
     }
 
@@ -8809,7 +9558,6 @@ function startStrongGymRestTimer(
 
         strongGymRestTimerSeconds = 0;
 
-
         update();
 
 
@@ -8839,323 +9587,39 @@ function startStrongGymRestTimer(
 
         }
 
+    }
 
-        /*
-         * =====================================================
-         * VIBRACIÓN
-         * =====================================================
-         *
-         * Primero intentamos Haptics nativo de Capacitor.
-         * Si no está disponible, usamos navigator.vibrate().
-         */
-
-        try{
-
-            if(
-                StrongGymHaptics &&
-                typeof StrongGymHaptics.vibrate ===
-                    "function"
-            ){
-
-                StrongGymHaptics.vibrate({
-                    duration: 500
-                });
-
-            }else if(
-                "vibrate" in navigator
-            ){
-
-                navigator.vibrate(
-                    [
-                        300,
-                        150,
-                        300,
-                        150,
-                        500
-                    ]
-                );
-
-            }
-
-        }catch(error){
-
-            console.warn(
-                "STRONG GYM: no se pudo activar la vibración:",
-                error
-            );
-
-            try{
-
-                if(
-                    "vibrate" in navigator
-                ){
-
-                    navigator.vibrate(
-                        [
-                            300,
-                            150,
-                            300
-                        ]
-                    );
-
-                }
-
-            }catch(fallbackError){
-
-                console.warn(
-                    "STRONG GYM: fallo de vibración alternativa:",
-                    fallbackError
-                );
-
-            }
-
-        }
-
-
-        /*
-         * =====================================================
-         * SONIDO
-         * =====================================================
-         *
-         * Mantener Web Audio para navegador/WebView.
-         */
-
-        try{
-
-            const AudioContext =
-                window.AudioContext ||
-                window.webkitAudioContext;
-
-            if(AudioContext){
-
-                const audioContext =
-                    new AudioContext();
-
-
-                const playBeep =
-                    (
-                        frequency,
-                        startTime,
-                        duration
-                    ) => {
-
-                        const oscillator =
-                            audioContext.createOscillator();
-
-                        const gain =
-                            audioContext.createGain();
-
-
-                        oscillator.type =
-                            "sine";
-
-                        oscillator.frequency.value =
-                            frequency;
-
-
-                        gain.gain.setValueAtTime(
-                            0.0001,
-                            startTime
-                        );
-
-                        gain.gain.exponentialRampToValueAtTime(
-                            0.35,
-                            startTime + 0.02
-                        );
-
-                        gain.gain.exponentialRampToValueAtTime(
-                            0.0001,
-                            startTime + duration
-                        );
-
-
-                        oscillator.connect(
-                            gain
-                        );
-
-                        gain.connect(
-                            audioContext.destination
-                        );
-
-
-                        oscillator.start(
-                            startTime
-                        );
-
-                        oscillator.stop(
-                            startTime + duration
-                        );
-
-                    };
-
-
-                const startAudio =
-                    () => {
-
-                        const now =
-                            audioContext.currentTime;
-
-
-                        playBeep(
-                            880,
-                            now,
-                            0.18
-                        );
-
-                        playBeep(
-                            1100,
-                            now + 0.22,
-                            0.18
-                        );
-
-                        playBeep(
-                            1320,
-                            now + 0.44,
-                            0.30
-                        );
-
-
-                        setTimeout(
-                            () => {
-
-                                try{
-
-                                    audioContext.close();
-
-                                }catch(error){
-
-                                    console.warn(
-                                        "STRONG GYM: no se pudo cerrar AudioContext:",
-                                        error
-                                    );
-
-                                }
-
-                            },
-                            1200
-                        );
-
-                    };
-
-
-                if(
-                    audioContext.state ===
-                    "suspended"
-                ){
-
-                    audioContext.resume()
-                        .then(
-                            startAudio
-                        )
-                        .catch(
-                            () => {
-
-                                console.warn(
-                                    "STRONG GYM: AudioContext no pudo reanudarse."
-                                );
-
-                            }
-                        );
-
-                }else{
-
-                    startAudio();
-
-                }
-
-            }
-
-        }catch(error){
-
-            console.warn(
-                "STRONG GYM: no se pudo reproducir el sonido:",
-                error
-            );
-
-        }
-
-}
-
-
-
-    /*
-     * =====================================================
-     * STRONG GYM - CAMBIAR TIEMPO DEL DESCANSO
-     * =====================================================
-     *
-     * Modifica tanto los segundos visibles como
-     * endTime, que es la referencia utilizada por
-     * el intervalo principal.
-     */
 
     function changeTime(
         amount
     ){
 
-        const currentSeconds =
-            Math.max(
-                0,
-                Number(
-                    strongGymRestTimerSeconds
-                ) || 0
-            );
-
-
-        const safeAmount =
-            Number(
-                amount
-            ) || 0;
-
-
-        const newSeconds =
-            Math.max(
-                0,
-                currentSeconds +
-                safeAmount
-            );
-
-
-        /*
-         * Actualizar segundos.
-         */
-
         strongGymRestTimerSeconds =
-            newSeconds;
+            Math.max(
+                0,
+                strongGymRestTimerSeconds +
+                amount
+            );
 
-
-        /*
-         * Actualizar total del progreso.
-         */
 
         strongGymRestTimerTotal =
             Math.max(
                 1,
-                newSeconds
+                strongGymRestTimerSeconds
             );
 
 
         /*
-         * IMPORTANTE:
-         *
-         * El intervalo calcula el tiempo restante
-         * utilizando endTime.
-         *
-         * Por eso debemos recalcularlo cada vez
-         * que el usuario pulsa +30 o -30.
+         * Recalcular la hora REAL de finalización
+         * después de +/- 30 segundos.
          */
-
         strongGymRestTimerEndTime =
             Date.now() +
             (
-                newSeconds *
+                strongGymRestTimerSeconds *
                 1000
             );
 
-
-        /*
-         * Restaurar apariencia normal si estaba
-         * en estado terminado.
-         */
 
         timer.classList.remove(
             "strong-gym-rest-finished"
@@ -9184,25 +9648,7 @@ function startStrongGymRestTimer(
         }
 
 
-        /*
-         * Mostrar inmediatamente el nuevo tiempo.
-         */
-
         update();
-
-
-        /*
-         * Si se baja hasta cero,
-         * finalizar el descanso.
-         */
-
-        if(
-            newSeconds <= 0
-        ){
-
-            finish();
-
-        }
 
     }
 
@@ -10463,7 +10909,7 @@ function startStrongGymRestTimer(
 
 
                                                         let changeText =
-                                                            "→ Sin cambio";
+                                                            " Sin cambio";
 
 
                                                         if(
@@ -12553,29 +12999,20 @@ return `
     function closeWorkout(){
 
         /*
-         * Primero cerrar el temporizador.
+         * Guardar la sesión ANTES de cerrar.
          *
-         * Esto elimina cualquier descanso que el
-         * usuario haya cerrado.
-         */
-
-        closeStrongGymRestTimer();
-
-
-        /*
-         * Después guardar la sesión.
-         *
-         * Se conserva la rutina activa, series,
-         * pesos, repeticiones y RIR, pero no un
-         * temporizador que ya fue cerrado.
+         * Esto conserva:
+         * - series
+         * - peso
+         * - repeticiones
+         * - RIR
+         * - descanso activo
+         * - hora real de finalización del descanso
          */
 
         saveActiveWorkoutState();
 
-
-        /*
-         * Finalmente cerrar la ventana.
-         */
+        closeStrongGymRestTimer();
 
         modal.remove();
 
@@ -12905,38 +13342,6 @@ return `
             );
 
 
-            /*
-             * =================================================
-             * ENTRENAMIENTO FINALIZADO
-             * =================================================
-             *
-             * El historial ya fue guardado.
-             *
-             * Ahora eliminamos la sesión activa para que,
-             * al volver a abrir STRONG GYM, NO se recupere
-             * una rutina que ya terminó.
-             */
-
-            try{
-
-                localStorage.removeItem(
-                    "strongGymActiveWorkout"
-                );
-
-                console.log(
-                    "STRONG GYM: sesión activa eliminada porque el entrenamiento finalizó."
-                );
-
-            }catch(error){
-
-                console.warn(
-                    "No se pudo eliminar la sesión activa:",
-                    error
-                );
-
-            }
-
-
             /* =================================================
                GUARDAR PROGRESO EN LA RUTINA
                ================================================= */
@@ -13119,52 +13524,28 @@ return `
              * Mostrar resumen inteligente del entrenamiento.
              */
 
-            showWorkoutCompletionSummary(
-                routine,
-                workoutExercises,
-                durationMinutes
-            );
+          showWorkoutCompletionSummary(
+    routine,
+    workoutExercises,
+    durationMinutes
+);
 
+localStorage.setItem(
+    "strongGymWorkoutFinalized",
+    "true"
+);
 
-            /*
-             * =================================================
-             * FINALIZACIÓN DEFINITIVA
-             * =================================================
-             *
-             * closeWorkout() puede guardar nuevamente
-             * la sesión activa.
-             *
-             * Por eso eliminamos strongGymActiveWorkout
-             * DESPUÉS de cerrar el entrenamiento.
-             *
-             * De esta forma:
-             *
-             * - salir temporalmente = conserva la sesión
-             * - cambiar de aplicación = conserva la sesión
-             * - finalizar entrenamiento = elimina la sesión
-             */
+localStorage.removeItem(
+    "strongGymActiveWorkout"
+);
 
-            closeWorkout();
+closeWorkout();
 
+localStorage.removeItem(
+    "strongGymActiveWorkout"
+);
 
-            try{
-
-                localStorage.removeItem(
-                    "strongGymActiveWorkout"
-                );
-
-                console.log(
-                    "STRONG GYM: entrenamiento finalizado. Sesión activa eliminada definitivamente."
-                );
-
-            }catch(error){
-
-                console.warn(
-                    "No se pudo eliminar definitivamente la sesión activa:",
-                    error
-                );
-
-            }
+closeWorkout();
 
         }
     );
@@ -17939,15 +18320,48 @@ document.addEventListener(
 
         updateWelcomeUser();
 
+        // Restaurar la foto de perfil despues de cargar el perfil.
+        updateProfilePhotoPreview();
+        updateWelcomeProfilePhoto();
+
         /*
-         * STRONG GYM - INICIO AL ABRIR LA APP
-         *
-         * Cada apertura/reinicio comienza en Inicio.
-         * La rutina activa se manejará independientemente.
+         * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
          */
 
+        let initialSection =
+            "homeSection";
+
+        try {
+
+            const savedSection =
+                localStorage.getItem(
+                    "strongGymLastSection"
+                );
+
+            if (
+                savedSection &&
+                document.getElementById(
+                    savedSection
+                )
+            ) {
+
+                initialSection =
+                    savedSection;
+
+            }
+
+        } catch(error) {
+
+            console.warn(
+                "No se pudo recuperar la última pantalla:",
+                error
+            );
+
+        }
+
+
         showSection(
-            "homeSection"
+            initialSection
         );
 
         updateTimerDisplay();
@@ -19048,7 +19462,7 @@ document.addEventListener(
                     ? `▲ +${formatNumber(trend)}%`
                     : trend < 0
                         ? `▼ ${formatNumber(trend)}%`
-                        : "→ 0%";
+                        : " 0%";
 
 
         const trendClass =
@@ -19131,7 +19545,7 @@ document.addEventListener(
                                 ? `▲ +${formatNumber(change)} kg`
                                 : change < 0
                                     ? `▼ ${formatNumber(change)} kg`
-                                    : "→ Sin cambio";
+                                    : " Sin cambio";
 
 
                         const changeClass =
@@ -19739,14 +20153,88 @@ document.addEventListener(
 
 /*
  * =========================================================
- * RESTAURACIÓN AUTOMÁTICA DE ÚLTIMA PANTALLA DESACTIVADA
+ * STRONG GYM - RESTAURAR ÚLTIMA PANTALLA
  * =========================================================
- *
- * STRONG GYM siempre inicia en Inicio.
- *
- * La recuperación de una rutina activa se mantiene
- * mediante restoreActiveWorkout().
  */
+
+window.restoreStrongGymLastSection =
+    function(){
+
+        try{
+
+            const lastSection =
+                localStorage.getItem(
+                    "strongGymLastSection"
+                );
+
+
+            if(
+                !lastSection
+            ){
+
+                return;
+
+            }
+
+
+            const section =
+                document.getElementById(
+                    lastSection
+                );
+
+
+            if(
+                !section
+            ){
+
+                return;
+
+            }
+
+
+            showSection(
+                lastSection
+            );
+
+
+        }catch(error){
+
+            console.warn(
+                "No se pudo restaurar la última pantalla:",
+                error
+            );
+
+        }
+
+    };
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        setTimeout(
+            function(){
+
+                if(
+                    typeof window.restoreStrongGymLastSection
+                    ===
+                    "function"
+                ){
+
+                    window.restoreStrongGymLastSection();
+
+                }
+
+            },
+            500
+        );
+
+    }
+);
+
+
+
 
 /* =========================================================
    RECUPERAR SESIÓN ACTIVA AL ABRIR STRONG GYM
@@ -19766,5 +20254,1612 @@ document.addEventListener(
         );
 
     }
-);
+);/* STRONG_GYM_ENVIRONMENT_FIX_FINAL_V1 */
+(function () {
+    "use strict";
 
+    var ENV_KEY = "strongGymEnvironment";
+
+    function getEnvironmentSelect() {
+        return document.getElementById("profileEnvironment");
+    }
+
+    function saveEnvironmentOnly() {
+        var select = getEnvironmentSelect();
+
+        if (!select) {
+            return;
+        }
+
+        var value = select.value || "";
+
+        try {
+            if (value) {
+                localStorage.setItem(ENV_KEY, value);
+            }
+
+            var saved = localStorage.getItem("strongGymProfile");
+            var data = saved ? JSON.parse(saved) : {};
+
+            if (!data || typeof data !== "object") {
+                data = {};
+            }
+
+            if (value) {
+                data.environment = value;
+            }
+
+            localStorage.setItem(
+                "strongGymProfile",
+                JSON.stringify(data)
+            );
+
+            console.log(
+                "STRONG GYM: lugar de entrenamiento guardado:",
+                value
+            );
+        } catch (error) {
+            console.warn(
+                "STRONG GYM: no se pudo guardar Casa/Gimnasio:",
+                error
+            );
+        }
+    }
+
+    function restoreEnvironment() {
+        var select = getEnvironmentSelect();
+
+        if (!select) {
+            return;
+        }
+
+        try {
+            var saved = localStorage.getItem("strongGymProfile");
+            var data = saved ? JSON.parse(saved) : {};
+            var value = data && data.environment
+                ? data.environment
+                : localStorage.getItem(ENV_KEY);
+
+            if (value === "home" || value === "gym") {
+                select.value = value;
+            }
+
+            console.log(
+                "STRONG GYM: lugar de entrenamiento restaurado:",
+                select.value
+            );
+        } catch (error) {
+            console.warn(
+                "STRONG GYM: no se pudo restaurar Casa/Gimnasio:",
+                error
+            );
+        }
+    }
+
+    function install() {
+        var saveButton =
+            document.getElementById("saveProfileButton");
+
+        var profileButton =
+            document.getElementById("profileButton");
+
+        var select = getEnvironmentSelect();
+
+        if (select && !select.dataset.strongGymEnvironmentFix) {
+            select.dataset.strongGymEnvironmentFix = "1";
+
+            select.addEventListener(
+                "change",
+                saveEnvironmentOnly
+            );
+        }
+
+        if (saveButton && !saveButton.dataset.strongGymEnvironmentFix) {
+            saveButton.dataset.strongGymEnvironmentFix = "1";
+
+            saveButton.addEventListener(
+                "click",
+                function () {
+                    setTimeout(
+                        saveEnvironmentOnly,
+                        50
+                    );
+                }
+            );
+        }
+
+        if (profileButton && !profileButton.dataset.strongGymEnvironmentFix) {
+            profileButton.dataset.strongGymEnvironmentFix = "1";
+
+            profileButton.addEventListener(
+                "click",
+                function () {
+                    setTimeout(
+                        restoreEnvironment,
+                        50
+                    );
+                }
+            );
+        }
+
+        restoreEnvironment();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            install
+        );
+    } else {
+        install();
+    }
+
+    window.addEventListener(
+        "load",
+        function () {
+            setTimeout(
+                restoreEnvironment,
+                100
+            );
+        }
+    );
+
+})();
+
+/* =========================================================
+   STRONG_GYM_CARDIO_MODULE_V1
+   ========================================================= */
+
+(function installStrongGymCardio() {
+
+    "use strict";
+
+    const STORAGE_KEY = "strongGymCardioHistory";
+
+    const activityNames = {
+        walking: "Caminata",
+        running: "Correr",
+        treadmill: "Cinta",
+        cycling: "Bicicleta",
+        elliptical: "Elíptico",
+        rowing: "Remo",
+        stair: "Escaladora",
+        other: "Otra"
+    };
+
+    const activityMET = {
+        walking: 3.5,
+        running: 9.8,
+        treadmill: 8.5,
+        cycling: 7.5,
+        elliptical: 7.0,
+        rowing: 7.0,
+        stair: 8.0,
+        other: 5.0
+    };
+
+    function getHistory() {
+        try {
+            const data = JSON.parse(
+                localStorage.getItem(STORAGE_KEY) || "[]"
+            );
+
+            return Array.isArray(data) ? data : [];
+        } catch (error) {
+            console.warn(
+                "STRONG GYM: no se pudo leer historial de cardio:",
+                error
+            );
+
+            return [];
+        }
+    }
+
+    function saveHistory(history) {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+    }
+
+    function getProfileWeight() {
+        try {
+            const data = JSON.parse(
+                localStorage.getItem("strongGymProfile") || "{}"
+            );
+
+            const weight = Number(data.weight);
+
+            return Number.isFinite(weight) && weight > 0
+                ? weight
+                : 70;
+        } catch (error) {
+            return 70;
+        }
+    }
+
+    function estimateCalories(activity, minutes) {
+        const met = activityMET[activity] || 5;
+        const weight = getProfileWeight();
+
+        return Math.round(
+            met * 3.5 * weight / 200 * minutes
+        );
+    }
+
+    function formatDate(value) {
+        if (!value) {
+            return "-";
+        }
+
+        const date = new Date(value + "T00:00:00");
+
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+
+        return date.toLocaleDateString(
+            "es-AR",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+    }
+
+    function escapeHTML(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function render() {
+
+        const history = getHistory();
+
+        const sessions =
+            document.getElementById("cardioTotalSessions");
+
+        const minutes =
+            document.getElementById("cardioTotalMinutes");
+
+        const distance =
+            document.getElementById("cardioTotalDistance");
+
+        const calories =
+            document.getElementById("cardioTotalCalories");
+
+        const list =
+            document.getElementById("cardioHistory");
+
+        if (!list) {
+            return;
+        }
+
+        const totalMinutes = history.reduce(
+            (sum, item) =>
+                sum + (Number(item.duration) || 0),
+            0
+        );
+
+        const totalDistance = history.reduce(
+            (sum, item) =>
+                sum + (Number(item.distance) || 0),
+            0
+        );
+
+        const totalCalories = history.reduce(
+            (sum, item) =>
+                sum + (Number(item.calories) || 0),
+            0
+        );
+
+        if (sessions) {
+            sessions.textContent = history.length;
+        }
+
+        if (minutes) {
+            minutes.textContent =
+                Math.round(totalMinutes) + " min";
+        }
+
+        if (distance) {
+            distance.textContent =
+                totalDistance.toFixed(2) + " km";
+        }
+
+        if (calories) {
+            calories.textContent =
+                Math.round(totalCalories) + " kcal";
+        }
+
+        if (history.length === 0) {
+            list.innerHTML = `
+                <div class="empty-state">
+                    <h3>Todavía no hay sesiones de cardio</h3>
+                    <p>Registrá tu primera sesión para comenzar a ver tu evolución.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        list.innerHTML = history
+            .slice(0, 20)
+            .map(item => `
+                <div class="cardio-history-card">
+
+                    <div class="cardio-history-top">
+                        <div class="cardio-history-title">
+                            ${escapeHTML(
+                                activityNames[item.activity] ||
+                                "Cardio"
+                            )}
+                        </div>
+
+                        <div class="cardio-history-date">
+                            ${escapeHTML(formatDate(item.date))}
+                        </div>
+                    </div>
+
+                    <div class="cardio-history-meta">
+
+                        <span>
+                            ${Number(item.duration) || 0} min
+                        </span>
+
+                        ${
+                            Number(item.distance) > 0
+                                ? `
+                                    <span>
+                                        ${Number(item.distance).toFixed(2)} km
+                                    </span>
+                                  `
+                                : ""
+                        }
+
+                        <span>
+                            ${Number(item.calories) || 0} kcal
+                        </span>
+
+                        ${
+                            Number(item.heartRate) > 0
+                                ? `
+                                    <span>
+                                        ${Number(item.heartRate)} lpm
+                                    </span>
+                                  `
+                                : ""
+                        }
+
+                        ${
+                            item.pace
+                                ? `
+                                    <span>
+                                        ${escapeHTML(item.pace)}
+                                    </span>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                    ${
+                        item.notes
+                            ? `
+                                <div class="cardio-history-notes">
+                                    ${escapeHTML(item.notes)}
+                                </div>
+                              `
+                            : ""
+                    }
+
+                </div>
+            `)
+            .join("");
+    }
+
+    function setToday() {
+
+        const input =
+            document.getElementById("cardioDate");
+
+        if (!input || input.value) {
+            return;
+        }
+
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month =
+            String(now.getMonth() + 1).padStart(2, "0");
+        const day =
+            String(now.getDate()).padStart(2, "0");
+
+        input.value =
+            year + "-" + month + "-" + day;
+    }
+
+    function saveSession() {
+
+        const date =
+            document.getElementById("cardioDate");
+
+        const activity =
+            document.getElementById("cardioActivity");
+
+        const duration =
+            document.getElementById("cardioDuration");
+
+        const distance =
+            document.getElementById("cardioDistance");
+
+        const heartRate =
+            document.getElementById("cardioHeartRate");
+
+        const pace =
+            document.getElementById("cardioPace");
+
+        const notes =
+            document.getElementById("cardioNotes");
+
+        if (!date || !activity || !duration) {
+            return;
+        }
+
+        const durationValue =
+            Number(duration.value);
+
+        if (
+            !Number.isFinite(durationValue) ||
+            durationValue <= 0
+        ) {
+            alert("Ingresá una duración válida.");
+            duration.focus();
+            return;
+        }
+
+        const distanceValue =
+            Number(distance?.value || 0);
+
+        const heartRateValue =
+            Number(heartRate?.value || 0);
+
+        const item = {
+            id: Date.now(),
+            date: date.value,
+            activity: activity.value,
+            duration: Math.round(durationValue),
+            distance:
+                Number.isFinite(distanceValue)
+                    ? distanceValue
+                    : 0,
+            heartRate:
+                Number.isFinite(heartRateValue)
+                    ? heartRateValue
+                    : 0,
+            pace: pace?.value.trim() || "",
+            notes: notes?.value.trim() || "",
+            calories:
+                estimateCalories(
+                    activity.value,
+                    durationValue
+                )
+        };
+
+        const history = getHistory();
+
+        history.unshift(item);
+
+        saveHistory(history);
+
+        if (duration) {
+            duration.value = "";
+        }
+
+        if (distance) {
+            distance.value = "";
+        }
+
+        if (heartRate) {
+            heartRate.value = "";
+        }
+
+        if (pace) {
+            pace.value = "";
+        }
+
+        if (notes) {
+            notes.value = "";
+        }
+
+        render();
+
+        const message =
+            document.getElementById("cardioSavedMessage");
+
+        if (message) {
+
+            message.classList.add("show");
+
+            setTimeout(
+                () => {
+                    message.classList.remove("show");
+                },
+                2500
+            );
+        }
+    }
+
+    function init() {
+
+        const button =
+            document.getElementById("saveCardioButton");
+
+        if (
+            button &&
+            !button.dataset.strongGymCardio
+        ) {
+
+            button.dataset.strongGymCardio = "1";
+
+            button.addEventListener(
+                "click",
+                saveSession
+            );
+        }
+
+        setToday();
+        render();
+    }
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            init
+        );
+
+    } else {
+
+        init();
+    }
+
+})();
+
+/* FIN STRONG_GYM_CARDIO_MODULE_V1 */
+
+/* STRONG-GYM-CARDIO-HISTORY-DETAIL-V3-START */
+(function () {
+    "use strict";
+
+    const STORAGE_KEY = "strongGymCardioHistory";
+    const MANAGER_ID = "strongGymCardioHistoryManager";
+    const MODAL_ID = "strongGymCardioDetailModal";
+
+    function readHistory() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            const data = raw ? JSON.parse(raw) : [];
+            return Array.isArray(data) ? data : [];
+        } catch (_) {
+            return [];
+        }
+    }
+
+    function writeHistory(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function firstValue(item, keys, fallback = "") {
+        for (const key of keys) {
+            if (
+                item &&
+                item[key] !== undefined &&
+                item[key] !== null &&
+                String(item[key]).trim() !== ""
+            ) {
+                return item[key];
+            }
+        }
+        return fallback;
+    }
+
+    function activityName(item) {
+        const raw = String(
+            firstValue(item, ["activity", "actividad", "type", "tipo"], "Cardio")
+        );
+
+        const normalized = raw.trim().toLowerCase();
+
+        const map = {
+            walking: "Caminata",
+            walk: "Caminata",
+            caminata: "Caminata",
+            running: "Carrera",
+            run: "Carrera",
+            carrera: "Carrera",
+            cycling: "Bicicleta",
+            bicycle: "Bicicleta",
+            bicicleta: "Bicicleta",
+            elliptical: "Elíptica",
+            eliptica: "Elíptica",
+            rowing: "Remo",
+            remo: "Remo",
+            stairs: "Escaleras",
+            escalera: "Escaleras"
+        };
+
+        return map[normalized] || raw;
+    }
+
+    function formatDate(item) {
+        return String(
+            firstValue(item, ["date", "fecha"], "Sin fecha")
+        );
+    }
+
+    function formatTime(value) {
+        const total = Math.max(0, Number(value) || 0);
+        const minutes = Math.floor(total / 60);
+        const seconds = total % 60;
+
+        if (minutes > 0 || seconds > 0) {
+            return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        }
+
+        return "—";
+    }
+
+    function valueWithUnit(item, keys, unit) {
+        const value = firstValue(item, keys, "");
+        if (value === "") return "—";
+        return `${value} ${unit}`;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function buildDetails(item) {
+        const seconds = firstValue(item, ["seconds", "durationSeconds"], "");
+        const duration = firstValue(
+            item,
+            ["duration", "duracion", "durationMin", "minutes"],
+            ""
+        );
+
+        const distance = firstValue(
+            item,
+            ["distance", "distancia", "distanceKm"],
+            ""
+        );
+
+        const heartRate = firstValue(
+            item,
+            ["heartRate", "frecuenciaCardiaca", "bpm", "cardiacFrequency"],
+            ""
+        );
+
+        const pace = firstValue(
+            item,
+            ["pace", "ritmo", "speed", "velocidad"],
+            ""
+        );
+
+        const calories = firstValue(
+            item,
+            ["calories", "kcal", "calorias"],
+            ""
+        );
+
+        const intensity = firstValue(
+            item,
+            ["intensity", "intensidad"],
+            ""
+        );
+
+        const notes = firstValue(
+            item,
+            ["notes", "observations", "observaciones", "description", "descripcion"],
+            ""
+        );
+
+        const rows = [
+            ["Actividad", activityName(item)],
+            ["Fecha", formatDate(item)]
+        ];
+
+        if (duration !== "") {
+            rows.push(["Duración", `${duration} min`]);
+        } else if (seconds !== "") {
+            rows.push(["Duración", formatTime(seconds)]);
+        }
+
+        if (distance !== "") {
+            rows.push(["Distancia", `${distance} km`]);
+        }
+
+        if (heartRate !== "") {
+            rows.push(["Frecuencia cardíaca", `${heartRate} lpm`]);
+        }
+
+        if (pace !== "") {
+            rows.push(["Ritmo / velocidad", String(pace)]);
+        }
+
+        if (calories !== "") {
+            rows.push(["Calorías", `${calories} kcal`]);
+        }
+
+        if (intensity !== "") {
+            rows.push(["Intensidad", String(intensity)]);
+        }
+
+        if (notes !== "") {
+            rows.push(["Observaciones", String(notes)]);
+        }
+
+        return rows;
+    }
+
+    function getSummary(item) {
+        const duration = firstValue(
+            item,
+            ["duration", "duracion", "durationMin", "minutes"],
+            ""
+        );
+
+        const distance = firstValue(
+            item,
+            ["distance", "distancia", "distanceKm"],
+            ""
+        );
+
+        const calories = firstValue(
+            item,
+            ["calories", "kcal", "calorias"],
+            ""
+        );
+
+        const parts = [activityName(item)];
+
+        if (duration !== "") parts.push(`${duration} min`);
+        if (distance !== "") parts.push(`${distance} km`);
+        if (calories !== "") parts.push(`${calories} kcal`);
+
+        return parts.join(" · ");
+    }
+
+    function ensureModal() {
+        let modal = document.getElementById(MODAL_ID);
+
+        if (!modal) {
+            modal = document.createElement("div");
+            modal.id = MODAL_ID;
+            modal.className = "strong-gym-cardio-detail-modal";
+            modal.hidden = true;
+
+            modal.innerHTML = `
+                <div class="strong-gym-cardio-detail-backdrop" data-cardio-detail-close></div>
+                <div class="strong-gym-cardio-detail-card" role="dialog" aria-modal="true" aria-labelledby="strongGymCardioDetailTitle">
+                    <div class="strong-gym-cardio-detail-header">
+                        <div>
+                            <span class="strong-gym-cardio-detail-label">CARDIO</span>
+                            <h3 id="strongGymCardioDetailTitle">Detalle de sesión</h3>
+                        </div>
+                        <button type="button" class="strong-gym-cardio-detail-close" data-cardio-detail-close aria-label="Cerrar">×</button>
+                    </div>
+                    <div id="strongGymCardioDetailBody"></div>
+                    <div class="strong-gym-cardio-detail-actions">
+                        <button type="button" class="strong-gym-cardio-detail-delete" id="strongGymCardioDetailDelete">
+                            Eliminar sesión
+                        </button>
+                        <button type="button" class="strong-gym-cardio-detail-secondary" data-cardio-detail-close>
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        return modal;
+    }
+
+    function openDetail(index) {
+        const history = readHistory();
+        if (index < 0 || index >= history.length) return;
+
+        const item = history[index];
+        const modal = ensureModal();
+        const body = document.getElementById("strongGymCardioDetailBody");
+        const title = document.getElementById("strongGymCardioDetailTitle");
+        const deleteButton = document.getElementById("strongGymCardioDetailDelete");
+
+        if (!body || !title || !deleteButton) return;
+
+        title.textContent = `Detalle de ${activityName(item)}`;
+
+        body.innerHTML = `
+            <div class="strong-gym-cardio-detail-grid">
+                ${buildDetails(item).map(([label, value]) => `
+                    <div class="strong-gym-cardio-detail-row">
+                        <span>${escapeHtml(label)}</span>
+                        <strong>${escapeHtml(value)}</strong>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+
+        deleteButton.dataset.cardioDetailDeleteIndex = String(index);
+
+        modal.hidden = false;
+        document.body.classList.add("strong-gym-cardio-detail-open");
+    }
+
+    function closeDetail() {
+        const modal = document.getElementById(MODAL_ID);
+        if (!modal) return;
+
+        modal.hidden = true;
+        document.body.classList.remove("strong-gym-cardio-detail-open");
+    }
+
+    function renderManager() {
+        const section = document.getElementById("cardioSection");
+        if (!section) return;
+
+        let manager = document.getElementById(MANAGER_ID);
+
+        if (!manager) {
+            manager = document.createElement("div");
+            manager.id = MANAGER_ID;
+            manager.className = "strong-gym-cardio-history-manager";
+            section.appendChild(manager);
+        }
+
+        const history = readHistory();
+
+        if (!history.length) {
+            manager.hidden = true;
+            manager.innerHTML = "";
+            return;
+        }
+
+        manager.hidden = false;
+
+        manager.innerHTML = `
+            <div class="strong-gym-cardio-history-title">Sesiones guardadas</div>
+            <div class="strong-gym-cardio-history-list">
+                ${history.map((item, index) => `
+                    <div class="strong-gym-cardio-history-item" data-history-index="${index}">
+                        <div class="strong-gym-cardio-history-data">
+                            ${escapeHtml(getSummary(item))}
+                        </div>
+                        <div class="strong-gym-cardio-history-actions">
+                            <button
+                                type="button"
+                                class="strong-gym-cardio-detail-button"
+                                data-cardio-detail-index="${index}">
+                                Ver detalle
+                            </button>
+                            <button
+                                type="button"
+                                class="strong-gym-cardio-delete"
+                                data-cardio-delete-index="${index}">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    }
+
+    document.addEventListener("click", function (event) {
+        const detailButton = event.target.closest("[data-cardio-detail-index]");
+        if (detailButton) {
+            event.preventDefault();
+            openDetail(Number(detailButton.dataset.cardioDetailIndex));
+            return;
+        }
+
+        const deleteButton = event.target.closest("[data-cardio-delete-index]");
+        if (deleteButton) {
+            event.preventDefault();
+
+            const index = Number(deleteButton.dataset.cardioDeleteIndex);
+            const history = readHistory();
+
+            if (!Number.isInteger(index) || index < 0 || index >= history.length) {
+                return;
+            }
+
+            const item = history[index];
+
+            if (!window.confirm(
+                `¿Eliminar la sesión de ${activityName(item)} del ${formatDate(item)}?`
+            )) {
+                return;
+            }
+
+            history.splice(index, 1);
+            writeHistory(history);
+            renderManager();
+            return;
+        }
+
+        const modalDelete = event.target.closest("[data-cardio-detail-delete-index]");
+        if (modalDelete) {
+            event.preventDefault();
+
+            const index = Number(modalDelete.dataset.cardioDetailDeleteIndex);
+            const history = readHistory();
+
+            if (!Number.isInteger(index) || index < 0 || index >= history.length) {
+                return;
+            }
+
+            const item = history[index];
+
+            if (!window.confirm(
+                `¿Eliminar la sesión de ${activityName(item)} del ${formatDate(item)}?`
+            )) {
+                return;
+            }
+
+            history.splice(index, 1);
+            writeHistory(history);
+            closeDetail();
+            renderManager();
+            return;
+        }
+
+        if (event.target.closest("[data-cardio-detail-close]")) {
+            closeDetail();
+        }
+    });
+
+    window.addEventListener("storage", function (event) {
+        if (event.key === STORAGE_KEY) {
+            renderManager();
+        }
+    });
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", renderManager, { once: true });
+    } else {
+        renderManager();
+    }
+
+    window.strongGymRefreshCardioHistory = renderManager;
+})();
+/* STRONG-GYM-CARDIO-HISTORY-DETAIL-V3-END */
+
+/* STRONG-GYM-INICIO-DINAMICO-V4-START */
+(function () {
+    "use strict";
+
+    const ROUTINES_KEY = "strongGymRoutines";
+    const HOME_STATE_KEY = "strongGymHomeSelectedRoutineId";
+    const MARKER = "__STRONG_GYM_INICIO_DINAMICO_V4__";
+
+    if (window[MARKER]) {
+        return;
+    }
+    window[MARKER] = true;
+
+    function normalize(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function readRoutines() {
+        try {
+            const raw = localStorage.getItem(ROUTINES_KEY);
+            const parsed = raw ? JSON.parse(raw) : [];
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            console.warn("STRONG GYM: no se pudieron leer las rutinas.", error);
+            return [];
+        }
+    }
+
+    function getDayNames() {
+        return [
+            "domingo",
+            "lunes",
+            "martes",
+            "miercoles",
+            "jueves",
+            "viernes",
+            "sabado"
+        ];
+    }
+
+    function getTodayName() {
+        return getDayNames()[new Date().getDay()];
+    }
+
+    function getPlans(routine) {
+        if (routine && Array.isArray(routine.dayPlans) && routine.dayPlans.length) {
+            return routine.dayPlans.map(function (plan) {
+                return {
+                    day: plan && plan.day ? plan.day : "",
+                    muscles: Array.isArray(plan && plan.muscles) ? plan.muscles : [],
+                    exercises: Array.isArray(plan && plan.exercises) ? plan.exercises : []
+                };
+            });
+        }
+
+        const days = routine && Array.isArray(routine.days) && routine.days.length
+            ? routine.days
+            : ["Rutina"];
+        const exercises = routine && Array.isArray(routine.exercises)
+            ? routine.exercises
+            : [];
+
+        return days.map(function (day) {
+            return {
+                day: day,
+                muscles: [],
+                exercises: exercises.filter(function (exercise) {
+                    return !exercise || !exercise.day ||
+                        normalize(exercise.day) === normalize(day);
+                })
+            };
+        });
+    }
+
+    function getTodayPlan(routine) {
+        const plans = getPlans(routine);
+        const today = getTodayName();
+
+        return plans.find(function (plan) {
+            return normalize(plan.day).indexOf(today) !== -1;
+        }) || null;
+    }
+
+    function getPlanDayIndex(plan) {
+        if (!plan) return -1;
+
+        const normalizedDay = normalize(plan.day);
+
+        return getDayNames().findIndex(function (dayName) {
+            return normalizedDay.indexOf(normalize(dayName)) !== -1;
+        });
+    }
+
+    function getNextPlan(routine) {
+        const plans = getPlans(routine);
+        const todayIndex = new Date().getDay();
+        let best = null;
+        let bestDistance = 8;
+
+        plans.forEach(function (plan) {
+            const dayIndex = getPlanDayIndex(plan);
+
+            if (dayIndex < 0 || dayIndex === todayIndex) {
+                return;
+            }
+
+            const distance = (dayIndex - todayIndex + 7) % 7;
+
+            if (distance > 0 && distance < bestDistance) {
+                best = {
+                    plan: plan,
+                    distance: distance
+                };
+                bestDistance = distance;
+            }
+        });
+
+        return best;
+    }
+
+    function chooseRoutine(routines) {
+        if (!routines.length) {
+            return null;
+        }
+
+        const savedId = localStorage.getItem(HOME_STATE_KEY);
+
+        if (savedId) {
+            const saved = routines.find(function (routine) {
+                return String(routine && routine.id) === String(savedId);
+            });
+
+            if (saved && getTodayPlan(saved)) {
+                return saved;
+            }
+        }
+
+        const todayRoutine = routines.find(function (routine) {
+            return !!getTodayPlan(routine);
+        });
+
+        if (todayRoutine) {
+            return todayRoutine;
+        }
+
+        let nextRoutine = null;
+        let nextDistance = 8;
+
+        routines.forEach(function (routine) {
+            const next = getNextPlan(routine);
+
+            if (next && next.distance < nextDistance) {
+                nextRoutine = routine;
+                nextDistance = next.distance;
+            }
+        });
+
+        return nextRoutine;
+    }
+
+    function getPlanForHome(routine) {
+        if (!routine) {
+            return null;
+        }
+
+        const today = getTodayPlan(routine);
+
+        if (today) {
+            return {
+                plan: today,
+                isToday: true
+            };
+        }
+
+        const next = getNextPlan(routine);
+
+        if (next) {
+            return {
+                plan: next.plan,
+                isToday: false,
+                distance: next.distance
+            };
+        }
+
+        return null;
+    }
+
+    function getExerciseList(routine, plan) {
+        if (plan && Array.isArray(plan.exercises)) {
+            return plan.exercises;
+        }
+
+        if (routine && Array.isArray(routine.exercises)) {
+            return routine.exercises;
+        }
+
+        return [];
+    }
+
+    function getMuscles(routine, plan, exercises) {
+        const fromPlan = plan && Array.isArray(plan.muscles) ? plan.muscles : [];
+        const unique = [];
+
+        fromPlan.forEach(function (muscle) {
+            const value = String(muscle || "").trim();
+            if (value && !unique.some(function (item) { return normalize(item) === normalize(value); })) {
+                unique.push(value);
+            }
+        });
+
+        if (!unique.length) {
+            exercises.forEach(function (exercise) {
+                const candidates = [];
+                if (Array.isArray(exercise && exercise.muscles)) candidates.push.apply(candidates, exercise.muscles);
+                if (Array.isArray(exercise && exercise.muscleGroups)) candidates.push.apply(candidates, exercise.muscleGroups);
+                [exercise && exercise.muscle, exercise && exercise.category, exercise && exercise.bodyPart].forEach(function (value) {
+                    if (value) candidates.push(value);
+                });
+
+                candidates.forEach(function (muscle) {
+                    const value = String(muscle || "").trim();
+                    if (value && !unique.some(function (item) { return normalize(item) === normalize(value); })) {
+                        unique.push(value);
+                    }
+                });
+            });
+        }
+
+        if (!unique.length && routine && Array.isArray(routine.muscles)) {
+            routine.muscles.forEach(function (muscle) {
+                const value = String(muscle || "").trim();
+                if (value && !unique.some(function (item) { return normalize(item) === normalize(value); })) {
+                    unique.push(value);
+                }
+            });
+        }
+
+        return unique.slice(0, 6);
+    }
+
+    function isExerciseCompleted(exercise) {
+        if (!exercise) return false;
+
+        if (exercise.completed === true || exercise.done === true) {
+            return true;
+        }
+
+        if (Array.isArray(exercise.workoutProgress) && exercise.workoutProgress.length) {
+            return exercise.workoutProgress.every(function (set) {
+                return set && set.completed === true;
+            });
+        }
+
+        return !!exercise.completedAt;
+    }
+
+    function getDuration(routine, exercises) {
+        const explicit = routine && (
+            routine.duration ||
+            routine.durationMinutes ||
+            routine.duracion
+        );
+        const value = Number(explicit);
+
+        if (Number.isFinite(value) && value > 0) {
+            return Math.round(value) + " min";
+        }
+
+        return exercises.length
+            ? exercises.length + (exercises.length === 1 ? " ejercicio" : " ejercicios")
+            : "Sin ejercicios";
+    }
+
+    function getHomeCard() {
+        return document.querySelector("#homeSection .workout-card");
+    }
+
+    function setMuscleTags(container, muscles) {
+        if (!container) return;
+
+        container.innerHTML = "";
+        const values = muscles.length ? muscles : ["Rutina personalizada"];
+
+        values.forEach(function (muscle) {
+            const tag = document.createElement("span");
+            tag.textContent = muscle;
+            container.appendChild(tag);
+        });
+    }
+
+    function updateHome() {
+        const card = getHomeCard();
+        if (!card) return;
+
+        const routines = readRoutines();
+        const routine = chooseRoutine(routines);
+        const dayEl = card.querySelector(".workout-day");
+        const nameEl = card.querySelector(".workout-card-header h3");
+        const durationEl = card.querySelector(".workout-time");
+        const muscleEl = card.querySelector(".muscle-tags");
+        const progressEl = card.querySelector(".progress-info strong");
+        const progressValue = card.querySelector(".progress-value");
+        const button = card.querySelector("#viewWorkoutButton");
+
+        if (!routine) {
+            if (dayEl) dayEl.textContent = "SIN RUTINAS";
+            if (nameEl) nameEl.textContent = "No ten\u00E9s rutinas guardadas";
+            if (durationEl) durationEl.textContent = "";
+            setMuscleTags(muscleEl, ["Cre\u00E1 una rutina en Mis rutinas"]);
+            if (progressEl) progressEl.textContent = "0 ejercicios";
+            if (progressValue) progressValue.style.width = "0%";
+            if (button) {
+                button.textContent = "Ir a Mis rutinas";
+                button.removeAttribute("data-routine-id");
+                button.removeAttribute("data-plan-day");
+            }
+
+            const oldPreview = card.querySelector(".strong-gym-home-exercise-preview");
+            if (oldPreview) oldPreview.remove();
+
+            return;
+        }
+
+        const homeData = getPlanForHome(routine);
+
+        if (!homeData || !homeData.plan) {
+            if (dayEl) dayEl.textContent = "SIN ENTRENAMIENTO PROGRAMADO";
+            if (nameEl) {
+                nameEl.textContent =
+                    String(routine.name || routine.title || "Rutina").trim();
+            }
+            if (durationEl) durationEl.textContent = "";
+
+            setMuscleTags(
+                muscleEl,
+                ["Sin sesiones programadas"]
+            );
+
+            if (progressEl) progressEl.textContent = "0 ejercicios";
+            if (progressValue) progressValue.style.width = "0%";
+
+            if (button) {
+                button.textContent = "Ver rutina";
+                button.dataset.routineId =
+                    String(routine.id || "");
+                button.removeAttribute("data-plan-day");
+            }
+
+            const oldPreview = card.querySelector(".strong-gym-home-exercise-preview");
+            if (oldPreview) oldPreview.remove();
+
+            return;
+        }
+
+        const plan = homeData.plan;
+        const exercises = getExerciseList(routine, plan);
+        const totalExercises = exercises.length;
+
+        const completed = homeData.isToday
+            ? exercises.filter(isExerciseCompleted).length
+            : 0;
+
+        const percentage = totalExercises
+            ? Math.round((completed / totalExercises) * 100)
+            : 0;
+
+        const muscles = getMuscles(
+            routine,
+            plan,
+            exercises
+        );
+
+        const routineName = String(
+            routine.name ||
+            routine.title ||
+            "Entrenamiento"
+        ).trim();
+
+        const planDay = String(
+            plan.day ||
+            "Entrenamiento"
+        ).trim();
+
+        if (routine.id !== undefined && routine.id !== null) {
+            localStorage.setItem(
+                HOME_STATE_KEY,
+                String(routine.id)
+            );
+        }
+
+        if (homeData.isToday) {
+            if (dayEl) {
+                dayEl.textContent =
+                    planDay.toUpperCase();
+            }
+        } else {
+            if (dayEl) {
+                dayEl.textContent =
+                    "PROXIMO - " +
+                    planDay.toUpperCase();
+            }
+        }
+
+        if (nameEl) {
+            nameEl.textContent =
+                routineName;
+        }
+
+        if (durationEl) {
+            durationEl.textContent =
+                totalExercises +
+                (
+                    totalExercises === 1
+                        ? " ejercicio"
+                        : " ejercicios"
+                );
+        }
+
+        const muscleSummary =
+            muscles.length
+                ? muscles.slice(0, 3)
+                : ["Entrenamiento"];
+
+        setMuscleTags(
+            muscleEl,
+            muscleSummary
+        );
+
+        let preview =
+            card.querySelector(
+                ".strong-gym-home-exercise-preview"
+            );
+
+        if (!preview) {
+            preview = document.createElement("div");
+            preview.className =
+                "strong-gym-home-exercise-preview";
+
+            if (
+                muscleEl &&
+                muscleEl.parentNode
+            ) {
+                muscleEl.parentNode.insertBefore(
+                    preview,
+                    muscleEl.nextSibling
+                );
+            }
+        }
+
+        preview.style.marginTop = "10px";
+        preview.style.fontSize = "0.9em";
+        preview.style.lineHeight = "1.45";
+        preview.style.color = "inherit";
+
+        const exerciseNames = exercises
+            .map(function (exercise) {
+                return String(
+                    exercise &&
+                    (
+                        exercise.name ||
+                        exercise.title ||
+                        exercise.exerciseName ||
+                        "Ejercicio"
+                    )
+                ).trim();
+            })
+            .filter(Boolean);
+
+        if (totalExercises === 1) {
+            preview.textContent =
+                exerciseNames[0] ||
+                "1 ejercicio";
+        } else {
+            const visibleNames =
+                exerciseNames.slice(0, 3);
+
+            const extra =
+                totalExercises > 3
+                    ? " + " +
+                      (totalExercises - 3) +
+                      " mas"
+                    : "";
+
+            preview.textContent =
+                visibleNames.join(" \xb7 ") +
+                extra;
+        }
+
+        if (progressEl) {
+            progressEl.textContent =
+                completed +
+                " / " +
+                totalExercises +
+                " ejercicios";
+        }
+
+        if (progressValue) {
+            progressValue.style.width =
+                percentage + "%";
+        }
+
+        if (button) {
+            button.textContent =
+                homeData.isToday
+                    ? "Ver entrenamiento"
+                    : "Ver proximo entrenamiento";
+
+            button.dataset.routineId =
+                String(routine.id || "");
+
+            button.dataset.planDay =
+                planDay;
+        }
+    }
+
+    function openRoutineFromHome(event) {
+        const button = event.target.closest("#viewWorkoutButton");
+        if (!button) return;
+
+        const routines = readRoutines();
+        const routineId = button.dataset.routineId;
+        const routine = routines.find(function (item) {
+            return routineId && String(item && item.id) === String(routineId);
+        }) || chooseRoutine(routines);
+
+        if (!routine) {
+            const nav = document.querySelector('[data-section="routinesSection"]');
+            if (nav) nav.click();
+            return;
+        }
+
+        if (routine.id !== undefined && routine.id !== null) {
+            localStorage.setItem(HOME_STATE_KEY, String(routine.id));
+        }
+
+        if (typeof window.showSavedRoutine === "function") {
+            window.showSavedRoutine(routine);
+            return;
+        }
+
+        const nav = document.querySelector('[data-section="routinesSection"]');
+        if (nav) nav.click();
+    }
+
+    document.addEventListener("click", openRoutineFromHome);
+
+    document.addEventListener("click", function (event) {
+        const nav = event.target.closest('[data-section="homeSection"]');
+        if (nav) {
+            window.setTimeout(updateHome, 80);
+        }
+    });
+
+    window.addEventListener("storage", function (event) {
+        if (event.key === ROUTINES_KEY) {
+            updateHome();
+        }
+    });
+
+    document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+            updateHome();
+        }
+    });
+
+    window.strongGymUpdateDynamicHome = updateHome;
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", updateHome, { once: true });
+    } else {
+        updateHome();
+    }
+})();
+/* STRONG-GYM-INICIO-DINAMICO-V4-END */
+
+
+
+;/* __STRONG_GYM_HOME_REFRESH_V5B__ */
+(function () {
+    "use strict";
+
+    if (typeof window.showSection !== "function") {
+        console.warn("STRONG GYM V5B: showSection no esta disponible.");
+        return;
+    }
+
+    if (window.__STRONG_GYM_HOME_REFRESH_V5B_INSTALLED__) {
+        return;
+    }
+
+    var originalShowSection = window.showSection;
+
+    window.showSection = function (sectionId) {
+        var result = originalShowSection.apply(this, arguments);
+
+        if (
+            sectionId === "homeSection" &&
+            typeof window.strongGymUpdateDynamicHome === "function"
+        ) {
+            window.setTimeout(
+                function () {
+                    window.strongGymUpdateDynamicHome();
+                },
+                0
+            );
+        }
+
+        return result;
+    };
+
+    window.__STRONG_GYM_HOME_REFRESH_V5B_INSTALLED__ = true;
+})();

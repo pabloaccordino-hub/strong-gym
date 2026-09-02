@@ -1,0 +1,45 @@
+
+/* =========================================================
+   STRONG GYM - NUTRICION V1
+   ========================================================= */
+.nutrition-header-card,.nutrition-card{
+  background:var(--card-bg,#fff);
+  border:1px solid rgba(17,24,39,.08);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px rgba(17,24,39,.06);
+}
+.nutrition-header-card{display:flex;justify-content:space-between;align-items:center}
+.nutrition-kicker{font-size:11px;font-weight:800;letter-spacing:.12em;opacity:.65}
+.nutrition-header-card h2,.nutrition-consent h2{margin:6px 0 4px}
+.nutrition-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.nutrition-options{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.nutrition-choice,.nutrition-food{
+  border:1px solid #d1d5db;background:#fff;border-radius:12px;padding:9px 11px;cursor:pointer;
+}
+.nutrition-choice.selected,.nutrition-food.selected{background:#111827;color:#fff;border-color:#111827}
+.nutrition-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nutrition-card label{font-size:12px;font-weight:700;color:#374151;display:flex;flex-direction:column;gap:5px}
+.nutrition-card input,.nutrition-card select{
+  box-sizing:border-box;width:100%;padding:10px 11px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font:inherit;
+}
+.nutrition-wide{margin-top:10px}
+.nutrition-actions{margin-top:14px}
+.nutrition-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.nutrition-metrics div{padding:12px;border-radius:12px;background:#f3f4f6;display:flex;flex-direction:column}
+.nutrition-metrics b{font-size:18px}.nutrition-metrics span,.nutrition-muted{font-size:12px;color:#6b7280}
+.nutrition-foods{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.nutrition-check{display:flex!important;flex-direction:row!important;align-items:center;gap:7px;margin:12px 0}
+.nutrition-check input{width:auto}
+.nutrition-recipe-card{border-top:1px solid #e5e7eb;padding:13px 0}
+.nutrition-recipe-top{display:flex;justify-content:space-between;gap:10px}
+.nutrition-recipe-top span{font-size:11px;color:#6b7280}
+.nutrition-recipe-card small{color:#6b7280}
+.nutrition-recipe-card p{font-size:13px;line-height:1.45}
+.nutrition-tags{display:flex;flex-wrap:wrap;gap:5px}
+.nutrition-tags span{font-size:10px;background:#f3f4f6;border-radius:999px;padding:4px 7px}
+.nutrition-warning{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px;margin:14px 0;font-size:12px}
+.nutrition-warning p{margin:6px 0 0}
+.nutrition-disclaimer{font-size:11px;color:#6b7280;text-align:center;margin:8px 0 30px}
+@media(max-width:760px){.nutrition-grid{grid-template-columns:1fr}.nutrition-form-grid{grid-template-columns:1fr}.nutrition-header-card{display:block}}
