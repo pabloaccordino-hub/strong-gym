@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Reemplaza<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -29,7 +29,6 @@
         rel="stylesheet"
         href="css/styles.css"
     >
-    <link rel="stylesheet" href="css/nutrition.css">
 
 <style>
 /* =========================================================
@@ -450,16 +449,7 @@
                 </button>
 
 
-            
-
-<!-- STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
-<button class="quick-card sg-nutrition-quick-card" data-section="nutritionSection" type="button">
-    <span class="quick-icon" aria-hidden="true">&#127807;</span>
-    <strong>Nutrición</strong>
-    <small>Planes y recetas</small>
-</button>
-<!-- FIN STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
-</div>
+            </div>
 
 
         </section>
@@ -470,83 +460,436 @@
              PERFIL
              ================================================= -->
 
-        <!-- STRONG GYM - NUTRICION V1.1 -->
-<section id="nutritionSection" class="app-section">`r`n    <!-- STRONG_GYM_NUTRITION_V26 -->
-    <!-- STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
-    <div class="page-header sg-nutrition-header">
-        <span class="sg-section-kicker">NUTRICIÓN</span>
-        <h2>Tu alimentación, más simple.</h2>
-        <p>Generá propuestas orientativas, recetas y opciones económicas a partir de tus datos y de los alimentos que tenés disponibles.</p>
-    </div>
+        <section
+            id="profileSection"
+            class="app-section"
+        >
 
-    <div class="sg-nutrition-notice">
-        <strong>Orientación, no reemplazo profesional</strong>
-        <p>Las propuestas son un análisis parcial y orientativo. No constituyen diagnóstico, tratamiento ni indicación nutricional. Para una pauta personalizada, consultá a un profesional de nutrición.</p>
-        <label class="sg-check">
-            <input type="checkbox" id="sgNutritionConsent">
-            <span>Entiendo y acepto estas condiciones.</span>
-        </label>
-    </div>
 
-    <div class="sg-nutrition-grid">
-        <div class="sg-nutrition-card">
-            <div class="sg-nutrition-card-title">Perfil</div>
-            <div class="sg-form-grid">
-                <label>Edad<input id="sgNutAge" type="number" min="12" max="100" placeholder="Ej. 39"></label>
-                <label>Altura (cm)<input id="sgNutHeight" type="number" min="100" max="250" placeholder="Ej. 170"></label>
-                <label>Peso (kg)<input id="sgNutWeight" type="number" min="30" max="300" step="0.1" placeholder="Ej. 80"></label>
-                <label>Actividad
-                    <select id="sgNutActivity">
-                        <option value="">Seleccionar</option>
-                        <option value="baja">Baja</option>
-                        <option value="moderada">Moderada</option>
-                        <option value="alta">Alta</option>
-                    </select>
-                </label>
+            <div class="page-header">
+
+                <span>
+                    MI CUENTA
+                </span>
+
+                <h2>
+                    Mi perfil
+                </h2>
+
+                <p>
+                    Configurá tus datos para personalizar
+                    tus entrenamientos.
+                </p>
+
             </div>
-        </div>
 
-        <div class="sg-nutrition-card">
-            <div class="sg-nutrition-card-title">Objetivo</div>
-            <select id="sgNutGoal" class="sg-full-input">
-                <option value="">Seleccionar objetivo</option>
-                <option value="mantenimiento">Mantenimiento</option>
-                <option value="perdida">Pérdida progresiva de peso</option>
-                <option value="musculo">Ganar masa muscular</option>
-                <option value="rendimiento">Mejorar rendimiento</option>
-            </select>
-            <label class="sg-inline-label">Preferencias / alimentos a evitar
-                <input id="sgNutAvoid" type="text" placeholder="Ej. pescado, mariscos...">
-            </label>
-        </div>
 
-        <div class="sg-nutrition-card sg-nutrition-wide">
-            <div class="sg-nutrition-card-title">🏠 ¿Qué tenés en casa?</div>
-            <textarea id="sgNutHome" rows="4" placeholder="Ej. pollo, arroz, huevos, papa, tomate, cebolla, lentejas..."></textarea>
-            <div class="sg-mode-row">
-                <label class="sg-mode">
-                    <input type="radio" name="sgNutMode" value="casa" checked>
-                    <span><strong>Tengo en casa</strong><small>Usar primero lo disponible.</small></span>
-                </label>
-                <label class="sg-mode">
-                    <input type="radio" name="sgNutMode" value="economico">
-                    <span><strong>Modo económico</strong><small>Priorizar alimentos accesibles.</small></span>
-                </label>
+
+            <!-- DATOS PERSONALES -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        DATOS PERSONALES
+                    </span>
+
+                    <h3>
+                        Información básica
+                    </h3>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="profileName">
+                        Nombre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="profileName"
+                        placeholder="Ej.: Juan"
+                    >
+
+                </div>
+
+                <div class="profile-photo-editor">
+
+                    <label>
+                        Foto de perfil
+                    </label>
+
+                    <div class="profile-photo-row">
+
+                        <div
+                            id="profilePhotoPreview"
+                            class="profile-photo-preview"
+                        >
+                            <span>👤</span>
+                        </div>
+
+                        <div class="profile-photo-actions">
+
+                            <input
+                                type="file"
+                                id="profilePhoto"
+                                accept="image/*"
+                            >
+
+                            <small>
+                                Elegí una foto para personalizar tu perfil.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="profileAge">
+                            Edad
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileAge"
+                            min="12"
+                            max="100"
+                            placeholder="30"
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="profileSex">
+                            Sexo
+                        </label>
+
+                        <select id="profileSex">
+
+                            <option value="">
+                                Seleccionar
+                            </option>
+
+                            <option value="masculino">
+                                Masculino
+                            </option>
+
+                            <option value="femenino">
+                                Femenino
+                            </option>
+
+                            <option value="otro">
+                                Prefiero no indicarlo
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="profileEnvironment">
+                            Lugar de entrenamiento
+                        </label>
+
+                        <select id="profileEnvironment">
+
+                            <option value="">
+                                Seleccionar
+                            </option>
+
+                            <option value="home">
+                                🏠 Casa
+                            </option>
+
+                            <option value="gym">
+                                🏋️ Gimnasio
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="profileHeight">
+                            Altura (cm)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileHeight"
+                            min="100"
+                            max="250"
+                            placeholder="170"
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="profileWeight">
+                            Peso (kg)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="profileWeight"
+                            min="30"
+                            max="300"
+                            step="0.1"
+                            placeholder="80"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
             </div>
-        </div>
-    </div>
 
-    <button id="sgNutritionGenerate" class="primary-button full-width sg-nutrition-generate" type="button">
-        ✨ Generar propuesta
-    </button>
 
-    <div id="sgNutritionResult" class="sg-nutrition-result" hidden></div>
-    <!-- FIN STRONG_GYM_NUTRITION_INTEGRATION_V21 -->
-<div class="sg-nutrition-v26-actions">
-  <button id="sgNutritionLoadProfile" type="button" class="secondary-button">Cargar mi perfil</button>
-  <span id="sgNutritionProfileStatus" aria-live="polite"></span>
-</div>
-</section>              <strong>
+
+            <!-- NIVEL -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        EXPERIENCIA
+                    </span>
+
+                    <h3>
+                        Nivel de entrenamiento
+                    </h3>
+
+                </div>
+
+
+
+                <div class="option-grid">
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="principiante"
+                    >
+
+                        <span>
+                            🌱
+                        </span>
+
+                        <strong>
+                            Principiante
+                        </strong>
+
+                        <small>
+                            Menos de 1 año
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="intermedio"
+                    >
+
+                        <span>
+                            🔥
+                        </span>
+
+                        <strong>
+                            Intermedio
+                        </strong>
+
+                        <small>
+                            1–3 años
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-level="avanzado"
+                    >
+
+                        <span>
+                            🏆
+                        </span>
+
+                        <strong>
+                            Avanzado
+                        </strong>
+
+                        <small>
+                            Más de 3 años
+                        </small>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- OBJETIVO -->
+
+            <div class="profile-form-card">
+
+                <div class="form-section-title">
+
+                    <span>
+                        OBJETIVO
+                    </span>
+
+                    <h3>
+                        ¿Qué querés conseguir?
+                    </h3>
+
+                </div>
+
+
+
+                <div class="option-grid">
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="hipertrofia"
+                    >
+
+                        <span>
+                            💪
+                        </span>
+
+                        <strong>
+                            Masa muscular
+                        </strong>
+
+                        <small>
+                            Hipertrofia
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="fuerza"
+                    >
+
+                        <span>
+                            🏋️
+                        </span>
+
+                        <strong>
+                            Fuerza
+                        </strong>
+
+                        <small>
+                            Aumentar rendimiento
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="tonificacion"
+                    >
+
+                        <span>
+                            ⚡
+                        </span>
+
+                        <strong>
+                            Tonificación
+                        </strong>
+
+                        <small>
+                            Mejor composición corporal
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="perdida-grasa"
+                    >
+
+                        <span>
+                            🔥
+                        </span>
+
+                        <strong>
+                            Pérdida de grasa
+                        </strong>
+
+                        <small>
+                            Déficit energético
+                        </small>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="option-card"
+                        data-profile-goal="recomposicion"
+                    >
+
+                        <span>
+                            🔄
+                        </span>
+
+                        <strong>
                             Recomposición
                         </strong>
 
@@ -610,8 +953,7 @@
                         Días por semana
                     </label>
 
-                    <select <section id="profileSection" class="app-section">
-id="profileDays">
+                    <select id="profileDays">
 
                         <option value="">
                             Seleccionar
@@ -707,9 +1049,7 @@ id="profileDays">
 
 
 
-        
-</section>
-<!-- =================================================
+        <!-- =================================================
              RUTINAS
              ================================================= -->
 
@@ -1968,10 +2308,7 @@ id="profileDays">
          JAVASCRIPT
          ===================================================== -->
 
-    <script src="js/nutrition-data.js"></script>
-<script src="js/nutrition-recipes.js"></script>
-<script src="js/nutrition.js"></script>
-<script src="js/app.js?v=20260821-2"></script>
+    <script src="js/app.js?v=20260821-2"></script>
 
 
 
@@ -2009,4 +2346,4 @@ id="profileDays">
 
 
 
-
+r index por versión funcional
