@@ -37,9 +37,9 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-          with:
-            packages: 'platform-tools'
-            accept-android-sdk-licenses: true
+        with:
+          packages: 'platform-tools'
+          accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: false
 
       - name: Install Android SDK 36
@@ -57,4 +57,3 @@ jobs:
           name: strong-gym-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-
