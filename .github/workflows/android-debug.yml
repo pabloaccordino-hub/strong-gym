@@ -1,4 +1,4 @@
-﻿name: Build Android Debug APK
+name: Build Android Release AAB
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - android-local
 
 jobs:
-  build-android:
+  build-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -47,19 +47,36 @@ jobs:
           yes | sdkmanager --licenses >/dev/null
           sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Build debug APK
-        working-directory: android
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Verify APK signature
+      - name: Restore Play upload keystore
+        env:
+          KEYSTORE_B64: ${{ secrets.STRONG_GYM_UPLOAD_KEYSTORE_B64 }}
         run: |
-          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
-          echo "APK signer: $APKSIGNER"
-          "$APKSIGNER" verify --verbose --print-certs android/app/build/outputs/apk/debug/app-debug.apk
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "::error::Falta el secreto STRONG_GYM_UPLOAD_KEYSTORE_B64."
+            exit 1
+          fi
 
-      - name: Upload APK
+          echo "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/strong-gym-play-upload.jks"
+          chmod 600 "$RUNNER_TEMP/strong-gym-play-upload.jks"
+
+      - name: Build signed release AAB
+        working-directory: android
+        env:
+          STRONG_GYM_KEYSTORE_FILE: ${{ runner.temp }}/strong-gym-play-upload.jks
+          STRONG_GYM_KEYSTORE_PASSWORD: ${{ secrets.STRONG_GYM_KEYSTORE_PASSWORD }}
+          STRONG_GYM_KEY_ALIAS: ${{ secrets.STRONG_GYM_KEY_ALIAS }}
+          STRONG_GYM_KEY_PASSWORD: ${{ secrets.STRONG_GYM_KEY_PASSWORD }}
+        run: ./gradlew bundleRelease --stacktrace
+
+      - name: Verify AAB signature
+        working-directory: android
+        run: |
+          jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab > "$RUNNER_TEMP/aab-signature.txt"
+          tail -n 30 "$RUNNER_TEMP/aab-signature.txt"
+
+      - name: Upload Play AAB
         uses: actions/upload-artifact@v4
         with:
-          name: strong-gym-debug-apk
-          path: android/app/build/outputs/apk/debug/*.apk
+          name: strong-gym-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab
           if-no-files-found: error
