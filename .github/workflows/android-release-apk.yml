@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Checkout
-  uses: actions/checkout@v4
-  with:
-    ref: android-local
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,7 +32,7 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          packages: 'platform-tools'
+          packages: platform-tools
           accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: false
 
@@ -43,14 +41,14 @@ jobs:
           yes | sdkmanager --licenses >/dev/null
           sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Restore Play upload keystore
+      - name: Restore signing key
         env:
           KEYSTORE_B64: ${{ secrets.STRONG_GYM_UPLOAD_KEYSTORE_B64 }}
         run: |
           echo "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/strong-gym-play-upload.jks"
           chmod 600 "$RUNNER_TEMP/strong-gym-play-upload.jks"
 
-      - name: Build signed Release APK
+      - name: Build Release APK
         working-directory: android
         env:
           STRONG_GYM_KEYSTORE_FILE: ${{ runner.temp }}/strong-gym-play-upload.jks
@@ -59,12 +57,12 @@ jobs:
           STRONG_GYM_KEY_PASSWORD: ${{ secrets.STRONG_GYM_KEY_PASSWORD }}
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Verify APK signature
+      - name: Verify APK
         run: |
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
           "$APKSIGNER" verify --verbose --print-certs android/app/build/outputs/apk/release/app-release.apk
 
-      - name: Upload Release APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: strong-gym-release-apk
